@@ -1,3 +1,15 @@
+import { Header, Nav, Main, Footer} from "./components";
+
+function render () {
+  document.querySelector("#root").innerHTML = `
+  ${Header()}
+  ${Nav()}
+  ${Main()}
+  ${Footer()}
+  `;
+}
+render();
+
 // account validation
 function ValidateForm() {
   var email = document.getElementById("email");
@@ -88,42 +100,6 @@ const kidProductsDOM = document.querySelector(".kid-products-center");
 const menA = document.getElementById("men-a");
 
 //getting the men product
-// class Productstest {
-//   async getProductstest() {
-//     try {
-//       let result = await fetch("products.json");
-//       let data = await result.json();
-//       let productsmtest = data.menItems;
-//       let productswtest = data.womenItems;
-//       let productsktest = data.kidItems;
-
-//       productsmtest = productsmtest.map(item1 => {
-//         const { title, price } = item1.fields;
-//         const { id } = item1.sys;
-//         const image = item1.fields.image.fields.file.url;
-//         return { title, price, id, image };
-//       });
-
-//       productswtest = productswtest.map(item2 => {
-//         const { title, price } = item2.fields;
-//         const { id } = item2.sys;
-//         const image = item2.fields.image.fields.file.url;
-//         return { title, price, id, image };
-//       });
-
-//       productsktest = productsktest.map(item3 => {
-//         const { title, price } = item3.fields;
-//         const { id } = item3.sys;
-//         const image = item3.fields.image.fields.file.url;
-//         return { title, price, id, image };
-//       });
-//       console.log(productsmtest, productswtest, productsktest);
-//       return productsmtest, productswtest, productsktest;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-// }
 class Products {
   async getProducts() {
     try {

@@ -1,0 +1,28 @@
+export default () =>
+`
+<!----------------navbar ----------------->
+    <div class="main-nav">
+        <div class="container1">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/header/logo.png" alt="store logo" width="80px">
+                    </a>
+                </div>
+                <nav class="nav1">
+                    <ul id="menu-item">
+                        <li><a href="MenProduct.html">Men</a></li>
+                        <li><a href="WomenProduct.html">women</a></li>
+                        <li><a href="KidProduct.html">kids</a></li>
+                        <li><a href="product.html">Sale</a></li>
+                        <li><a href="account.html">account</a></li>
+                    </ul>
+                </nav>
+                <a href="cart.html"><img src="images/header/shopping-bag.png" width="30px" height="30px"></a>
+                <div class="cart-item">empty</div>
+                <img src="images/header/menu.png" class="menu-icon" onclick="menuToggle()">
+            </div>
+        </div>
+    </div>
+</div>
+`
