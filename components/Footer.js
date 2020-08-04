@@ -23,7 +23,7 @@ export default () =>
             </div>
             <div class="footer-col-2">
                 <div>
-                    <img src="images/header/logo.png">
+                    <img src="https://github.com/asmita85/Capstone/blob/master/images/header/logo.png?raw=true">
                 </div>
                 <div>
                     <a href="">Our Story Click here</a>
@@ -33,26 +33,26 @@ export default () =>
                 <h3>Our App</h3>
                 <p>download app for android and ios</p>
                 <div class="app-logo">
-                    <a href=""><img src="images/footer/play-store.png" alt=""></a>
-                    <a href=""><img src="images/footer/app-store.png" alt=""></a>
+                    <a href=""><img src="https://github.com/asmita85/Capstone/blob/master/images/footer/apple.png?raw=true" alt=""></a>
+                    <a href=""><img src="https://github.com/asmita85/Capstone/blob/master/images/footer/google.png?raw=true" alt=""></a>
                 </div>
             </div>
             <div class="small-container">
                 <div class="row1">
                     <div class="col-5">
-                        <img src="images/footer/Americanexpress.png">
+                        <img src="https://github.com/asmita85/Capstone/blob/master/images/footer/Americanexpress.png?raw=true">
                     </div>
                     <div class="col-5">
-                        <img src="images/footer/discover.png">
+                        <img src="https://github.com/asmita85/Capstone/blob/master/images/footer/discover.png?raw=true">
                     </div>
                     <div class="col-5">
-                        <img src="images/footer/Mastercard.png">
+                        <img src="https://github.com/asmita85/Capstone/blob/master/images/footer/Mastercard.png?raw=true">
                     </div>
                     <div class="col-5">
-                        <img src="images/footer/visa.png">
+                        <img src="https://github.com/asmita85/Capstone/blob/master/images/footer/visa.png?raw=true">
                     </div>
                     <div class="col-5">
-                        <img src="images/footer/paypal.png">
+                        <img src="https://github.com/asmita85/Capstone/blob/master/images/footer/paypal.png?raw=true">
                     </div>
                 </div>
             </div>

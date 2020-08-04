@@ -5,7 +5,7 @@
       "fields": {
         "title": "Jacket",
         "price": 10.99,
-        "image": { "fields": { "file": { "url": "./images/Men-Product/Mproduct-1.jpg" } } }
+        "image": { "fields": { "file": { "url": "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true" } } }
       }
     },
     {
