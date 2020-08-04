@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!--  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,562;0,700;1,400;1,500&display=swap"
+        rel="stylesheet">
+    <!-- icone -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
+    <!-- control our style across every browser -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <!-- start icon -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>All Product</title>
+</head>
+
+<body>
+    <!------------------------------------------ header --------------------------------------->
+    <div class="main-header">
+        <div class="header">
+            <h6>
+                return free on all orders
+            </h6>
+            <h6>
+                free shipping on all order $50+
+            </h6>
+        </div>
+        <!----------------navbar ----------------->
+        <div class="main-nav">
+            <div class="container1">
+                <div class="navbar">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="images/header/logo.png" alt="store logo" width="80px">
+                        </a>
+                    </div>
+                    <nav class="nav1">
+                        <ul id="menu-item">
+                            <li><a href="MenProduct.html">Men</a></li>
+                            <li><a href="WomenProduct.html">women</a></li>
+                            <li><a href="KidProduct.html">kids</a></li>
+                            <li><a href="product.html">Sale</a></li>
+                            <li><a href="account.html">account</a></li>
+                        </ul>
+                    </nav>
+                    <a href="cart.html"><img src="images/header/shopping-bag.png" width="30px" height="30px"></a>
+                    <img src="images/header/menu.png" class="menu-icon" onclick="menuToggle()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--------------------------------------- each product details----------------------- -->
+    <div class="small-container1 product-detail">
+        <div class="row1">
+            <div class="col-2 selectDOM">
+                <img src="images/Women-Product/Wproduct-1.jpg" width="100%" id="main-img">
+                <div class="img-row1">
+                    <div class="img-col-4">
+                        <img src="images/Women-Product/Wgallery12.jpg" width="100%" class="gallery-img">
+                    </div>
+                    <div class="img-col-4">
+                        <img src="images/Women-Product/Wproduct-1.jpg" width="100%" class="gallery-img">
+                    </div>
+                    <div class="img-col-4">
+                        <img src="images/Women-Product/Wproduct-9.jpg" width="100%" class="gallery-img">
+                    </div>
+                    <div class="img-col-4">
+                        <img src="images/Women-Product/Wproduct-1.jpg" width="100%" class="gallery-img">
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <h2>Style</h2>
+                <h4>Select your size</h4>
+                <div class="size-btn">
+                    <span>S</span>
+                    <span>M</span>
+                    <span>L</span>
+                    <span>XL</span>
+                </div>
+                <h4>Quantity</h4>
+                <div>
+                    <input type="number" value="1">
+                </div>
+                <div class="product-price">
+                    <h4>Price:</h4>
+                    <h4>$50</h4>
+                </div>
+                <a href="cart.html" class="btn1" data-id="1">Add to cart</a>
+                <h4>Product detail</h4>
+                <p>A T-shirt, or tee shirt, is a style of fabric shirt named after the T shape of its body and sleeves.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------recently viewed--------------------------------------->
+    <div class="small-container1">
+        <div class="row1">
+            <div class="col-4">
+                <img src="images/Women-Product/">
+                <h4>red tshirt</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                </div>
+                <p>$50.00</p>
+            </div>
+        </div>
+    </div>
+    <!--------------------------------- footer--------------------------------------- -->
+    <div class="footer1">
+        <div class="container1">
+            <div class="row1">
+                <div class="footer-col-3">
+                    <h3>customer service</h3>
+                    <ul>
+                        <li>return</li>
+                        <li>shipping</li>
+                        <li>faq</li>
+                        <li>order</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Our App</h3>
+                    <ul>
+                        <li>facebook</li>
+                        <li>twitter</li>
+                        <li>instagram</li>
+                        <li>youtube</li>
+                    </ul>
+                </div>
+                <div class="footer-col-2">
+                    <img src="images/header/logo.png">
+                </div>
+                <div class="footer-col-1">
+                    <h3>Our App</h3>
+                    <p>download app for android and ios</p>
+                    <div class="app-logo">
+                        <img src="images/footer/google.png" alt="">
+                        <img src="images/footer/apple.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <p class="copyright">copyright 2020 - shop</p>
+    </div>
+    <!-- js -->
+    <script src="index.js"></script>
+</body>
+
+</html>

@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "starter repo for Savvy Coders Homework folders & files",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
