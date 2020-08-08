@@ -1,5 +1,4 @@
-export default () =>
-`
+export default () => `
 <!------------- header--------------->
 <div class="main-header">
     <div class="header">
@@ -10,4 +9,4 @@ export default () =>
             free shipping on all order $50+
         </h6>
     </div>
-    `
+    `;

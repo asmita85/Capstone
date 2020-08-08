@@ -1,15 +1,471 @@
-import { Header, Nav, Main, Footer} from "./components";
+import { Header, Nav, Main, Main2, Footer } from "./components";
+import * as state from "./store";
 
-function render () {
+function render(st) {
   document.querySelector("#root").innerHTML = `
-  ${Header()}
-  ${Nav()}
-  ${Main()}
+  ${Header(st)}
+  ${Nav(state.Links)}
+  ${Main(st)}
   ${Footer()}
   `;
+  addNavEventListeners();
+  addPEventListeners();
+  addNav2EventListeners();
 }
-render();
+function render2(st) {
+  document.querySelector("#root").innerHTML = `
+  ${Header(st)}
+  ${Nav(state.Links)}
+  ${Main2(st)}
+  ${Footer()}
+  `;
+  addNav2EventListeners();
+  addPEventListeners();
+}
+render(state.Home);
 
+function addNavEventListeners() {
+  document.querySelectorAll("nav a").forEach(link =>
+    link.addEventListener("click", event => {
+      event.preventDefault();
+      let linkText = event.target.textContent;
+      console.log("hello ", linkText);
+      let pieceOfState = state[linkText];
+      render(pieceOfState);
+      // addHtml(linkText);
+    })
+  );
+}
+function addNav2EventListeners() {
+  document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", event => {
+      event.preventDefault();
+      let linkText = event.target.textContent;
+      console.log(linkText);
+      let pieceOfState = state[linkText];
+      render2(pieceOfState);
+      addHtml(linkText);
+    });
+  });
+}
+
+function addPEventListeners() {
+  document.querySelectorAll(" div a p ").forEach(link => {
+    link.addEventListener("click", event => {
+      event.preventDefault();
+      let linkText = event.target.textContent;
+      console.log(linkText);
+      let pieceOfState = state[linkText];
+      render2(pieceOfState);
+      addHtml(linkText);
+    });
+  });
+}
+function addHtml(item) {
+  let items = JSON.stringify({
+    Men: [
+      {
+        sys: { id: "1" },
+        fields: {
+          title: "Jacket",
+          price: 10.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "2" },
+        fields: {
+          title: "Leather Jacket",
+          price: 12.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-2.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "3" },
+        fields: {
+          title: "Eyeglasses",
+          price: 12.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-3.jpg?raw=trueg"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "4" },
+        fields: {
+          title: "twin panel bed",
+          price: 22.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-4.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "5" },
+        fields: {
+          title: "Black pant",
+          price: 88.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-5.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "6" },
+        fields: {
+          title: "White Sweather",
+          price: 32.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-6.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "7" },
+        fields: {
+          title: "Kaki pant",
+          price: 45.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-7.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "8" },
+        fields: {
+          title: "White Tshirt",
+          price: 33.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true"
+              }
+            }
+          }
+        }
+      }
+    ],
+    Women: [
+      {
+        sys: { id: "1" },
+        fields: {
+          title: "Jacket",
+          price: 10.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "2" },
+        fields: {
+          title: "Leather Jacket",
+          price: 12.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-2.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "3" },
+        fields: {
+          title: "Eyeglasses",
+          price: 12.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-3.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "4" },
+        fields: {
+          title: "twin panel bed",
+          price: 22.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-4.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "5" },
+        fields: {
+          title: "Black pant",
+          price: 88.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-5.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "6" },
+        fields: {
+          title: "White Sweather",
+          price: 32.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-6.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "7" },
+        fields: {
+          title: "Kaki pant",
+          price: 45.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-7.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "8" },
+        fields: {
+          title: "White Tshirt",
+          price: 33.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-8.jpg?raw=true"
+              }
+            }
+          }
+        }
+      }
+    ],
+    Kids: [
+      {
+        sys: { id: "1" },
+        fields: {
+          title: "Jacket",
+          price: 10.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-1.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "2" },
+        fields: {
+          title: "Leather Jacket",
+          price: 12.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-2.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "3" },
+        fields: {
+          title: "Eyeglasses",
+          price: 12.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-3.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "4" },
+        fields: {
+          title: "twin panel bed",
+          price: 22.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-4.jpg?raw=trueg"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "5" },
+        fields: {
+          title: "Black pant",
+          price: 88.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-5.jpg?raw=trueg"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "6" },
+        fields: {
+          title: "White Sweather",
+          price: 32.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-6.jpg?raw=true"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "7" },
+        fields: {
+          title: "Kaki pant",
+          price: 45.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-7.jpg?raw=trueg"
+              }
+            }
+          }
+        }
+      },
+      {
+        sys: { id: "8" },
+        fields: {
+          title: "White Tshirt",
+          price: 33.99,
+          image: {
+            fields: {
+              file: {
+                url:
+                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-8.jpg?raw=true"
+              }
+            }
+          }
+        }
+      }
+    ]
+  });
+  let Obj = JSON.parse(items);
+  console.log(Obj);
+  console.log("Iam", item);
+  let page = document.querySelector(".men-products-center");
+  let products = Obj[item];
+  console.log(products);
+  console.log("I am in men printing");
+  products.forEach(products => {
+    page.innerHTML += `
+         <div class="col-4 img-container">
+                <a href="productDetail.html" id="selected"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
+               <div class="rating">
+                 <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                </div>
+                <h4>"${products.fields.title}"</h4>
+               <p>$"${products.fields.price}"</p>
+             </div>
+         `;
+  });
+}
+// menu
+var menuItems = document.getElementById("menu-item");
+menuItems.style.maxHeight = "0px";
+
+function menuToggle() {
+  if (menuItems.style.maxHeight == "0px") {
+    menuItems.style.maxHeight = "200px";
+  } else {
+    menuItems.style.maxHeight = "0px";
+  }
+}
+//end menu
 // account validation
 function ValidateForm() {
   var email = document.getElementById("email");
@@ -52,19 +508,15 @@ function removeMessage() {
     el.innerHTML = "";
   });
 }
+//prevent default to not go to error page
+let form = document.querySelector(".simpleForm");
+function stopFormSubmit(e) {
+  e.preventDefault();
+}
+//form.onclick = stopFormSubmit;
+
 //end of account validation
 
-// menu
-var menuItems = document.getElementById("menu-item");
-menuItems.style.maxHeight = "0px";
-
-function menuToggle() {
-  if (menuItems.style.maxHeight == "0px") {
-    menuItems.style.maxHeight = "200px";
-  } else {
-    menuItems.style.maxHeight = "0px";
-  }
-}
 //end of menu
 
 //product detail gallery
@@ -93,158 +545,65 @@ function login() {
 }
 //end of toggle
 
-//load product form the json file
-const menProductsDOM = document.querySelector(".men-products-center");
-const womenProductsDOM = document.querySelector(".women-products-center");
-const kidProductsDOM = document.querySelector(".kid-products-center");
-const menA = document.getElementById("men-a");
+//new way to load product
 
-//getting the men product
-class Products {
-  async getProducts() {
-    try {
-      let result = await fetch("products.json");
-      let data = await result.json();
-      let products = data.menItems;
-      products = products.map(item => {
-        const { title, price } = item.fields;
-        const { id } = item.sys;
-        const image = item.fields.image.fields.file.url;
-        return { title, price, id, image };
-      });
-      return products;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
-//display men products
-class UI {
-  displayProducts(products) {
-    menProductsDOM.innerHTML = "";
-    products.forEach(products => {
-      menProductsDOM.innerHTML += `
-          <div class="col-4 img-container">
-              <a href="productDetail.html"><img src=${products.image} class="selectedItem-img"></a>
-              <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
-              <h4>${products.title}</h4>
-              <p>$${products.price}</p>
-          </div>
-      `;
-    });
-  }
-}
-document.addEventListener("DOMContentLoaded", () => {
-  const ui = new UI();
-  const products = new Products();
-  //get all product
-  products.getProducts().then(products => {
-    ui.displayProducts(products);
-  });
-});
+// const mProducts = document.querySelector(".men-products-center");
+// const wProducts = document.querySelector(".women-products-center");
+// const kidProducts = document.querySelector(".kid-products-center");
 
-//getting women product
-class wProducts {
-  async getWomenProducts() {
-    try {
-      let result = await fetch("products.json");
-      let data = await result.json();
-      let wproducts = data.womenItems;
-      wproducts = wproducts.map(item => {
-        const { title, price } = item.fields;
-        const { id } = item.sys;
-        const image = item.fields.image.fields.file.url;
-        return { title, price, id, image };
-      });
-      return wproducts;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
-//display women products
-class WUI {
-  displayWomenProducts(products) {
-    products.forEach(products => {
-      womenProductsDOM.innerHTML += `
-          <div class="col-4 img-container">
-              <a href="productDetail.html" id="selected"><img src=${products.image} class="selectedItem-img"></a>
-              <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
-              <h4>${products.title}</h4>
-              <p>$${products.price}</p>
-          </div>
-      `;
-    });
-  }
-}
-//
-document.addEventListener("DOMContentLoaded", () => {
-  const wui = new WUI();
-  const products = new wProducts();
-  //get all product
-  products
-    .getWomenProducts()
-    .then(products => wui.displayWomenProducts(products));
-});
+// let showObj = function(products, page) {
+//   page.innerHTML = " ";
+//   console.log("I am in men printing");
+//   // console.log(products);
+//   products.forEach(products => {
+//     page.innerHTML += `
+//             <div class="col-4 img-container">
+//                   <a href="productDetail.html" id="selected"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
+//                 <div class="rating">
+//                 <i class="fa fa-star"></i>
+//                 <i class="fa fa-star"></i>
+//                 <i class="fa fa-star"></i>
+//                 <i class="fa fa-star"></i>
+//                 <i class="fa fa-star-half-o"></i>
+//                 </div>
+//                 <h4>"${products.fields.title}"</h4>
+//                <p>$"${products.fields.price}"</p>
+//              </div>
+//          `;
+//   });
+// };
 
-// getting kid product
-class kProducts {
-  async getKidProducts() {
-    try {
-      let result = await fetch("products.json");
-      let data = await result.json();
-      let products = data.kidItems;
-      products = products.map(item => {
-        const { title, price } = item.fields;
-        const { id } = item.sys;
-        const image = item.fields.image.fields.file.url;
-        return { title, price, id, image };
-      });
-      return products;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
+// let mainObj = {};
+// fetch("./products.json")
+//   .then(function(resp) {
+//     console.log(resp.json);
+//     return resp.json();
+//   })
+//   .then(function(data) {
+//     //console.log(data);
+//     mainObj = data;
+//     showObj(mainObj.menItems, mProducts);
+//   });
 
-//display kid products
-class KUI {
-  displayKidProducts(products) {
-    products.forEach(products => {
-      kidProductsDOM.innerHTML += `
-          <div class="col-4 img-container">
-              <a id="store" href="productDetail.html" ><img src=${products.image} class="selectedItem-img"></a>
-              <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
-              <h4>${products.title}</h4>
-              <p>$${products.price}</p>
-          </div>
-      `;
-    });
-  }
-}
-//
-document.addEventListener("DOMContentLoaded", () => {
-  const kui = new KUI();
-  const products = new kProducts();
-  //get all product
-  products.getKidProducts().then(products => kui.displayKidProducts(products));
-});
-//end of loading product form the json file
+// fetch("./products.json")
+//   .then(function(resp) {
+//     console.log(resp.json);
+//     return resp.json();
+//   })
+//   .then(function(data) {
+//     //console.log(data);
+//     mainObj = data;
+//     showObj(mainObj.womenItems, wProducts);
+//   });
+
+// fetch("./products.json")
+//   .then(function(resp) {
+//     console.log(resp.json);
+//     return resp.json();
+//   })
+//   .then(function(data) {
+//     //console.log(data);
+//     mainObj = data;
+//     showObj(mainObj.kidItems, kidProducts);
+//   });
+// //end of loading product

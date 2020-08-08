@@ -1,5 +1,4 @@
-export default () =>
-`
+export default links => `
 <!----------------navbar ----------------->
     <div class="main-nav">
         <div class="container1">
@@ -11,11 +10,10 @@ export default () =>
                 </div>
                 <nav class="nav1">
                     <ul id="menu-item">
-                        <li><a href="MenProduct.html">Men</a></li>
-                        <li><a href="WomenProduct.html">women</a></li>
-                        <li><a href="KidProduct.html">kids</a></li>
-                        <li><a href="product.html">Sale</a></li>
-                        <li><a href="account.html">account</a></li>
+
+                        ${links
+                          .map(link => `<li><a href="#">${link}</a></li>`)
+                          .join("")}
                     </ul>
                 </nav>
                 <a href="cart.html"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/shopping-bag.png?raw=true" width="30px" height="30px"></a>
@@ -25,4 +23,4 @@ export default () =>
         </div>
     </div>
 </div>
-`
+`;

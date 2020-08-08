@@ -1,5 +1,4 @@
-export default () =>
-`
+export default () => `
 <!-----------------footer------------------------>
 <div class="footer1">
     <div class="container1">
@@ -61,4 +60,4 @@ export default () =>
     </div>
     <p class="copyright">copyright 2020 - shop</p>
 </div>
-`
+`;
