@@ -1,4 +1,4 @@
-import { Header, Nav, Main, Main2, Footer } from "./components";
+import { Header, Nav, Main, Footer } from "./components";
 import * as state from "./store";
 
 function render(st) {
@@ -10,32 +10,9 @@ function render(st) {
   `;
   addNavEventListeners();
   addPEventListeners();
-  addNav2EventListeners();
-}
-function render2(st) {
-  document.querySelector("#root").innerHTML = `
-  ${Header(st)}
-  ${Nav(state.Links)}
-  ${Main2(st)}
-  ${Footer()}
-  `;
-  addNav2EventListeners();
-  addPEventListeners();
 }
 render(state.Home);
-
 function addNavEventListeners() {
-  document.querySelectorAll("nav a").forEach(link =>
-    link.addEventListener("click", event => {
-      event.preventDefault();
-      let linkText = event.target.textContent;
-      console.log("hello ", linkText);
-      let pieceOfState = state[linkText];
-      render(pieceOfState);
-    })
-  );
-}
-function addNav2EventListeners() {
   document.querySelectorAll("nav a").forEach(link => {
     link.addEventListener("click", event => {
       event.preventDefault();
@@ -44,7 +21,7 @@ function addNav2EventListeners() {
       if (linkText === "Men" || linkText === "Women" || linkText === "Kids") {
         console.log("I am in product");
         let pieceOfState = state[linkText];
-        render2(pieceOfState);
+        render(pieceOfState);
         addHtml(linkText);
       } else {
         console.log("I am not in product page");
@@ -53,7 +30,6 @@ function addNav2EventListeners() {
     });
   });
 }
-
 function addPEventListeners() {
   document.querySelectorAll(" div a p ").forEach(link => {
     link.addEventListener("click", event => {
@@ -61,7 +37,7 @@ function addPEventListeners() {
       let linkText = event.target.textContent;
       console.log(linkText);
       let pieceOfState = state[linkText];
-      render2(pieceOfState);
+      render(pieceOfState);
       addHtml(linkText);
     });
   });
@@ -427,7 +403,7 @@ function addHtml(item) {
             fields: {
               file: {
                 url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-8.jpg?raw=true"
+                  "hhttps://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-9.jpg?raw=true"
               }
             }
           }
@@ -459,94 +435,94 @@ function addHtml(item) {
   });
 }
 // menu
-var menuItems = document.getElementById("menu-item");
-menuItems.style.maxHeight = "0px";
+// var menuItems = document.getElementById("menu-item");
+// menuItems.style.maxHeight = "0px";
 
-function menuToggle() {
-  if (menuItems.style.maxHeight == "0px") {
-    menuItems.style.maxHeight = "200px";
-  } else {
-    menuItems.style.maxHeight = "0px";
-  }
-}
-//end menu
-// account validation
-function ValidateForm() {
-  var email = document.getElementById("email");
-  var confirmEmail = document.getElementById("confirmEmail");
-  var password = document.getElementById("password");
-  var confirmPassword = document.getElementById("confirmPassword");
-  removeMessage();
-  var valid = true;
-  if (email.value.length == 0) {
-    email.className = "wrong-input";
-    email.nextElementSibling.innerHTML = `email can not be blank`;
-    valid = false;
-  }
-  if (password.value.length < 6) {
-    password.className = "wrong-input";
-    password.nextElementSibling.innerHTML = `password can not be less than 6`;
-    valid = false;
-  }
-  if (confirmPassword.value != password.value) {
-    password.className = "wrong-input";
-    password.nextElementSibling.innerHTML = `password does not match`;
-    valid = false;
-  }
+// function menuToggle() {
+//   if (menuItems.style.maxHeight == "0px") {
+//     menuItems.style.maxHeight = "200px";
+//   } else {
+//     menuItems.style.maxHeight = "0px";
+//   }
+// }
+// //end menu
+// // account validation
+// function ValidateForm() {
+//   var email = document.getElementById("email");
+//   var confirmEmail = document.getElementById("confirmEmail");
+//   var password = document.getElementById("password");
+//   var confirmPassword = document.getElementById("confirmPassword");
+//   removeMessage();
+//   var valid = true;
+//   if (email.value.length == 0) {
+//     email.className = "wrong-input";
+//     email.nextElementSibling.innerHTML = `email can not be blank`;
+//     valid = false;
+//   }
+//   if (password.value.length < 6) {
+//     password.className = "wrong-input";
+//     password.nextElementSibling.innerHTML = `password can not be less than 6`;
+//     valid = false;
+//   }
+//   if (confirmPassword.value != password.value) {
+//     password.className = "wrong-input";
+//     password.nextElementSibling.innerHTML = `password does not match`;
+//     valid = false;
+//   }
 
-  if (confirmEmail.value != email.value) {
-    email.className = "wrong-input";
-    email.nextElementSibling.innerHTML = `email does not match`;
-    valid = false;
-  }
-  return valid;
-}
+//   if (confirmEmail.value != email.value) {
+//     email.className = "wrong-input";
+//     email.nextElementSibling.innerHTML = `email does not match`;
+//     valid = false;
+//   }
+//   return valid;
+// }
 
-function removeMessage() {
-  var errorInput = document.querySelectorAll(".input-box");
-  [].forEach.call(errorInput, function(el) {
-    el.classList.remove("wrong-input");
-  });
-  var errorPara = document.querySelectorAll(".error");
-  [].forEach.call(errorPara, function(el) {
-    el.innerHTML = "";
-  });
-}
-//prevent default to not go to error page
-let form = document.querySelector(".simpleForm");
-function stopFormSubmit(e) {
-  e.preventDefault();
-}
-//form.onclick = stopFormSubmit;
+// function removeMessage() {
+//   var errorInput = document.querySelectorAll(".input-box");
+//   [].forEach.call(errorInput, function(el) {
+//     el.classList.remove("wrong-input");
+//   });
+//   var errorPara = document.querySelectorAll(".error");
+//   [].forEach.call(errorPara, function(el) {
+//     el.innerHTML = "";
+//   });
+// }
+// //prevent default to not go to error page
+// let form = document.querySelector(".simpleForm");
+// function stopFormSubmit(e) {
+//   e.preventDefault();
+// }
+// //form.onclick = stopFormSubmit;
 
-//end of account validation
+// //end of account validation
 
-//end of menu
+// //end of menu
 
-//product detail gallery
-var mainImg = document.getElementById("main-img");
-var galleryImg = document.getElementsByClassName("gallery-img");
-for (let i = 0; i < galleryImg.length; i++) {
-  galleryImg[i].onclick = function() {
-    mainImg.src = galleryImg[i].src;
-  };
-}
-//end product detail gallery
+// //product detail gallery
+// var mainImg = document.getElementById("main-img");
+// var galleryImg = document.getElementsByClassName("gallery-img");
+// for (let i = 0; i < galleryImg.length; i++) {
+//   galleryImg[i].onclick = function() {
+//     mainImg.src = galleryImg[i].src;
+//   };
+// }
+// //end product detail gallery
 
-// toggle form account page
-var formLogin = document.getElementById("formLogin");
-var formRegister = document.getElementById("formRegister");
-var indicator = document.getElementById("indicator1");
-function register() {
-  formLogin.style.transform = "translateX(-400px)";
-  formRegister.style.transform = "translateX(0px)";
-  indicator.style.transform = "translateX(100px)";
-}
-function login() {
-  formLogin.style.transform = "translateX(0px)";
-  formRegister.style.transform = "translateX(400px)";
-  indicator.style.transform = "translateX(0px)";
-}
+// // toggle form account page
+// var formLogin = document.getElementById("formLogin");
+// var formRegister = document.getElementById("formRegister");
+// var indicator = document.getElementById("indicator1");
+// function register() {
+//   formLogin.style.transform = "translateX(-400px)";
+//   formRegister.style.transform = "translateX(0px)";
+//   indicator.style.transform = "translateX(100px)";
+// }
+// function login() {
+//   formLogin.style.transform = "translateX(0px)";
+//   formRegister.style.transform = "translateX(400px)";
+//   indicator.style.transform = "translateX(0px)";
+// }
 //end of toggle
 
 //new way to load product
