@@ -3,7 +3,7 @@ export default () => `
 <div class="container1">
     <div class="row1">
         <div class="col-2">
-            <img class="img-1" src="images/other/user.png" width="50%">
+            <img class="img-1" src="https://github.com/asmita85/Capstone/blob/master/images/other/user.png?raw=true" width="50%">
         </div>
         <div class="col-2">
             <div class="form-container1">

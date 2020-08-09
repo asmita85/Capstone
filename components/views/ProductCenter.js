@@ -1,4 +1,4 @@
-export default st => `
+export default () => `
 <div class="small-container1 ">
         <div class="row1 row2">
             <h2>All product</h2>
@@ -10,7 +10,8 @@ export default st => `
                 <option>rating</option>
             </select>
         </div>
-        <div class="row1 women-products-center">
+        <div class="row1 products-center">
+
         </div>
             <div class="pages-btn">
                 <span>1</span>

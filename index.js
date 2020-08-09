@@ -32,7 +32,6 @@ function addNavEventListeners() {
       console.log("hello ", linkText);
       let pieceOfState = state[linkText];
       render(pieceOfState);
-      // addHtml(linkText);
     })
   );
 }
@@ -42,9 +41,15 @@ function addNav2EventListeners() {
       event.preventDefault();
       let linkText = event.target.textContent;
       console.log(linkText);
-      let pieceOfState = state[linkText];
-      render2(pieceOfState);
-      addHtml(linkText);
+      if (linkText === "Men" || linkText === "Women" || linkText === "Kids") {
+        console.log("I am in product");
+        let pieceOfState = state[linkText];
+        render2(pieceOfState);
+        addHtml(linkText);
+      } else {
+        console.log("I am not in product page");
+        render(state[linkText]);
+      }
     });
   });
 }
@@ -433,10 +438,9 @@ function addHtml(item) {
   let Obj = JSON.parse(items);
   console.log(Obj);
   console.log("Iam", item);
-  let page = document.querySelector(".men-products-center");
+  let page = document.querySelector(".products-center");
   let products = Obj[item];
   console.log(products);
-  console.log("I am in men printing");
   products.forEach(products => {
     page.innerHTML += `
          <div class="col-4 img-container">

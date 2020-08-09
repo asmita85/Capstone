@@ -1,4 +1,4 @@
-import { Men, Women, Kid } from "./views";
-export default st => `
+import { Men } from "./views";
+export default () => `
   ${Men()}
   `;

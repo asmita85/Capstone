@@ -1,1 +1,1 @@
-export default ["Home", "Men", "Women", "Kids", "Account"];
+export default ["Men", "Women", "Kids", "Contact", "Account"];
