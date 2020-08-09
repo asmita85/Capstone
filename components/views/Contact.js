@@ -23,15 +23,15 @@ export default () => `
                     <p>What's this message about?</p>
                     <div>
                       <input type="radio" name="subject" value="professional" id="pro" checked>
-                      <label for="pro">I'd like to hire you!</label>
+                      <label for="pro">New Order</label>
                     </div>
                     <div>
                       <input type="radio" name="subject" value="personal" id="personal">
-                      <label for="personal">Personal message</label>
+                      <label for="personal">Return</label>
                     </div>
                     <div>
                       <input type="radio" name="subject" value="other">
-                      <label>Don't know/something else</label>
+                      <label>Order status</label>
                     </div>
                   </div>
 
@@ -43,14 +43,13 @@ export default () => `
                   <select name="marketing">
                     <optgroup label="Online">
                       <option value="social">Social Media (FB, Twitter, LinkedIn)</option>
-                      <option value="github">Online Portfolio (GitHub)</option>
                       <option value="search">Search Engine</option>
                       <option value="email">Email</option>
                     </optgroup>
                     <optgroup label="In-Person">
-                      <option value="networking">We met at a networking event</option>
-                      <option value="referral">Personal referral</option>
-                      <option value="random">We met somewhere else</option>
+                    <option value="github">Friend and Family</option>
+                    <option value="github">store</option>
+
                     </optgroup>
                     <option value="other">Other</option>
                   </select>

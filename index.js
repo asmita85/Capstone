@@ -1,4 +1,4 @@
-import { Header, Nav, Main, Footer } from "./components";
+import { Header, Nav, Main, Main2, Footer } from "./components";
 import * as state from "./store";
 
 function render(st) {
@@ -93,7 +93,7 @@ function addHtml(item) {
       {
         sys: { id: "4" },
         fields: {
-          title: "twin panel bed",
+          title: "pant",
           price: 22.99,
           image: {
             fields: {
@@ -215,7 +215,7 @@ function addHtml(item) {
       {
         sys: { id: "4" },
         fields: {
-          title: "twin panel bed",
+          title: "white top",
           price: 22.99,
           image: {
             fields: {
@@ -337,7 +337,7 @@ function addHtml(item) {
       {
         sys: { id: "4" },
         fields: {
-          title: "twin panel bed",
+          title: "dress",
           price: 22.99,
           image: {
             fields: {
