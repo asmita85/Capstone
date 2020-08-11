@@ -4,10 +4,13 @@ export default links => `
         <div class="container1">
             <div class="navbar">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="Home.html">
                         <img src="https://github.com/asmita85/Capstone/blob/master/images/header/logo.png?raw=true" alt="store logo" width="80px">
                     </a>
                 </div>
+                <div class="search">
+                        <input type="text" placeholder="search ..." >
+                    </div>
                 <nav class="nav1">
                     <ul id="menu-item">
 

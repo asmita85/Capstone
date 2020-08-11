@@ -5,14 +5,15 @@ export default () => `
         <div class="container1">
             <!-- header -->
             <div class="row1">
+
+                <div class="col-2">
+                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Front-Page/image1.jpg?raw=true" alt="my image">
+                </div>
                 <div class="col-2">
                     <h1>Shop Here <br> get a new style</h1>
                     <p>shop with us and save and get new style , with us you will feel new.<br> do you love shopping
                         this is the right place  </p>
                     <a href="" class="btn1">Explore Here →</a>
-                </div>
-                <div class="col-2">
-                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Front-Page/image1.jpg?raw=true" alt="my image">
                 </div>
             </div>
         </div>
@@ -113,6 +114,7 @@ export default () => `
             </div>
         </div>
     </div>
+
     <!----------sale with call to action button----------->
 
     <div class="small-container1">
@@ -126,6 +128,26 @@ export default () => `
                 <p>A smartwatch is a wearable computer in the form of a watch; <br> modern smartwatches provide a local
                     touchscreen interface for daily use, while an associated.</p>
                 <a href="" class="btn1">Buy Now →</a>
+            </div>
+        </div>
+    </div>
+
+    <!------------- offer--------------->
+    <div class="sale1">
+        <div class="small-container1">
+            <div class="row1">
+                <div class="col-3">
+                    <p>exclusive deal</p>
+                    <a href="" class="btn1">check it now →</a>
+                </div>
+                <div class="col-3">
+                    <p> sale</p>
+                    <a href="" class="btn1">check it now →</a>
+                </div>
+                <div class="col-3">
+                    <p>Clearance</p>
+                    <a href="" class="btn1">check it now →</a>
+                </div>
             </div>
         </div>
     </div>
@@ -233,28 +255,8 @@ export default () => `
             </div>
         </div>
     </div>
-    <!------------- offer--------------->
 
-    <div class="sale1">
-        <div class="small-container1">
-            <div class="row1">
-                <div class="col-3">
-                    <p>exclusive deal</p>
-                    <a href="" class="btn1">check it now →</a>
-                </div>
-                <div class="col-3">
-                    <p> sale</p>
-                    <a href="" class="btn1">check it now →</a>
-                </div>
-                <div class="col-3">
-                    <p>Clearance</p>
-                    <a href="" class="btn1">check it now →</a>
-                </div>
-            </div>
-        </div>
-    </div>
     <!------------- recently clicked--------------->
-
     <div class="sale1">
         <div class="small-container1">
             <h2 class="title1">Recently Viewed</h2>

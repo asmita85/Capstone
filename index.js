@@ -1,7 +1,9 @@
 import { Header, Nav, Main, Main2, Footer } from "./components";
 import * as state from "./store";
+import Navigo from "navigo";
+import { capitalize } from "lodash";
 
-function render(st) {
+function render(st = state.Home) {
   document.querySelector("#root").innerHTML = `
   ${Header(st)}
   ${Nav(state.Links)}
@@ -10,8 +12,37 @@ function render(st) {
   `;
   addNavEventListeners();
   addPEventListeners();
+  addProductEventListners();
 }
-render(state.Home);
+//render(state.Home);
+//navigo router
+const router = new Navigo(location.origin);
+router
+  .on({
+    "/": () => render(state.Home),
+    ":page": params => {
+      let routeEntered = params.page;
+      let formattedRoute = capitalize(routeEntered);
+      if (
+        formattedRoute === "Men" ||
+        formattedRoute === "Women" ||
+        formattedRoute === "Kids"
+      ) {
+        console.log("I am in product");
+        let pieceOfState = state[formattedRoute];
+        render(pieceOfState);
+        addHtml(formattedRoute);
+      } else if (formattedRoute === "Account" || formattedRoute === "Contact") {
+        console.log("I am not in product page");
+        let pieceOfState = state[formattedRoute];
+        render(pieceOfState);
+      } else {
+        render();
+      }
+    }
+  })
+  .resolve();
+
 function addNavEventListeners() {
   document.querySelectorAll("nav a").forEach(link => {
     link.addEventListener("click", event => {
@@ -29,6 +60,10 @@ function addNavEventListeners() {
       }
     });
   });
+}
+function addProductEventListners() {
+  let selectedItem = document.querySelectorAll("div .img-container");
+  console.log(selectedItem);
 }
 function addPEventListeners() {
   document.querySelectorAll(" div a p ").forEach(link => {
@@ -429,11 +464,13 @@ function addHtml(item) {
                 <i class="fa fa-star-half-o"></i>
                 </div>
                 <h4>"${products.fields.title}"</h4>
-               <p>$"${products.fields.price}"</p>
-             </div>
-         `;
+                <p>$"${products.fields.price}"</p>
+                </div>
+                `;
   });
 }
+//navigo router
+
 // menu
 // var menuItems = document.getElementById("menu-item");
 // menuItems.style.maxHeight = "0px";
