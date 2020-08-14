@@ -10,9 +10,11 @@ function render(st = state.Home) {
   ${Main(st)}
   ${Footer()}
   `;
-  addNavEventListeners();
+  router.updatePageLinks();
+  // addNavEventListeners();
   addPEventListeners();
-  addProductEventListners();
+  //addProductEventListners();
+  addMenuEventListeners();
 }
 //render(state.Home);
 //navigo router
@@ -22,6 +24,7 @@ router
     "/": () => render(state.Home),
     ":page": params => {
       let routeEntered = params.page;
+      console.log(routeEntered);
       let formattedRoute = capitalize(routeEntered);
       if (
         formattedRoute === "Men" ||
@@ -32,39 +35,48 @@ router
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
         addHtml(formattedRoute);
-      } else if (formattedRoute === "Account" || formattedRoute === "Contact") {
+      } else if (
+        formattedRoute === "Account" ||
+        formattedRoute === "Contact" ||
+        formattedRoute === "Cart" ||
+        formattedRoute === "Product"
+      ) {
         console.log("I am not in product page");
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
       } else {
+        console.log(formattedRoute);
+        console.log("I am not sure where I am ");
         render();
       }
     }
   })
   .resolve();
 
-function addNavEventListeners() {
-  document.querySelectorAll("nav a").forEach(link => {
-    link.addEventListener("click", event => {
-      event.preventDefault();
-      let linkText = event.target.textContent;
-      console.log(linkText);
-      if (linkText === "Men" || linkText === "Women" || linkText === "Kids") {
-        console.log("I am in product");
-        let pieceOfState = state[linkText];
-        render(pieceOfState);
-        addHtml(linkText);
-      } else {
-        console.log("I am not in product page");
-        render(state[linkText]);
-      }
-    });
-  });
-}
-function addProductEventListners() {
-  let selectedItem = document.querySelectorAll("div .img-container");
-  console.log(selectedItem);
-}
+// function addNavEventListeners() {
+//   document.querySelectorAll("nav a").forEach(link => {
+//     link.addEventListener("click", event => {
+//       event.preventDefault();
+//       let linkText = event.target.textContent;
+//       console.log(linkText);
+//       if (linkText === "Men" || linkText === "Women" || linkText === "Kids") {
+//         console.log("I am in product");
+//         let pieceOfState = state[linkText];
+//         menuItems.style.maxHeight = "0px";
+
+//         render(pieceOfState);
+//         addHtml(linkText);
+//       } else {
+//         console.log("I am not in product page");
+//         render(state[linkText]);
+//       }
+//     });
+//   });
+//}
+// function addProductEventListners() {
+//   let selectedItem = document.querySelectorAll("div .img-container");
+//   console.log(selectedItem);
+// }
 function addPEventListeners() {
   document.querySelectorAll(" div a p ").forEach(link => {
     link.addEventListener("click", event => {
@@ -448,40 +460,55 @@ function addHtml(item) {
   });
   let Obj = JSON.parse(items);
   console.log(Obj);
-  console.log("Iam", item);
+  console.log("I am", item);
   let page = document.querySelector(".products-center");
   let products = Obj[item];
   console.log(products);
   products.forEach(products => {
     page.innerHTML += `
-         <div class="col-4 img-container">
-                <a href="productDetail.html" id="selected"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
-               <div class="rating">
-                 <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-                </div>
-                <h4>"${products.fields.title}"</h4>
-                <p>$"${products.fields.price}"</p>
-                </div>
+        <div class="col-4 img-container">
+                <a href="Product" id="selected"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
+              <h4>"${products.fields.title}"</h4>
+              <p>$"${products.fields.price}"</p>
+              </div>
                 `;
   });
 }
-//navigo router
+//navigate gallery picture in product detail
+var mainImg = document.getElementById("main-img");
+var galleryImg = document.getElementsByClassName("gallery-img");
+for (let i = 0; i < galleryImg.length; i++) {
+  galleryImg[i].onclick = function() {
+    mainImg.src = galleryImg[i].src;
+  };
+}
+//open product detail when click on image
 
-// menu
-// var menuItems = document.getElementById("menu-item");
-// menuItems.style.maxHeight = "0px";
+//menu
+const menuItems = document.getElementById("menu-item");
+menuItems.style.maxHeight = "0px";
+function addMenuEventListeners() {
+  var menuImg = document.getElementById("menu");
+  menuImg.addEventListener("click", menuToggle);
+}
 
-// function menuToggle() {
-//   if (menuItems.style.maxHeight == "0px") {
-//     menuItems.style.maxHeight = "200px";
-//   } else {
-//     menuItems.style.maxHeight = "0px";
-//   }
-// }
+function menuToggle() {
+  console.log("I a inside toggle");
+  if (menuItems.style.maxHeight === "0px") {
+    console.log("I am at", menuItems.style.maxHeight);
+
+    console.log("opening");
+
+    menuItems.style.maxHeight = "200px";
+  } else {
+    console.log("I am inside else", menuItems.style.maxHeight);
+
+    console.log("colosing");
+    menuItems.style.maxHeight = "0px";
+    console.log("now I am ", menuItems.style.maxHeight);
+  }
+}
+
 // //end menu
 // // account validation
 // function ValidateForm() {
@@ -624,3 +651,70 @@ function addHtml(item) {
 //     showObj(mainObj.kidItems, kidProducts);
 //   });
 // //end of loading product
+// //cart;
+if (document.readyState == "loading") {
+  document.addEventListener("DOMContentLoaded", doIfPageLoaded);
+} else {
+  doIfPageLoaded();
+}
+
+function doIfPageLoaded() {
+  var removeItemLink = document.getElementsByClassName("removeItem");
+  console.log(removeItemLink);
+  for (let i = 0; i < removeItemLink.length; i++) {
+    let aLink = removeItemLink[i];
+    console.log(aLink);
+    aLink.addEventListener("click", removeItemFromCart);
+  }
+
+  var quantityInput = document.getElementsByClassName("cart-number");
+  for (let i = 0; i < quantityInput.length; i++) {
+    var userInput = quantityInput[i];
+    userInput.addEventListener("change", quantityChange);
+  }
+}
+//change quantity
+function quantityChange(event) {
+  var userInput = event.target;
+  if (isNaN(userInput.value) || userInput.value <= 0) {
+    userInput.value = 1;
+  }
+  updateCartTotal();
+}
+//add item to cart
+function addItemToCart() {}
+//remove item
+function removeItemFromCart(event) {
+  let linkClicked = event.target;
+  console.log(linkClicked);
+  linkClicked.parentElement.parentElement.parentElement.parentElement.remove();
+  updateCartTotal();
+}
+
+function updateCartTotal() {
+  var total = 0;
+  var cartItemsInfo = document.getElementsByClassName("cart-items")[0];
+  console.log(cartItemsInfo);
+  var cartRows = cartItemsInfo.getElementsByClassName("cart-row");
+  console.log(cartRows);
+  for (var i = 0; i < cartRows.length; i++) {
+    var cartRow = cartRows[i];
+    var itemPrice = cartRow.getElementsByClassName("cart-price")[0];
+    console.log(itemPrice);
+    var price = parseFloat(itemPrice.innerText.replace("$", ""));
+    console.log(price);
+  }
+
+  var cartRows2 = cartItemsInfo.getElementsByClassName("cart-row2");
+  console.log(cartRows2);
+  for (var i = 0; i < cartRows2.length; i++) {
+    var cartRow2 = cartRows2[i];
+    var itemQuantity = cartRow2.getElementsByClassName("cart-number")[0];
+    console.log(itemQuantity);
+    var quantity = itemQuantity.value;
+    console.log(quantity);
+  }
+  total = total + price * quantity;
+  console.log(total);
+  document.getElementsByClassName("order-subtotal")[0].innerText = total;
+}
