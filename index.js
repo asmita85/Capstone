@@ -1,8 +1,12 @@
 import { Header, Nav, Main, Main2, Footer } from "./components";
 import * as state from "./store";
 import Navigo from "navigo";
-import { capitalize } from "lodash";
-
+import { capitalize, compact } from "lodash";
+if (document.readyState == "loading") {
+  document.addEventListener("DOMContentLoaded", addCartEventListeners());
+} else {
+  addCartEventListeners();
+}
 function render(st = state.Home) {
   document.querySelector("#root").innerHTML = `
   ${Header(st)}
@@ -11,84 +15,246 @@ function render(st = state.Home) {
   ${Footer()}
   `;
   router.updatePageLinks();
-  // addNavEventListeners();
   addPEventListeners();
-  //addProductEventListners();
-  addMenuEventListeners();
+  addCartEventListeners();
+  local();
 }
-//render(state.Home);
-//navigo router
+//Navigo and Router
 const router = new Navigo(location.origin);
 router
   .on({
-    "/": () => render(state.Home),
+    "/": () => {
+      render(state.Home);
+      menuToggle();
+    },
     ":page": params => {
       let routeEntered = params.page;
-      console.log(routeEntered);
       let formattedRoute = capitalize(routeEntered);
       if (
         formattedRoute === "Men" ||
         formattedRoute === "Women" ||
         formattedRoute === "Kids"
       ) {
-        console.log("I am in product");
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
         addHtml(formattedRoute);
-      } else if (
-        formattedRoute === "Account" ||
-        formattedRoute === "Contact" ||
-        formattedRoute === "Cart" ||
-        formattedRoute === "Product"
-      ) {
-        console.log("I am not in product page");
+        addProductDetailListeners();
+      } else if (formattedRoute === "Account" || formattedRoute === "Contact") {
+        let pieceOfState = state[formattedRoute];
+        render(pieceOfState);
+      } else if (formattedRoute === "Product") {
+        let pieceOfState = state[formattedRoute];
+        render(pieceOfState);
+      } else if (formattedRoute === "Cart") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
       } else {
-        console.log(formattedRoute);
-        console.log("I am not sure where I am ");
         render();
       }
+      // local();
+      menuToggle();
     }
   })
   .resolve();
-
-// function addNavEventListeners() {
-//   document.querySelectorAll("nav a").forEach(link => {
-//     link.addEventListener("click", event => {
-//       event.preventDefault();
-//       let linkText = event.target.textContent;
-//       console.log(linkText);
-//       if (linkText === "Men" || linkText === "Women" || linkText === "Kids") {
-//         console.log("I am in product");
-//         let pieceOfState = state[linkText];
-//         menuItems.style.maxHeight = "0px";
-
-//         render(pieceOfState);
-//         addHtml(linkText);
-//       } else {
-//         console.log("I am not in product page");
-//         render(state[linkText]);
-//       }
-//     });
-//   });
-//}
-// function addProductEventListners() {
-//   let selectedItem = document.querySelectorAll("div .img-container");
-//   console.log(selectedItem);
-// }
+//Add event to p
 function addPEventListeners() {
   document.querySelectorAll(" div a p ").forEach(link => {
     link.addEventListener("click", event => {
       event.preventDefault();
       let linkText = event.target.textContent;
-      console.log(linkText);
       let pieceOfState = state[linkText];
       render(pieceOfState);
       addHtml(linkText);
+      addProductDetailListeners();
+      menuToggle();
     });
   });
 }
+//************* *Product Detail view* *************
+function addProductDetailListeners() {
+  const itemsToOpen = document.getElementsByClassName("img-container");
+  for (let i = 0; i < itemsToOpen.length; i++) {
+    let img = itemsToOpen[i];
+    img.addEventListener("click", ItemToOpen);
+  }
+}
+//define the data from the item that we are clicking
+function ItemToOpen(event) {
+  let clickedImg = event.target;
+  let itemToOpen = clickedImg.parentElement.parentElement;
+  let image = itemToOpen.getElementsByClassName("selectedItem-img")[0].src;
+  let price = itemToOpen.getElementsByClassName("selectedItem-price")[0]
+    .innerText;
+  console.log(price);
+  let title = itemToOpen.getElementsByClassName("selectedItem-title")[0]
+    .innerText;
+  let id = itemToOpen.parentElement.getElementsByClassName("img-container")[0]
+    .id;
+  console.log(
+    itemToOpen.parentElement.getElementsByClassName("img-container")[0]
+  );
+  displayItemDetail(image, title, price);
+}
+//display the data of the clicked item in our product detail view
+function displayItemDetail(image, title, price) {
+  render(state.Product);
+  document.getElementsByClassName("main-img")[0].src = image;
+  document.getElementsByClassName("title")[0].innerText = title;
+  document.getElementsByClassName("price")[0].innerText = price;
+  menuToggle();
+}
+
+//********** *END of ProductDetail* view**************
+
+//************ *Add Item to Cart* ********************
+function addCartEventListeners() {
+  //add an item to cart
+  const addToCartButtons = document.getElementsByClassName("add-button");
+  for (let i = 0; i < addToCartButtons.length; i++) {
+    let button = addToCartButtons[i];
+    button.addEventListener("click", addToCart);
+  }
+  //remove an item
+  const removeCartItem = document.getElementsByClassName("remove-item");
+  for (let i = 0; i < removeCartItem.length; i++) {
+    let link = removeCartItem[i];
+    link.addEventListener("click", removeItem);
+    updateCart();
+  }
+  //update the cart when quantity changes
+  const quantityInput = document.getElementsByClassName("cart-quantity");
+  for (let i = 0; i < quantityInput.length; i++) {
+    let input = quantityInput[i];
+    input.addEventListener("click", updateQuantity);
+    updateCart();
+  }
+}
+function removeItem(event) {
+  //the link that we clicked on
+  let clickedLink = event.target;
+  //remove the parents
+  clickedLink.parentElement.parentElement.parentElement.parentElement.remove();
+  updateCart();
+}
+function updateQuantity(event) {
+  let input = event.target;
+  if (isNaN(input.value) || input.value <= 0) {
+    input.value = 1;
+  }
+  updateCart();
+}
+function addToCart(event) {
+  let button = event.target;
+  let itemToAdd = button.parentElement.parentElement;
+  let title = itemToAdd.getElementsByClassName("title")[0].innerText;
+  let price = itemToAdd.getElementsByClassName("price")[0].innerText;
+  let mainImage = itemToAdd.getElementsByClassName("main-img")[0].src;
+  let quantity = itemToAdd.getElementsByClassName("selected-quantity")[0].value;
+  let size = itemToAdd.getElementsByClassName("selected-size")[0].value;
+  let id = document.getElementsByClassName("selected-product")[0].id;
+  console.log(id);
+  addItemToCart(id, title, price, mainImage, quantity, size);
+  updateCart();
+  localProduct(id, title, price, mainImage, quantity, size);
+}
+function localProduct(id, title, price, mainImage, quantity, size) {
+  //save our added item in our local storage for our cart page
+  let product = {};
+  product = {
+    [id]: [title, price, mainImage, quantity, size]
+  };
+  console.log("my added product :", product);
+  localStorage.setItem("productInCart", JSON.stringify(product));
+}
+function local() {
+  //update out nav shopping cart
+  document.getElementsByClassName(
+    "shopping-cart"
+  )[0].innerHTML = localStorage.getItem("q");
+}
+function addItemToCart(id, title, price, mainImage, quantity, size) {
+  render(state.Cart);
+  menuToggle();
+  console.log("I am here I should now open cart");
+  const newCartItems = document.getElementsByClassName("cart-table")[0];
+  console.log(newCartItems);
+  let cartRow = document.createElement("tr");
+  cartRow.classList.add("cart-items");
+  let subtotal = price * quantity;
+  //ovoid adding same item twice
+  let itemInCartId = document.getElementsByClassName("cart-row");
+  for (let i = 0; i < itemInCartId.length; i++) {
+    if (itemInCartId[i].id === id) {
+      alert("this item already in your cart");
+      return;
+    }
+  }
+  //add html of new item to cart
+  cartRow.innerHTML = `
+  <td class="cart-row" id=${id}>
+                    <div class="cart-info item">
+                        <img class="main-img" src="${mainImage}">
+                        <div>
+                            <p class="item-title">${title}</p>
+                            <p class="cart-price">${price}</p>
+                            <br>
+                            <a href="#" class="remove-item">remove</a>
+                        </div>
+                    </div>
+                </td>
+                <td class="cart-row2"> <input class="cart-number cart-quantity" type="number" value="${quantity}" > </td>
+                <td class="subtotal-item">${subtotal}</td>`;
+  newCartItems.appendChild(cartRow);
+  cartRow
+    .getElementsByClassName("remove-item")[0]
+    .addEventListener("click", removeItem);
+  cartRow
+    .getElementsByClassName("cart-quantity")[0]
+    .addEventListener("click", updateCart);
+  cartRow
+    .getElementsByClassName("cart-quantity")[0]
+    .addEventListener("click", updateQuantity);
+}
+function updateCart() {
+  let cartRows = document.getElementsByClassName("cart-items");
+  let subtotal = 0;
+  let total = 0;
+  let quantityTotal = 0;
+  let tax = 7.55;
+  for (let i = 0; i < cartRows.length; i++) {
+    let cartRow = cartRows[i];
+    let itemPrice = cartRow.getElementsByClassName("cart-price")[0];
+    let itemQuatity = cartRow.getElementsByClassName("cart-quantity")[0];
+    let price = parseFloat(itemPrice.innerText.replace("$", ""));
+    let quantity = parseFloat(itemQuatity.value);
+    quantityTotal = quantityTotal + quantity;
+    console.log(quantityTotal);
+    let subtotalItem = price * quantity;
+    document.getElementsByClassName(
+      "shopping-cart"
+    )[0].innerText = quantityTotal;
+    localStorage.setItem("q", quantityTotal);
+    document.getElementsByClassName("subtotal-item")[
+      i
+    ].innerText = subtotalItem;
+    subtotal = subtotal + subtotalItem;
+  }
+  subtotal = Math.round(subtotal * 100) / 100;
+  document.getElementsByClassName("order-subtotal")[0].innerText =
+    "$" + subtotal;
+  total = Math.round((subtotal + tax) * 100) / 100;
+
+  if (subtotal != 0) {
+    document.getElementsByClassName("order-tax")[0].innerText = "$" + tax;
+    document.getElementsByClassName("order-total")[0].innerText = "$" + total;
+  } else {
+    document.getElementsByClassName("order-tax")[0].innerText = "$" + 0;
+    document.getElementsByClassName("order-total")[0].innerText = "$" + 0;
+    document.getElementsByClassName("shopping-cart")[0].innerText = 0;
+  }
+}
+//*********** *End Of Cart* ************************************
+//**************** *load product from json* ********************
 function addHtml(item) {
   let items = JSON.stringify({
     Men: [
@@ -450,7 +616,7 @@ function addHtml(item) {
             fields: {
               file: {
                 url:
-                  "hhttps://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-9.jpg?raw=true"
+                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-9.jpg?raw=true"
               }
             }
           }
@@ -459,262 +625,47 @@ function addHtml(item) {
     ]
   });
   let Obj = JSON.parse(items);
-  console.log(Obj);
-  console.log("I am", item);
   let page = document.querySelector(".products-center");
   let products = Obj[item];
-  console.log(products);
   products.forEach(products => {
     page.innerHTML += `
-        <div class="col-4 img-container">
-                <a href="Product" id="selected"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
-              <h4>"${products.fields.title}"</h4>
-              <p>$"${products.fields.price}"</p>
+        <div class="col-4 img-container" id=${products.sys.id}>
+                <a href="#" id="selected" class="selected-item"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
+              <h4 class="selectedItem-title">${products.fields.title}</h4>
+              <p class="selectedItem-price">$${products.fields.price}</p>
               </div>
                 `;
   });
 }
-//navigate gallery picture in product detail
-var mainImg = document.getElementById("main-img");
-var galleryImg = document.getElementsByClassName("gallery-img");
-for (let i = 0; i < galleryImg.length; i++) {
-  galleryImg[i].onclick = function() {
-    mainImg.src = galleryImg[i].src;
-  };
-}
-//open product detail when click on image
+//************** *End Of Json*  ***********************
 
-//menu
-const menuItems = document.getElementById("menu-item");
-menuItems.style.maxHeight = "0px";
-function addMenuEventListeners() {
-  var menuImg = document.getElementById("menu");
-  menuImg.addEventListener("click", menuToggle);
-}
-
+//************** *menu toggle function* ***************
 function menuToggle() {
-  console.log("I a inside toggle");
-  if (menuItems.style.maxHeight === "0px") {
-    console.log("I am at", menuItems.style.maxHeight);
-
-    console.log("opening");
-
-    menuItems.style.maxHeight = "200px";
-  } else {
-    console.log("I am inside else", menuItems.style.maxHeight);
-
-    console.log("colosing");
-    menuItems.style.maxHeight = "0px";
-    console.log("now I am ", menuItems.style.maxHeight);
-  }
+  const menuItems = document.getElementById("menu-item");
+  menuItems.style.maxHeight = "0px";
+  var menuImg = document.getElementById("menu");
+  menuImg.addEventListener("click", () => {
+    if (menuItems.style.maxHeight == "0px") {
+      menuItems.style.maxHeight = "200px";
+    } else if (menuItems.style.maxHeight == "200px") {
+      menuItems.style.maxHeight = "0px";
+    }
+  });
 }
+//************** *END menu toggle function* ***************
 
-// //end menu
-// // account validation
-// function ValidateForm() {
-//   var email = document.getElementById("email");
-//   var confirmEmail = document.getElementById("confirmEmail");
-//   var password = document.getElementById("password");
-//   var confirmPassword = document.getElementById("confirmPassword");
-//   removeMessage();
-//   var valid = true;
-//   if (email.value.length == 0) {
-//     email.className = "wrong-input";
-//     email.nextElementSibling.innerHTML = `email can not be blank`;
-//     valid = false;
-//   }
-//   if (password.value.length < 6) {
-//     password.className = "wrong-input";
-//     password.nextElementSibling.innerHTML = `password can not be less than 6`;
-//     valid = false;
-//   }
-//   if (confirmPassword.value != password.value) {
-//     password.className = "wrong-input";
-//     password.nextElementSibling.innerHTML = `password does not match`;
-//     valid = false;
-//   }
+//save shopping cart quantity in local storage fo nav
 
-//   if (confirmEmail.value != email.value) {
-//     email.className = "wrong-input";
-//     email.nextElementSibling.innerHTML = `email does not match`;
-//     valid = false;
-//   }
-//   return valid;
-// }
-
-// function removeMessage() {
-//   var errorInput = document.querySelectorAll(".input-box");
-//   [].forEach.call(errorInput, function(el) {
-//     el.classList.remove("wrong-input");
-//   });
-//   var errorPara = document.querySelectorAll(".error");
-//   [].forEach.call(errorPara, function(el) {
-//     el.innerHTML = "";
-//   });
-// }
-// //prevent default to not go to error page
-// let form = document.querySelector(".simpleForm");
-// function stopFormSubmit(e) {
-//   e.preventDefault();
-// }
-// //form.onclick = stopFormSubmit;
-
-// //end of account validation
-
-// //end of menu
-
-// //product detail gallery
-// var mainImg = document.getElementById("main-img");
-// var galleryImg = document.getElementsByClassName("gallery-img");
-// for (let i = 0; i < galleryImg.length; i++) {
-//   galleryImg[i].onclick = function() {
-//     mainImg.src = galleryImg[i].src;
-//   };
-// }
-// //end product detail gallery
-
-// // toggle form account page
-// var formLogin = document.getElementById("formLogin");
-// var formRegister = document.getElementById("formRegister");
-// var indicator = document.getElementById("indicator1");
-// function register() {
-//   formLogin.style.transform = "translateX(-400px)";
-//   formRegister.style.transform = "translateX(0px)";
-//   indicator.style.transform = "translateX(100px)";
-// }
-// function login() {
-//   formLogin.style.transform = "translateX(0px)";
-//   formRegister.style.transform = "translateX(400px)";
-//   indicator.style.transform = "translateX(0px)";
-// }
-//end of toggle
-
-//new way to load product
-
-// const mProducts = document.querySelector(".men-products-center");
-// const wProducts = document.querySelector(".women-products-center");
-// const kidProducts = document.querySelector(".kid-products-center");
-
-// let showObj = function(products, page) {
-//   page.innerHTML = " ";
-//   console.log("I am in men printing");
-//   // console.log(products);
-//   products.forEach(products => {
-//     page.innerHTML += `
-//             <div class="col-4 img-container">
-//                   <a href="productDetail.html" id="selected"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
-//                 <div class="rating">
-//                 <i class="fa fa-star"></i>
-//                 <i class="fa fa-star"></i>
-//                 <i class="fa fa-star"></i>
-//                 <i class="fa fa-star"></i>
-//                 <i class="fa fa-star-half-o"></i>
-//                 </div>
-//                 <h4>"${products.fields.title}"</h4>
-//                <p>$"${products.fields.price}"</p>
-//              </div>
-//          `;
-//   });
-// };
-
-// let mainObj = {};
-// fetch("./products.json")
-//   .then(function(resp) {
-//     console.log(resp.json);
-//     return resp.json();
-//   })
-//   .then(function(data) {
-//     //console.log(data);
-//     mainObj = data;
-//     showObj(mainObj.menItems, mProducts);
-//   });
-
-// fetch("./products.json")
-//   .then(function(resp) {
-//     console.log(resp.json);
-//     return resp.json();
-//   })
-//   .then(function(data) {
-//     //console.log(data);
-//     mainObj = data;
-//     showObj(mainObj.womenItems, wProducts);
-//   });
-
-// fetch("./products.json")
-//   .then(function(resp) {
-//     console.log(resp.json);
-//     return resp.json();
-//   })
-//   .then(function(data) {
-//     //console.log(data);
-//     mainObj = data;
-//     showObj(mainObj.kidItems, kidProducts);
-//   });
-// //end of loading product
-// //cart;
-if (document.readyState == "loading") {
-  document.addEventListener("DOMContentLoaded", doIfPageLoaded);
-} else {
-  doIfPageLoaded();
-}
-
-function doIfPageLoaded() {
-  var removeItemLink = document.getElementsByClassName("removeItem");
-  console.log(removeItemLink);
-  for (let i = 0; i < removeItemLink.length; i++) {
-    let aLink = removeItemLink[i];
-    console.log(aLink);
-    aLink.addEventListener("click", removeItemFromCart);
+//navigate gallery picture in product detail
+function navigateGallery() {
+  var mainImg = document.getElementsByClassName("main-img");
+  var galleryImg = document.getElementsByClassName("gallery-img");
+  for (let i = 0; i < galleryImg.length; i++) {
+    let img = galleryImg[i];
+    img.addEventListener("click", event => {
+      event.preventDefault();
+      let img = event.target;
+      mainImg.src = img.src;
+    });
   }
-
-  var quantityInput = document.getElementsByClassName("cart-number");
-  for (let i = 0; i < quantityInput.length; i++) {
-    var userInput = quantityInput[i];
-    userInput.addEventListener("change", quantityChange);
-  }
-}
-//change quantity
-function quantityChange(event) {
-  var userInput = event.target;
-  if (isNaN(userInput.value) || userInput.value <= 0) {
-    userInput.value = 1;
-  }
-  updateCartTotal();
-}
-//add item to cart
-function addItemToCart() {}
-//remove item
-function removeItemFromCart(event) {
-  let linkClicked = event.target;
-  console.log(linkClicked);
-  linkClicked.parentElement.parentElement.parentElement.parentElement.remove();
-  updateCartTotal();
-}
-
-function updateCartTotal() {
-  var total = 0;
-  var cartItemsInfo = document.getElementsByClassName("cart-items")[0];
-  console.log(cartItemsInfo);
-  var cartRows = cartItemsInfo.getElementsByClassName("cart-row");
-  console.log(cartRows);
-  for (var i = 0; i < cartRows.length; i++) {
-    var cartRow = cartRows[i];
-    var itemPrice = cartRow.getElementsByClassName("cart-price")[0];
-    console.log(itemPrice);
-    var price = parseFloat(itemPrice.innerText.replace("$", ""));
-    console.log(price);
-  }
-
-  var cartRows2 = cartItemsInfo.getElementsByClassName("cart-row2");
-  console.log(cartRows2);
-  for (var i = 0; i < cartRows2.length; i++) {
-    var cartRow2 = cartRows2[i];
-    var itemQuantity = cartRow2.getElementsByClassName("cart-number")[0];
-    console.log(itemQuantity);
-    var quantity = itemQuantity.value;
-    console.log(quantity);
-  }
-  total = total + price * quantity;
-  console.log(total);
-  document.getElementsByClassName("order-subtotal")[0].innerText = total;
 }

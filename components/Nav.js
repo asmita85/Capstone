@@ -23,7 +23,7 @@ export default links => `
                     </ul>
                 </nav>
                 <a href="Cart"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/shopping-bag.png?raw=true" width="30px" height="30px"></a>
-                <div class="cart-item">empty</div>
+                <div class="shopping-cart">empty</div>
                 <a id="menu"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/menu.png?raw=true" class="menu-icon" ></a>
             </div>
         </div>

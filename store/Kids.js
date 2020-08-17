@@ -1,7 +1,7 @@
 export default {
   page: "Kids"
-  // Obj: JSON.parse(
-  //   JSON.stringify({
+  // //Obj: [
+  //   {
   //     menItems: [
   //       {
   //         sys: { id: "1" },
@@ -368,6 +368,6 @@ export default {
   //         }
   //       }
   //     ]
-  //   })
-  // ).menItems
+  //   }
+  // ]
 };
