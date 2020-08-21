@@ -154,13 +154,14 @@ function addToCart(event) {
   console.log(id);
   addItemToCart(id, title, price, mainImage, quantity, size);
   updateCart();
+  setItem(id, title, price, mainImage, quantity, size);
 }
 function setItem(id, title, price, mainImage, quantity, size) {
-  //save our added item in our local storage for our cart page
-  // let product = {};
-  // product = { [id]: [title, price, mainImage, quantity, size] };
-  // localStorage.setItem("addedItemToCart", JSON.stringify(product));
-  // console.log(product);
+  save our added item in our local storage for our cart page
+  let product = {};
+  product = { [id]: [title, price, mainImage, quantity, size] };
+  localStorage.setItem("addedItemToCart", JSON.stringify(product));
+  console.log(product);
 }
 //ovoid data to be overwriting
 function setItem2(product) {
@@ -219,10 +220,10 @@ function addItemToCart(id, title, price, mainImage, quantity, size) {
                 <td class="cart-row2"> <input class="cart-number cart-quantity" type="number" value="${quantity}" > </td>
                 <td class="subtotal-item">${subtotal}</td>`;
   newCartItems.appendChild(cartRow);
-  let product = {};
-  product = { [id]: [title, price, mainImage, quantity, size] };
-  localStorage.setItem("addedItemToCart", JSON.stringify(product));
-  console.log(product);
+  // let product = {};
+  // product = { [id]: [title, price, mainImage, quantity, size] };
+  // localStorage.setItem("addedItemToCart", JSON.stringify(product));
+  // console.log(product);
   cartRow
     .getElementsByClassName("remove-item")[0]
     .addEventListener("click", removeItem);
