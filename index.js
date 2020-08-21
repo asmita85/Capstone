@@ -97,16 +97,13 @@ function ItemToOpen(event) {
   let image = itemToOpen.getElementsByClassName("selectedItem-img")[0].src;
   let price = itemToOpen.getElementsByClassName("selectedItem-price")[0]
     .innerText;
-  console.log(price);
   let title = itemToOpen.getElementsByClassName("selectedItem-title")[0]
     .innerText;
   let id = itemToOpen.id;
-  console.log(id);
   displayItemDetail(image, title, price, id);
 }
 //display the data of the clicked item in our product detail view
 function displayItemDetail(image, title, price, id) {
-  console.log(state);
   render(state.Product);
   document.getElementsByClassName("main-img")[0].src = image;
   document.getElementsByClassName("title")[0].innerText = title;
@@ -163,7 +160,6 @@ function addToCart(event) {
   let quantity = itemToAdd.getElementsByClassName("selected-quantity")[0].value;
   let size = itemToAdd.getElementsByClassName("selected-size")[0].value;
   let id = document.getElementsByClassName("selected-product")[0].id;
-  console.log(id);
   addItemToCart(id, title, price, mainImage, quantity, size);
   updateCart();
 }
