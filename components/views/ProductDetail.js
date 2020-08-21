@@ -37,7 +37,7 @@ export default () => `
               <h4>Price:</h4>
               <h4 class="price"></h4>
           </div>
-          <a href="Cart" class="btn1 add-button" data-id="1">Add to cart</a>
+          <a href="#" class="btn1 add-button" data-id="1">Add to cart</a>
           <h4>Product detail</h4>
           <p>A T-shirt, or tee shirt, is a style of fabric shirt named after the T shape of its body and sleeves.
           </p>

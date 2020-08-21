@@ -154,14 +154,13 @@ function addToCart(event) {
   console.log(id);
   addItemToCart(id, title, price, mainImage, quantity, size);
   updateCart();
-  setItem(id, title, price, mainImage, quantity, size);
 }
 function setItem(id, title, price, mainImage, quantity, size) {
-  save our added item in our local storage for our cart page
-  let product = {};
-  product = { [id]: [title, price, mainImage, quantity, size] };
-  localStorage.setItem("addedItemToCart", JSON.stringify(product));
-  console.log(product);
+  //save our added item in our local storage for our cart page
+  // let product = {};
+  // product = { [id]: [title, price, mainImage, quantity, size] };
+  // localStorage.setItem("addedItemToCart", JSON.stringify(product));
+  // console.log(product);
 }
 //ovoid data to be overwriting
 function setItem2(product) {
@@ -173,6 +172,7 @@ function setItem2(product) {
     if (itemInCart[product.id] === undefined) {
       console.log(itemInCart[product.id]);
       itemInCart = {
+        1: "hello",
         [product.id]: product
       };
     }
@@ -220,10 +220,12 @@ function addItemToCart(id, title, price, mainImage, quantity, size) {
                 <td class="cart-row2"> <input class="cart-number cart-quantity" type="number" value="${quantity}" > </td>
                 <td class="subtotal-item">${subtotal}</td>`;
   newCartItems.appendChild(cartRow);
-  // let product = {};
-  // product = { [id]: [title, price, mainImage, quantity, size] };
-  // localStorage.setItem("addedItemToCart", JSON.stringify(product));
-  // console.log(product);
+  //set added item
+  let product = {};
+  product = { [id]: [title, price, mainImage, quantity, size] };
+  localStorage.setItem("addedItemToCart", JSON.stringify(product));
+  console.log(product);
+  setItem2(product);
   cartRow
     .getElementsByClassName("remove-item")[0]
     .addEventListener("click", removeItem);
@@ -650,7 +652,7 @@ function addHtml(item) {
   products.forEach(products => {
     page.innerHTML += `
         <div class="col-4 img-container" id="${products.sys.id}">
-                <a href="Product" id="selected" class="selected-item"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
+                <a href="#" id="selected" class="selected-item"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
               <h4 class="selectedItem-title">${products.fields.title}</h4>
               <p class="selectedItem-price">$${products.fields.price}</p>
               </div>
