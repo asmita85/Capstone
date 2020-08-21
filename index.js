@@ -2,6 +2,7 @@ import { Header, Nav, Main, Main2, Footer } from "./components";
 import * as state from "./store";
 import Navigo from "navigo";
 import { capitalize, compact } from "lodash";
+//loading the page before calling the js
 if (document.readyState == "loading") {
   document.addEventListener("DOMContentLoaded", addCartEventListeners());
 } else {
@@ -51,7 +52,7 @@ router
       } else {
         render();
       }
-      // local();
+      local();
       menuToggle();
     }
   })
@@ -88,19 +89,17 @@ function ItemToOpen(event) {
   console.log(price);
   let title = itemToOpen.getElementsByClassName("selectedItem-title")[0]
     .innerText;
-  let id = itemToOpen.parentElement.getElementsByClassName("img-container")[0]
-    .id;
-  console.log(
-    itemToOpen.parentElement.getElementsByClassName("img-container")[0]
-  );
-  displayItemDetail(image, title, price);
+  let id = itemToOpen.id;
+  console.log(id);
+  displayItemDetail(image, title, price, id);
 }
 //display the data of the clicked item in our product detail view
-function displayItemDetail(image, title, price) {
+function displayItemDetail(image, title, price, id) {
   render(state.Product);
   document.getElementsByClassName("main-img")[0].src = image;
   document.getElementsByClassName("title")[0].innerText = title;
   document.getElementsByClassName("price")[0].innerText = price;
+  document.getElementsByClassName("selected-product")[0].id = id;
   menuToggle();
 }
 
@@ -155,17 +154,30 @@ function addToCart(event) {
   console.log(id);
   addItemToCart(id, title, price, mainImage, quantity, size);
   updateCart();
-  localProduct(id, title, price, mainImage, quantity, size);
 }
-function localProduct(id, title, price, mainImage, quantity, size) {
+function setItem(id, title, price, mainImage, quantity, size) {
   //save our added item in our local storage for our cart page
-  let product = {};
-  product = {
-    [id]: [title, price, mainImage, quantity, size]
-  };
-  console.log("my added product :", product);
-  localStorage.setItem("productInCart", JSON.stringify(product));
+  // let product = {};
+  // product = { [id]: [title, price, mainImage, quantity, size] };
+  // localStorage.setItem("addedItemToCart", JSON.stringify(product));
+  // console.log(product);
 }
+//ovoid data to be overwriting
+function setItem2(product) {
+  let itemInCart = localStorage.getItem("addedItemToCart");
+  console.log("my cart item are,", itemInCart);
+  itemInCart = JSON.parse(itemInCart);
+  console.log("my cart item are,", itemInCart);
+  if (itemInCart != null) {
+    if (itemInCart[product.id] === undefined) {
+      console.log(itemInCart[product.id]);
+      itemInCart = {
+        [product.id]: product
+      };
+    }
+  }
+}
+
 function local() {
   //update out nav shopping cart
   document.getElementsByClassName(
@@ -190,12 +202,14 @@ function addItemToCart(id, title, price, mainImage, quantity, size) {
     }
   }
   //add html of new item to cart
-  cartRow.innerHTML = `
+  cartRow.innerHTML = "";
+  cartRow.innerHTML += `
   <td class="cart-row" id=${id}>
                     <div class="cart-info item">
                         <img class="main-img" src="${mainImage}">
                         <div>
                             <p class="item-title">${title}</p>
+                            <p class="cart-size">${size}</p>
                             <p class="cart-price">${price}</p>
                             <br>
                             <a href="#" class="remove-item">remove</a>
@@ -205,6 +219,10 @@ function addItemToCart(id, title, price, mainImage, quantity, size) {
                 <td class="cart-row2"> <input class="cart-number cart-quantity" type="number" value="${quantity}" > </td>
                 <td class="subtotal-item">${subtotal}</td>`;
   newCartItems.appendChild(cartRow);
+  let product = {};
+  product = { [id]: [title, price, mainImage, quantity, size] };
+  localStorage.setItem("addedItemToCart", JSON.stringify(product));
+  console.log(product);
   cartRow
     .getElementsByClassName("remove-item")[0]
     .addEventListener("click", removeItem);
@@ -214,6 +232,7 @@ function addItemToCart(id, title, price, mainImage, quantity, size) {
   cartRow
     .getElementsByClassName("cart-quantity")[0]
     .addEventListener("click", updateQuantity);
+  setItem2(product);
 }
 function updateCart() {
   let cartRows = document.getElementsByClassName("cart-items");
@@ -234,9 +253,8 @@ function updateCart() {
       "shopping-cart"
     )[0].innerText = quantityTotal;
     localStorage.setItem("q", quantityTotal);
-    document.getElementsByClassName("subtotal-item")[
-      i
-    ].innerText = subtotalItem;
+    document.getElementsByClassName("subtotal-item")[i].innerText =
+      Math.round(subtotalItem * 100) / 100;
     subtotal = subtotal + subtotalItem;
   }
   subtotal = Math.round(subtotal * 100) / 100;
@@ -251,6 +269,7 @@ function updateCart() {
     document.getElementsByClassName("order-tax")[0].innerText = "$" + 0;
     document.getElementsByClassName("order-total")[0].innerText = "$" + 0;
     document.getElementsByClassName("shopping-cart")[0].innerText = 0;
+    localStorage.setItem("q", 0);
   }
 }
 //*********** *End Of Cart* ************************************
@@ -629,8 +648,8 @@ function addHtml(item) {
   let products = Obj[item];
   products.forEach(products => {
     page.innerHTML += `
-        <div class="col-4 img-container" id=${products.sys.id}>
-                <a href="#" id="selected" class="selected-item"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
+        <div class="col-4 img-container" id="${products.sys.id}">
+                <a href="Product" id="selected" class="selected-item"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
               <h4 class="selectedItem-title">${products.fields.title}</h4>
               <p class="selectedItem-price">$${products.fields.price}</p>
               </div>

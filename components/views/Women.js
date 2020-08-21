@@ -11,7 +11,6 @@ export default () => `
             </select>
         </div>
         <div class="row1 products-center">
-
         </div>
             <div class="pages-btn">
                 <span>1</span>
