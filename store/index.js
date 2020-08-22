@@ -9,8 +9,5 @@ export { default as Cart } from "./Cart";
 export { default as Account } from "./Account";
 export { default as Contact } from "./Contact";
 export { default as Links } from "./Links";
-<<<<<<< HEAD
 export { default as search } from "./search";
-=======
 export { default as ProductDetail } from "./ProductDetail";
->>>>>>> 284c2981755b60044d7fabb533e92eca4792041e

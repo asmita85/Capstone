@@ -29,8 +29,8 @@ router
       render(state.Home);
       menuToggle();
     },
-    ":page/:id": (params) => renderProductDetails(params),
-    ":page": (params) => {
+    ":page/:id": params => renderProductDetails(params),
+    ":page": params => {
       let routeEntered = params.page;
       let formattedRoute = capitalize(routeEntered);
       if (
@@ -59,13 +59,13 @@ router
       }
       local();
       menuToggle();
-    },
+    }
   })
   .resolve();
 //Add event to p
 function addPEventListeners() {
-  document.querySelectorAll(" div a p ").forEach((link) => {
-    link.addEventListener("click", (event) => {
+  document.querySelectorAll(" div a p ").forEach(link => {
+    link.addEventListener("click", event => {
       event.preventDefault();
       let linkText = event.target.textContent;
       let pieceOfState = state[linkText];
@@ -185,7 +185,7 @@ function setItem2(product) {
       console.log(itemInCart[product.id]);
       itemInCart = {
         1: "hello",
-        [product.id]: product,
+        [product.id]: product
       };
     }
   }
@@ -293,7 +293,7 @@ function addHtml(item) {
   let items = state.ProductDetail.items;
   let page = document.querySelector(".products-center");
   let products = items[item];
-  products.forEach((products) => {
+  products.forEach(products => {
     page.innerHTML += `
         <div class="col-4 img-container" id="${products.sys.id}">
                 <a href="${item}/${products.sys.id}" id="selected" class="selected-item"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
@@ -328,7 +328,7 @@ function navigateGallery() {
   var galleryImg = document.getElementsByClassName("gallery-img");
   for (let i = 0; i < galleryImg.length; i++) {
     let img = galleryImg[i];
-    img.addEventListener("click", (event) => {
+    img.addEventListener("click", event => {
       event.preventDefault();
       let img = event.target;
       mainImg.src = img.src;
@@ -336,403 +336,403 @@ function navigateGallery() {
   }
 }
 //current
-function findSearchedWord(event) {
-  let items = JSON.stringify({
-    Men: [
-      {
-        sys: { id: "1" },
-        fields: {
-          title: "Jacket",
-          price: 10.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "2" },
-        fields: {
-          title: "Leather Jacket",
-          price: 12.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-2.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "3" },
-        fields: {
-          title: "Eyeglasses",
-          price: 12.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-3.jpg?raw=trueg"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "4" },
-        fields: {
-          title: "pant",
-          price: 22.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-4.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "5" },
-        fields: {
-          title: "Black pant",
-          price: 88.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-5.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "6" },
-        fields: {
-          title: "White Sweather",
-          price: 32.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-6.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "7" },
-        fields: {
-          title: "Kaki pant",
-          price: 45.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-7.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "8" },
-        fields: {
-          title: "White Tshirt",
-          price: 33.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true"
-              }
-            }
-          }
-        }
-      }
-    ],
-    Women: [
-      {
-        sys: { id: "1" },
-        fields: {
-          title: "Jacket",
-          price: 10.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "2" },
-        fields: {
-          title: "Leather Jacket",
-          price: 12.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-2.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "3" },
-        fields: {
-          title: "Eyeglasses",
-          price: 12.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-3.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "4" },
-        fields: {
-          title: "white top",
-          price: 22.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-4.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "5" },
-        fields: {
-          title: "Black pant",
-          price: 88.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-5.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "6" },
-        fields: {
-          title: "White Sweather",
-          price: 32.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-6.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "7" },
-        fields: {
-          title: "Kaki pant",
-          price: 45.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-7.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "8" },
-        fields: {
-          title: "White Tshirt",
-          price: 33.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-8.jpg?raw=true"
-              }
-            }
-          }
-        }
-      }
-    ],
-    Kids: [
-      {
-        sys: { id: "1" },
-        fields: {
-          title: "Jacket",
-          price: 10.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-1.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "2" },
-        fields: {
-          title: "Leather Jacket",
-          price: 12.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-2.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "3" },
-        fields: {
-          title: "Eyeglasses",
-          price: 12.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-3.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "4" },
-        fields: {
-          title: "dress",
-          price: 22.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-4.jpg?raw=trueg"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "5" },
-        fields: {
-          title: "Black pant",
-          price: 88.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-5.jpg?raw=trueg"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "6" },
-        fields: {
-          title: "White Sweather",
-          price: 32.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-6.jpg?raw=true"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "7" },
-        fields: {
-          title: "Kaki pant",
-          price: 45.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-7.jpg?raw=trueg"
-              }
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "8" },
-        fields: {
-          title: "White Tshirt",
-          price: 33.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-9.jpg?raw=true"
-              }
-            }
-          }
-        }
-      }
-    ]
-  });
-  let Obj = JSON.parse(items);
-  let input = event.target;
-  let category = ["Men", "Women", "Kids"];
-  for (let cat of category) {
-    Obj[cat].forEach(item => {
-      let output;
-      output = item.fields.title;
-      console.log(output);
-      const searchWord = input.value;
-      console.log(searchWord);
-      if (output.search(/searchWord/i) != -1) {
-        render(state.search);
-        let page = document.querySelector(".products-center");
-        page.innerHTML += `
-        <div class="col-4 img-container" id="${item.sys.id}">
-                <a href="#" id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
-              <h4 class="selectedItem-title">${item.fields.title}</h4>
-              <p class="selectedItem-price">$${item.fields.price}</p>
-              </div>
-                `;
-      }
-    });
-  }
-}
-function searchEventListener() {
-  const search = document.getElementsByClassName("search");
-  for (let i = 0; i < search.length; i++) {
-    let input = search[i];
-    input.addEventListener("click", findSearchedWord);
-  }
-}
+// function findSearchedWord(event) {
+//   let items = JSON.stringify({
+//     Men: [
+//       {
+//         sys: { id: "1" },
+//         fields: {
+//           title: "Jacket",
+//           price: 10.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "2" },
+//         fields: {
+//           title: "Leather Jacket",
+//           price: 12.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-2.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "3" },
+//         fields: {
+//           title: "Eyeglasses",
+//           price: 12.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-3.jpg?raw=trueg"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "4" },
+//         fields: {
+//           title: "pant",
+//           price: 22.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-4.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "5" },
+//         fields: {
+//           title: "Black pant",
+//           price: 88.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-5.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "6" },
+//         fields: {
+//           title: "White Sweather",
+//           price: 32.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-6.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "7" },
+//         fields: {
+//           title: "Kaki pant",
+//           price: 45.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-7.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "8" },
+//         fields: {
+//           title: "White Tshirt",
+//           price: 33.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       }
+//     ],
+//     Women: [
+//       {
+//         sys: { id: "1" },
+//         fields: {
+//           title: "Jacket",
+//           price: 10.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "2" },
+//         fields: {
+//           title: "Leather Jacket",
+//           price: 12.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-2.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "3" },
+//         fields: {
+//           title: "Eyeglasses",
+//           price: 12.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-3.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "4" },
+//         fields: {
+//           title: "white top",
+//           price: 22.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-4.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "5" },
+//         fields: {
+//           title: "Black pant",
+//           price: 88.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-5.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "6" },
+//         fields: {
+//           title: "White Sweather",
+//           price: 32.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-6.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "7" },
+//         fields: {
+//           title: "Kaki pant",
+//           price: 45.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-7.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "8" },
+//         fields: {
+//           title: "White Tshirt",
+//           price: 33.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-8.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       }
+//     ],
+//     Kids: [
+//       {
+//         sys: { id: "1" },
+//         fields: {
+//           title: "Jacket",
+//           price: 10.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-1.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "2" },
+//         fields: {
+//           title: "Leather Jacket",
+//           price: 12.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-2.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "3" },
+//         fields: {
+//           title: "Eyeglasses",
+//           price: 12.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-3.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "4" },
+//         fields: {
+//           title: "dress",
+//           price: 22.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-4.jpg?raw=trueg"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "5" },
+//         fields: {
+//           title: "Black pant",
+//           price: 88.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-5.jpg?raw=trueg"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "6" },
+//         fields: {
+//           title: "White Sweather",
+//           price: 32.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-6.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "7" },
+//         fields: {
+//           title: "Kaki pant",
+//           price: 45.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-7.jpg?raw=trueg"
+//               }
+//             }
+//           }
+//         }
+//       },
+//       {
+//         sys: { id: "8" },
+//         fields: {
+//           title: "White Tshirt",
+//           price: 33.99,
+//           image: {
+//             fields: {
+//               file: {
+//                 url:
+//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-9.jpg?raw=true"
+//               }
+//             }
+//           }
+//         }
+//       }
+//     ]
+//   });
+//   let Obj = JSON.parse(items);
+//   let input = event.target;
+//   let category = ["Men", "Women", "Kids"];
+//   for (let cat of category) {
+//     Obj[cat].forEach(item => {
+//       let output;
+//       output = item.fields.title;
+//       console.log(output);
+//       const searchWord = input.value;
+//       console.log(searchWord);
+//       if (output.search(/searchWord/i) != -1) {
+//         render(state.search);
+//         let page = document.querySelector(".products-center");
+//         page.innerHTML += `
+//         <div class="col-4 img-container" id="${item.sys.id}">
+//                 <a href="#" id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
+//               <h4 class="selectedItem-title">${item.fields.title}</h4>
+//               <p class="selectedItem-price">$${item.fields.price}</p>
+//               </div>
+//                 `;
+//       }
+//     });
+//   }
+// }
+// function searchEventListener() {
+//   const search = document.getElementsByClassName("search");
+//   for (let i = 0; i < search.length; i++) {
+//     let input = search[i];
+//     input.addEventListener("click", findSearchedWord);
+//   }
+// }
