@@ -7,3 +7,4 @@ export { default as Cart } from "./Cart";
 export { default as Account } from "./Account";
 export { default as Contact } from "./Contact";
 export { default as Links } from "./Links";
+export { default as search } from "./search";

@@ -9,7 +9,7 @@ export default links => `
                     </a>
                 </div>
                 <div class="search">
-                        <input type="text" placeholder="search ..." >
+                        <input type="text" placeholder="search ..." class="search">
                     </div>
                 <nav class="nav1">
                     <ul id="menu-item">
