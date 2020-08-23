@@ -6,4 +6,5 @@ export { default as Product } from "./ProductDetail";
 export { default as Cart } from "./Cart";
 export { default as Account } from "./Account";
 export { default as Contact } from "./Contact";
-export { default as search } from "./search";
+export { default as Search } from "./Search";
+export { default as confirmation } from "./confirmation";

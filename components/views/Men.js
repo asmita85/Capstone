@@ -1,10 +1,10 @@
 export default () => `
 <div class="small-container1 ">
         <div class="row1 row2">
-            <h2>All product</h2>
+            <h2>All Men Products</h2>
             <select>
                 <option>Sort By Default</option>
-                <option>Sort By price</option>
+                <option class="sort-price">Sort By price</option>
                 <option>Sort popular</option>
                 <option>Sort rating</option>
                 <option>rating</option>

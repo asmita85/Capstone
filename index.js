@@ -2,6 +2,7 @@ import { Header, Nav, Main, Main2, Footer } from "./components";
 import * as state from "./store";
 import Navigo from "navigo";
 import { capitalize, compact } from "lodash";
+import { auth, db } from "./firebase";
 //loading the page before calling the js
 if (document.readyState == "loading") {
   document.addEventListener("DOMContentLoaded", addCartEventListeners());
@@ -18,8 +19,15 @@ function render(st = state.Home) {
   router.updatePageLinks();
   addPEventListeners();
   addCartEventListeners();
-  searchEventListener();
+  // listenForRegister(st);
+  if (st === state.Account) {
+    listenForRegister();
+    listenForSignIn();
+    addLogInAndOutListener(state.User);
+    listenForAuthChange();
+  }
   local();
+  searchEventListener();
 }
 //Navigo and Router
 const router = new Navigo(location.origin);
@@ -41,8 +49,8 @@ router
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
         addHtml(formattedRoute);
-        addProductDetailListeners();
-      } else if (formattedRoute === "Account" || formattedRoute === "Contact") {
+        //addProductDetailListeners();
+      } else if (formattedRoute === "Contact") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
       } else if (formattedRoute === "Product") {
@@ -51,9 +59,15 @@ router
       } else if (formattedRoute === "Cart") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
-        // } else if (formattedRoute === "search") {
-        //   render(state[search]);
-        //   findSearchedWord();
+      } else if (formattedRoute === "Search") {
+        render(state.search);
+      } else if (formattedRoute === "Account") {
+        let pieceOfState = state[formattedRoute];
+        render(pieceOfState);
+        // listenForRegister();
+        // listenForSignIn();
+        // addLogInAndOutListener(state.User);
+        // listenForAuthChange();
       } else {
         render();
       }
@@ -62,6 +76,125 @@ router
     }
   })
   .resolve();
+
+//write the data of new user in firebase
+function listenForRegister() {
+  let btn = document.getElementById("user-btn");
+  console.log("I am in account");
+  btn.addEventListener("click", event => {
+    event.preventDefault();
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    //create user in Firebase
+    auth.createUserWithEmailAndPassword(email, password).then(response => {
+      console.log("user registered");
+      console.log(response);
+      console.log(response.user);
+      addUserToStateAndDb(name, email, password);
+      render(state.Home);
+    });
+  });
+}
+function addUserToStateAndDb(name, email, pass) {
+  state.User.name = name;
+  state.User.email = email;
+  state.User.loggedIn = true;
+  db.collection("Users").add({
+    name: name,
+    email: email,
+    password: pass,
+    signedIn: true
+  });
+}
+//******* end of register ************* */
+
+// ***************verify data and sign in**/
+function listenForSignIn() {
+  let btn = document.getElementById("user-btn1");
+  console.log(btn);
+  btn.addEventListener("click", event => {
+    event.preventDefault();
+    // convert HTML elements to Array
+    let email = document.getElementById("email1").value;
+    let password = document.getElementById("password1").value;
+    auth.signInWithEmailAndPassword(email, password).then(() => {
+      console.log("user signed in");
+      getUserFromDb(email).then(() => render(state.Home));
+    });
+  });
+}
+function getUserFromDb(email) {
+  return db
+    .collection("Users")
+    .get()
+    .then(snapshot =>
+      snapshot.docs.forEach(doc => {
+        if (email === doc.data().email) {
+          let id = doc.id;
+          db.collection("Users")
+            .doc(id)
+            .update({ signedIn: true });
+          console.log("user signed in in db");
+          let user = doc.data();
+          state.User.name = user.name;
+          state.User.email = email;
+          state.User.loggedIn = true;
+          console.log(state.User);
+        }
+      })
+    );
+}
+//********** end sign in ******** */
+//************* log in log out************/
+function addLogInAndOutListener(user) {
+  // select link in header
+  document.getElementById("status").addEventListener("click", event => {
+    // if user is logged in,
+    if (user.loggedIn) {
+      event.preventDefault();
+      // log out functionality
+      auth.signOut().then(() => {
+        console.log("user logged out");
+        logOutUserInDb(user.email);
+        resetUserInState();
+        //update user in database
+        db.collection("users").get;
+        render(state.Home);
+      });
+      console.log(state.User);
+    }
+    // if user is logged out, clicking the link will render sign in page (handled by <a>'s href)
+  });
+}
+function logOutUserInDb(email) {
+  if (state.User.loggedIn) {
+    db.collection("Users")
+      .get()
+      .then(snapshot =>
+        snapshot.docs.forEach(doc => {
+          if (email === doc.data().email) {
+            let id = doc.id;
+            db.collection("Users")
+              .doc(id)
+              .update({ signedIn: false });
+          }
+        })
+      );
+    console.log("user signed out in db");
+  }
+}
+function resetUserInState() {
+  state.User.name = "";
+  state.User.email = "";
+  state.User.loggedIn = false;
+}
+function listenForAuthChange() {
+  // log user object from auth if a user is signed in
+  auth.onAuthStateChanged(user => (user ? console.log(user) : ""));
+}
+//************* end log in log out************/
+
 //Add event to p
 function addPEventListeners() {
   document.querySelectorAll(" div a p ").forEach(link => {
@@ -71,19 +204,19 @@ function addPEventListeners() {
       let pieceOfState = state[linkText];
       render(pieceOfState);
       addHtml(linkText);
-      addProductDetailListeners();
+      //addProductDetailListeners();
       menuToggle();
     });
   });
 }
 //************* *Product Detail view* *************
-function addProductDetailListeners() {
-  const itemsToOpen = document.getElementsByClassName("img-container");
-  for (let i = 0; i < itemsToOpen.length; i++) {
-    let img = itemsToOpen[i];
-    img.addEventListener("click", ItemToOpen);
-  }
-}
+// function addProductDetailListeners() {
+//   const itemsToOpen = document.getElementsByClassName("img-container");
+//   for (let i = 0; i < itemsToOpen.length; i++) {
+//     let img = itemsToOpen[i];
+//     img.addEventListener("click", ItemToOpen);
+//   }
+// }
 function renderProductDetails(params) {
   const productIndex = Number(params.id) - 1;
   const { fields } = state.ProductDetail.items[params.page][productIndex];
@@ -93,28 +226,46 @@ function renderProductDetails(params) {
   document.getElementsByClassName("title")[0].innerText = fields.title;
   document.getElementsByClassName("price")[0].innerText = fields.price;
   document.getElementsByClassName("selected-product")[0].id = fields.id;
+  let gallery = document.getElementsByClassName("gallery-img");
+  //adding gallery from json
+  let items = state.ProductDetail.items;
+  let products = items[params.page][productIndex];
+  console.log(products);
+  console.log(products.fields.image.fields.gal);
+  for (let i = 0; i < gallery.length; i++) {
+    gallery[i].src = products.fields.image.fields.gal[i];
+  }
+  //navigate gallery picture in product detail
+  var mainImg = document.getElementsByClassName("main-img");
+  for (let picture of gallery) {
+    picture.addEventListener("click", event => {
+      event.preventDefault();
+      mainImg[0].src = picture.src;
+    });
+  }
 }
+
 //define the data from the item that we are clicking
-function ItemToOpen(event) {
-  let clickedImg = event.target;
-  let itemToOpen = clickedImg.parentElement.parentElement;
-  let image = itemToOpen.getElementsByClassName("selectedItem-img")[0].src;
-  let price = itemToOpen.getElementsByClassName("selectedItem-price")[0]
-    .innerText;
-  let title = itemToOpen.getElementsByClassName("selectedItem-title")[0]
-    .innerText;
-  let id = itemToOpen.id;
-  displayItemDetail(image, title, price, id);
-}
-//display the data of the clicked item in our product detail view
-function displayItemDetail(image, title, price, id) {
-  render(state.Product);
-  document.getElementsByClassName("main-img")[0].src = image;
-  document.getElementsByClassName("title")[0].innerText = title;
-  document.getElementsByClassName("price")[0].innerText = price;
-  document.getElementsByClassName("selected-product")[0].id = id;
-  menuToggle();
-}
+// function ItemToOpen(event) {
+//   let clickedImg = event.target;
+//   let itemToOpen = clickedImg.parentElement.parentElement;
+//   let image = itemToOpen.getElementsByClassName("selectedItem-img")[0].src;
+//   let price = itemToOpen.getElementsByClassName("selectedItem-price")[0]
+//     .innerText;
+//   let title = itemToOpen.getElementsByClassName("selectedItem-title")[0]
+//     .innerText;
+//   let id = itemToOpen.id;
+//   displayItemDetail(image, title, price, id);
+// }
+// //display the data of the clicked item in our product detail view
+// function displayItemDetail(image, title, price, id) {
+//   render(state.Product);
+//   document.getElementsByClassName("main-img")[0].src = image;
+//   document.getElementsByClassName("title")[0].innerText = title;
+//   document.getElementsByClassName("price")[0].innerText = price;
+//   document.getElementsByClassName("selected-product")[0].id = id;
+//   menuToggle();
+// }
 
 //********** *END of ProductDetail* view**************
 
@@ -175,21 +326,21 @@ function setItem(id, title, price, mainImage, quantity, size) {
   // console.log(product);
 }
 //ovoid data to be overwriting
-function setItem2(product) {
-  let itemInCart = localStorage.getItem("addedItemToCart");
-  console.log("my cart item are,", itemInCart);
-  itemInCart = JSON.parse(itemInCart);
-  console.log("my cart item are,", itemInCart);
-  if (itemInCart != null) {
-    if (itemInCart[product.id] === undefined) {
-      console.log(itemInCart[product.id]);
-      itemInCart = {
-        1: "hello",
-        [product.id]: product
-      };
-    }
-  }
-}
+// function setItem2(product) {
+//   let itemInCart = localStorage.getItem("addedItemToCart");
+//   console.log("my cart item are,", itemInCart);
+//   itemInCart = JSON.parse(itemInCart);
+//   console.log("my cart item are,", itemInCart);
+//   if (itemInCart != null) {
+//     if (itemInCart[product.id] === undefined) {
+//       console.log(itemInCart[product.id]);
+//       itemInCart = {
+//         1: "hello",
+//         [product.id]: product
+//       };
+//     }
+//   }
+// }
 
 function local() {
   //update out nav shopping cart
@@ -235,9 +386,9 @@ function addItemToCart(id, title, price, mainImage, quantity, size) {
   //set added item
   let product = {};
   product = { [id]: [title, price, mainImage, quantity, size] };
-  localStorage.setItem("addedItemToCart", JSON.stringify(product));
+  // localStorage.setItem("addedItemToCart", JSON.stringify(product));
   console.log(product);
-  setItem2(product);
+  // setItem2(product);
   cartRow
     .getElementsByClassName("remove-item")[0]
     .addEventListener("click", removeItem);
@@ -247,7 +398,7 @@ function addItemToCart(id, title, price, mainImage, quantity, size) {
   cartRow
     .getElementsByClassName("cart-quantity")[0]
     .addEventListener("click", updateQuantity);
-  setItem2(product);
+  // setItem2(product);
 }
 function updateCart() {
   let cartRows = document.getElementsByClassName("cart-items");
@@ -288,6 +439,7 @@ function updateCart() {
   }
 }
 //*********** *End Of Cart* ************************************
+
 //**************** *load product from json* ********************
 function addHtml(item) {
   let items = state.ProductDetail.items;
@@ -320,419 +472,46 @@ function menuToggle() {
 }
 //************** *END menu toggle function* ***************
 
-//save shopping cart quantity in local storage fo nav
-
-//navigate gallery picture in product detail
-function navigateGallery() {
-  var mainImg = document.getElementsByClassName("main-img");
-  var galleryImg = document.getElementsByClassName("gallery-img");
-  for (let i = 0; i < galleryImg.length; i++) {
-    let img = galleryImg[i];
-    img.addEventListener("click", event => {
-      event.preventDefault();
-      let img = event.target;
-      mainImg.src = img.src;
+//**************** search bar ***************************/
+function findSearchedWord(event) {
+  let items = state.ProductDetail.items;
+  let input = event.target;
+  let category = ["Men", "Women", "Kids"];
+  render(state.Search);
+  for (let cat of category) {
+    items[cat].forEach(item => {
+      let output = item.fields.title.toLowerCase();
+      const searchedWord = input.value;
+      let page = document.querySelector(".products-center");
+      if (output.includes(searchedWord.toLowerCase())) {
+        page.innerHTML += `
+        <div class="col-4 img-container" id="${item.sys.id}">
+                <a href="${cat}/${item.sys.id}" id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
+              <h4 class="selectedItem-title">${item.fields.title}</h4>
+              <p class="selectedItem-price">$${item.fields.price}</p>
+              </div>
+                `;
+      }
     });
   }
+  renderProductDetails();
 }
-//current
-// function findSearchedWord(event) {
-//   let items = JSON.stringify({
-//     Men: [
-//       {
-//         sys: { id: "1" },
-//         fields: {
-//           title: "Jacket",
-//           price: 10.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "2" },
-//         fields: {
-//           title: "Leather Jacket",
-//           price: 12.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-2.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "3" },
-//         fields: {
-//           title: "Eyeglasses",
-//           price: 12.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-3.jpg?raw=trueg"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "4" },
-//         fields: {
-//           title: "pant",
-//           price: 22.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-4.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "5" },
-//         fields: {
-//           title: "Black pant",
-//           price: 88.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-5.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "6" },
-//         fields: {
-//           title: "White Sweather",
-//           price: 32.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-6.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "7" },
-//         fields: {
-//           title: "Kaki pant",
-//           price: 45.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-7.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "8" },
-//         fields: {
-//           title: "White Tshirt",
-//           price: 33.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       }
-//     ],
-//     Women: [
-//       {
-//         sys: { id: "1" },
-//         fields: {
-//           title: "Jacket",
-//           price: 10.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "2" },
-//         fields: {
-//           title: "Leather Jacket",
-//           price: 12.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-2.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "3" },
-//         fields: {
-//           title: "Eyeglasses",
-//           price: 12.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-3.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "4" },
-//         fields: {
-//           title: "white top",
-//           price: 22.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-4.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "5" },
-//         fields: {
-//           title: "Black pant",
-//           price: 88.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-5.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "6" },
-//         fields: {
-//           title: "White Sweather",
-//           price: 32.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-6.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "7" },
-//         fields: {
-//           title: "Kaki pant",
-//           price: 45.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-7.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "8" },
-//         fields: {
-//           title: "White Tshirt",
-//           price: 33.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-8.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       }
-//     ],
-//     Kids: [
-//       {
-//         sys: { id: "1" },
-//         fields: {
-//           title: "Jacket",
-//           price: 10.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-1.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "2" },
-//         fields: {
-//           title: "Leather Jacket",
-//           price: 12.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-2.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "3" },
-//         fields: {
-//           title: "Eyeglasses",
-//           price: 12.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-3.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "4" },
-//         fields: {
-//           title: "dress",
-//           price: 22.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-4.jpg?raw=trueg"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "5" },
-//         fields: {
-//           title: "Black pant",
-//           price: 88.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-5.jpg?raw=trueg"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "6" },
-//         fields: {
-//           title: "White Sweather",
-//           price: 32.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-6.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "7" },
-//         fields: {
-//           title: "Kaki pant",
-//           price: 45.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-7.jpg?raw=trueg"
-//               }
-//             }
-//           }
-//         }
-//       },
-//       {
-//         sys: { id: "8" },
-//         fields: {
-//           title: "White Tshirt",
-//           price: 33.99,
-//           image: {
-//             fields: {
-//               file: {
-//                 url:
-//                   "https://github.com/asmita85/Capstone/blob/master/images/Kid-Product/Kproduct-9.jpg?raw=true"
-//               }
-//             }
-//           }
-//         }
-//       }
-//     ]
-//   });
-//   let Obj = JSON.parse(items);
-//   let input = event.target;
-//   let category = ["Men", "Women", "Kids"];
-//   for (let cat of category) {
-//     Obj[cat].forEach(item => {
-//       let output;
-//       output = item.fields.title;
-//       console.log(output);
-//       const searchWord = input.value;
-//       console.log(searchWord);
-//       if (output.search(/searchWord/i) != -1) {
-//         render(state.search);
-//         let page = document.querySelector(".products-center");
-//         page.innerHTML += `
-//         <div class="col-4 img-container" id="${item.sys.id}">
-//                 <a href="#" id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
-//               <h4 class="selectedItem-title">${item.fields.title}</h4>
-//               <p class="selectedItem-price">$${item.fields.price}</p>
-//               </div>
-//                 `;
-//       }
-//     });
-//   }
-// }
-// function searchEventListener() {
-//   const search = document.getElementsByClassName("search");
-//   for (let i = 0; i < search.length; i++) {
-//     let input = search[i];
-//     input.addEventListener("click", findSearchedWord);
-//   }
-// }
+function searchEventListener() {
+  const search = document.getElementsByClassName("search");
+  for (let i = 0; i < search.length; i++) {
+    let input = search[i];
+    input.addEventListener("search", findSearchedWord);
+  }
+}
+//************* end of search bar ************ *********/
+
+//************* sort per price ************************ */
+function sortPerPrice(event) {}
+function sortPriceEventListener() {
+  const sortPrice = document.getElementsByClassName("sort-price");
+  for (let i = 0; i < sortPrice.length; i++) {
+    let sort = sortPrice[i];
+    sort.addEventListener("search", sortPerPrice);
+  }
+}
+//************* end  sort per price ************************ */

@@ -10,9 +10,9 @@ export default () => `
                         <span>LOG IN</span>
                     </div>
                     <form id="formLogin">
-                        <input type="email" placeholder="E-mail">
-                        <input type="Password" placeholder="Password">
-                        <button type="submit" class="btn1">SUBMIT</button>
+                        <input type="email" placeholder="E-mail" id="email1">
+                        <input type="Password" placeholder="Password" id="password1">
+                        <input type="submit" id="user-btn1" class="btn1" value="Sign In">
                         <a href="">forgot password</a>
                     </form>
                     </div>
@@ -24,16 +24,17 @@ export default () => `
                             <span >SIGN UP</span>
 
                         </div>
-                      <form action="#" method="post" class="simpleForm" onsubmit="return    ValidateForm()" id="formRegister">
+                      <form action="" method="POST" class="simpleForm"  id="formRegister">
+                            <input type="text" placeholder="Name" id="name" class="input-box">
                             <input type="email" placeholder="E-mail" id="email" class="input-box">
                             <p class="error"></p>
                             <input type="email" placeholder="E-mail" id="confirmEmail" class="input-box">
                             <p class="error"></p>
-                            <input type="password" placeholder="Password" id="password" class="input-box">
+                            <input type="password" placeholder="password" id="password" class="input-box">
                             <p class="error"></p>
                             <input type="password" placeholder="Confirm Password" id="confirmPassword" class="input-box">
                             <p class="error"></p>
-                            <button type="submit" class="btn1">SUBMIT</button>
+                            <input type="submit" id="user-btn" class="btn1" value="Register">
                       </form>
                     </div>
                 </div>

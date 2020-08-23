@@ -1,15 +1,17 @@
+import { User } from "../store";
+
 export default links => `
 <!----------------navbar ----------------->
     <div class="main-nav">
         <div class="container1">
             <div class="navbar">
                 <div class="logo">
-                    <a href="Home.html">
+                    <a href="/${"Home"}">
                         <img src="https://github.com/asmita85/Capstone/blob/master/images/header/logo.png?raw=true" alt="store logo" width="80px">
                     </a>
                 </div>
                 <div class="search">
-                        <input type="text" placeholder="search ..." class="search">
+                        <input type="search" placeholder="search ..." class="search">
                     </div>
                 <nav class="nav1">
                     <ul id="menu-item">
@@ -20,11 +22,17 @@ export default links => `
                               `<li><a href="/${link}" class="clickLink" data-navigo>${link}</a></li>`
                           )
                           .join("")}
+
+                          <li>  <a href="${
+                            !User.loggedIn ? "/Account" : "/"
+                          }" id="status">${
+  !User.loggedIn ? "LOG IN" : "LOG OUT"
+}</a></li>
                     </ul>
                 </nav>
-                <a href="Cart"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/shopping-bag.png?raw=true" width="30px" height="30px"></a>
+                <a href="/${"Cart"}"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/shopping-bag.png?raw=true" width="30px" height="30px"></a>
                 <div class="shopping-cart">empty</div>
-                <a id="menu"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/menu.png?raw=true" class="menu-icon" ></a>
+                <a id="menu"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/menu.png?raw=true" class="menu-icon" ></>
             </div>
         </div>
     </div>

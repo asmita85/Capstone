@@ -1,7 +1,7 @@
-export default st => `
+export default () => `
 <div class="small-container1 ">
         <div class="row1 row2">
-            <h2>All product</h2>
+            <h2>All Kids Products</h2>
             <select>
                 <option>Sort By Default</option>
                 <option>Sort By price</option>

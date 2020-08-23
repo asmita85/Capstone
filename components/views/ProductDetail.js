@@ -1,7 +1,7 @@
 export default () => `
 <div class="small-container1 product-detail  button-div">
      <div class="row1 selected-product" id="watever">
-     <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wgallery12.jpg?raw=true" width="100%" class="main-img">
+    <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wgallery12.jpg?raw=true" width="100%" class="main-img">
   <div class="img-row1">
       <div class="img-col-4">
           <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wgallery12.jpg?raw=true" width="100%" class="gallery-img">
