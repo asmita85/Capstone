@@ -1,8 +1,9 @@
 import { Header, Nav, Main, Main2, Footer } from "./components";
 import * as state from "./store";
 import Navigo from "navigo";
-import { capitalize, compact } from "lodash";
+import { capitalize, compact, drop } from "lodash";
 import { auth, db } from "./firebase";
+
 //loading the page before calling the js
 if (document.readyState == "loading") {
   document.addEventListener("DOMContentLoaded", addCartEventListeners());
@@ -19,7 +20,6 @@ function render(st = state.Home) {
   router.updatePageLinks();
   addPEventListeners();
   addCartEventListeners();
-  // listenForRegister(st);
   if (st === state.Account) {
     listenForRegister();
     listenForSignIn();
@@ -49,7 +49,7 @@ router
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
         addHtml(formattedRoute);
-        //addProductDetailListeners();
+        sortPriceEventListener(params);
       } else if (formattedRoute === "Contact") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
@@ -59,6 +59,7 @@ router
       } else if (formattedRoute === "Cart") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
+        addLogInAndOutListener(state.User);
       } else if (formattedRoute === "Search") {
         render(state.search);
       } else if (formattedRoute === "Account") {
@@ -71,6 +72,8 @@ router
       } else {
         render();
       }
+      sortPriceEventListener(params);
+
       local();
       menuToggle();
     }
@@ -506,12 +509,65 @@ function searchEventListener() {
 //************* end of search bar ************ *********/
 
 //************* sort per price ************************ */
-function sortPerPrice(event) {}
-function sortPriceEventListener() {
-  const sortPrice = document.getElementsByClassName("sort-price");
-  for (let i = 0; i < sortPrice.length; i++) {
-    let sort = sortPrice[i];
-    sort.addEventListener("search", sortPerPrice);
+function sortPriceEventListener(params) {
+  const dropDown = document.getElementsByClassName("select");
+  for (let i = 0; i < dropDown.length; i++) {
+    let sortOption = dropDown[i];
+    sortOption.addEventListener("change", function(event) {
+      //determine the event
+      let sort = event.target.value;
+      //get the object of products
+      let items = document.getElementsByClassName("img-container");
+      let arr = [];
+      for (let i = 0; i < items.length; i++) {
+        let itemPrice = document.getElementsByClassName("selectedItem-price")[i]
+          .innerText;
+        let image = document.getElementsByClassName("selectedItem-img")[i].src;
+        let title = document.getElementsByClassName("selectedItem-title")[i]
+          .innerText;
+        let price = parseFloat(itemPrice.replace("$", ""));
+        //sort low to high
+        arr.push({ id: i + 1, price: price, title: title, image: image });
+      }
+
+      if (sort === "select-price-low") {
+        const sortedArrLow = arr.sort(function(a, b) {
+          return a.price - b.price;
+        });
+        console.log(sortedArrLow);
+        console.log("low price sort needed");
+        console.log(params.page);
+        render(state[params.page]);
+        let p = document.querySelector(".products-center");
+        sortedArrLow.forEach(item => {
+          p.innerHTML += `
+            <div class="col-4 img-container" id="${item.id}">
+                    <a href="/${params.page}/${item.id}" data-navigo id="selected" class="selected-item" ><img src="${item.image}" class="selectedItem-img"></a>
+                  <h4 class="selectedItem-title">${item.title}</h4>
+                  <p class="selectedItem-price">$${item.price}</p>
+                  </div>
+                    `;
+        });
+      } else if (sort === "select-price-high") {
+        const sortedArrHigh = arr.sort(function(a, b) {
+          return b.price - a.price;
+        });
+        console.log(sortedArrHigh);
+        console.log("high price sort needed ");
+        console.log(params.page);
+        render(state[params.page]);
+        let p = document.querySelector(".products-center");
+        sortedArrHigh.forEach(item => {
+          p.innerHTML += `
+            <div class="col-4 img-container" id="${item.id}">
+                    <a href="/${params.page}/${item.id}" data-navigo id="selected" class="selected-item" ><img src="${item.image}" class="selectedItem-img"></a>
+                  <h4 class="selectedItem-title">${item.title}</h4>
+                  <p class="selectedItem-price">$${item.price}</p>
+                  </div>
+                    `;
+        });
+      }
+    });
   }
 }
-//************* end  sort per price ************************ */
+///************* end  sort per price ************************ */

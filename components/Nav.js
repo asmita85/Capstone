@@ -6,7 +6,7 @@ export default links => `
         <div class="container1">
             <div class="navbar">
                 <div class="logo">
-                    <a href="/${"Home"}">
+                    <a href="/" data-navigo>
                         <img src="https://github.com/asmita85/Capstone/blob/master/images/header/logo.png?raw=true" alt="store logo" width="80px">
                     </a>
                 </div>
@@ -30,7 +30,7 @@ export default links => `
 }</a></li>
                     </ul>
                 </nav>
-                <a href="/${"Cart"}"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/shopping-bag.png?raw=true" width="30px" height="30px"></a>
+                <a href="/${"Cart"}" data-navigo><img src="https://github.com/asmita85/Capstone/blob/master/images/header/shopping-bag.png?raw=true" width="30px" height="30px"></a>
                 <div class="shopping-cart">empty</div>
                 <a id="menu"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/menu.png?raw=true" class="menu-icon" ></>
             </div>

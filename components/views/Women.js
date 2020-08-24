@@ -2,12 +2,11 @@ export default () => `
 <div class="small-container1 ">
         <div class="row1 row2">
             <h2>All Women Products</h2>
-            <select>
-                <option>Sort By Default</option>
-                <option>Sort By price</option>
-                <option>Sort popular</option>
-                <option>Sort rating</option>
-                <option>rating</option>
+            <select class="select">
+            <option value="select-default">Sort By Default</option>
+            <option value="select-price-low">Price (Low-High)</option>
+            <option value="select-price-high">Price (High-Low)</option>
+            <option value="select-rating">Sort rating</option>
             </select>
         </div>
         <div class="row1 products-center">
