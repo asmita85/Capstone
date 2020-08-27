@@ -112,12 +112,7 @@ p {
   padding-left: 25px;
   padding-right: 25px;
 }
-.row1F {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-}
+
 .row1 {
   display: flex;
   align-items: center;
@@ -131,7 +126,7 @@ p {
 }
 
 .col-2 img {
-  max-width: 80%;
+  max-width: 100%;
   padding: 60px 0px;
 }
 
@@ -290,7 +285,6 @@ small {
 }
 
 /**** account *******/
-
 header2 {
   background-color: black;
   display: flex;
@@ -339,23 +333,16 @@ hr {
   max-width: 400px;
   padding: 0 20px;
   position: relative;
-  top: 30px;
-  /* transition: transform 1s; */
+  top: 120px;
+  transition: transform 1s;
 
 }
- /* form input {
+form input {
   width: 100%;
   height: 40px;
   margin: 10px 0;
   padding: 0 10px;
   border: 1px solid var(--mainGrey);
-} */
-.form-container1 form input {
-  width: 100%;
-  height: 40px;
-  margin: 10px 0;
-  padding: 0 10px;
-  border: 1px solid #555;
 }
 form textarea {
   width: 100%;
@@ -413,14 +400,14 @@ form a:hover {
   color: red;
 }
 
-/* #indicator1 {
+#indicator1 {
   width: 100px;
   height: 2px;
   background: red;
   border: none;
   transform: translateX(100px);
   transition: transform 1s;
-} */
+}
 /* .account {
   padding: 50px 0;
   background-color: rgb(245, 236, 225);
@@ -729,19 +716,13 @@ input:focus {
 table {
   width: 100%;
   border-collapse: collapse;
-
-
 }
 
 .cart-info {
   display: flex;
   flex-wrap: wrap;
 }
-.cart-items {
-  display: flex;
-  flex-wrap: wrap;
 
-}
 th {
   text-align: left;
   padding: 5px;
@@ -788,6 +769,7 @@ td:last-child {
 th:last-child {
   text-align: right;
 }
+
 .checkout {
   display: flex;
   justify-content: space-between;
@@ -824,14 +806,14 @@ th:last-child {
   margin-bottom: 30px;
 }
 
-/* .input-box {
+.input-box {
   border-radius: 20px;
   padding: 5px;
   margin: 10px 0;
   width: 95%;
   border: 1px solid rgb(87, 82, 82);
   outline: none;
-} */
+}
 
 button {
   color: #fff;
@@ -984,14 +966,8 @@ hr {
 
 /* cart test */
 
-.cart-items {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
 .cart-item {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
 }
 
@@ -1004,4 +980,134 @@ hr {
   width: 50%;
   height: 50%;
 }
+
+
+/* test o */
+
+
+html {
+  height: 100%;
+}
+
+
+body {
+  background-color:rgb(73, 68, 68);
+  background-image: url(image/pizza2.jpg);
+  /* picture background to adjust when changing size of window  */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+.id_of_div10 {
+  color:white;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  width: 1024px;
+}
+
+header {
+  height: 200px;
+  text-align: center;
+
+}
+
+nav {
+  background-color: rgba(0, 0, 0, 0.33);
+  text-align: center;
+  /* to add space to center from top to middle */
+  padding-top: 14px;
+  padding-bottom: 14px;
+
+}
+
+
+
+main {
+  height: 250px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 2px;
+
+  padding-top: 80px;
+  padding-left: 240px;
+  padding-right: 240px;
+  color: aliceblue;
+}
+
+footer {
+  background-color: rgb(0, 0, 0, 0.34);
+  height: 50px;
+  text-align: center;
+  padding-bottom: 14px;
+  padding-top: 14px;
+}
+
+h1 {
+  font-size: 35px;
+  color:white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+  color:white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* for any a tag inside nav do: */
+nav a {
+  text-decoration: none;
+  font-size: 12px;
+ /* to put space between a */
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+footer p {
+font-size: 10px;
+color: blanchedalmond;
+}
+
+section {
+  padding-top: 1px;
+}
+
+.maps {
+padding-bottom: 20px;
+}
+
+.head {
+  background-color: rgba(0, 0, 0, 0.33);
+}
+
+.div_1{
+  color: aliceblue;
+  display: inline-block;
+  position: relative;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

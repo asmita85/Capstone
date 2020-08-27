@@ -102,3 +102,4 @@
 //     console.log("now I am ", menuItems.style.maxHeight);
 //   }
 // }
+//          <a href="/${"Cart"}" data-navigo class="btn1 add-button" data-id="1">Add to cart</a>

@@ -1,5 +1,6 @@
 export default {
   page: "Product",
+  cart: [],
   items: {
     Men: [
       {

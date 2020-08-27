@@ -8,7 +8,7 @@ export default () => `
             </tr>
             <div class="cart-container">
 
-
+            </div>
         </table>
         <div class="main-total">
             <table>
@@ -28,8 +28,8 @@ export default () => `
         </div>
         <div class="checkout1">
             <div class="checkout">
-                <a href="product.html" class="btn1">Continue Shopping</a>
-                <a href="checkout.html" class="btn1">Checkout Now</a>
+                <a href="/" data-navigo class="btn1">Continue Shopping</a>
+                <a href="/${"Checkout"}" data-navigo class="btn1 checkout-btn" >Checkout Now</a>
             </div>
         </div>
     </div>

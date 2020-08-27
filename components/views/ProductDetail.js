@@ -1,7 +1,7 @@
 export default () => `
 <div class="small-container1 product-detail  button-div">
-     <div class="row1 selected-product" id="watever">
-    <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wgallery12.jpg?raw=true" width="100%" class="main-img">
+     <div class="row1 selected-product" id="none">
+    <img src="" width="100%" class="main-img">
   <div class="img-row1">
       <div class="img-col-4">
           <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wgallery12.jpg?raw=true" width="100%" class="gallery-img">
@@ -37,7 +37,7 @@ export default () => `
               <h4>Price:</h4>
               <h4 class="price"></h4>
           </div>
-          <a href="#" class="btn1 add-button" data-id="1">Add to cart</a>
+          <button class="btn1 add-button " id="data-id">Add to cart</button>
           <h4>Product detail</h4>
           <p>A T-shirt, or tee shirt, is a style of fabric shirt named after the T shape of its body and sleeves.
           </p>

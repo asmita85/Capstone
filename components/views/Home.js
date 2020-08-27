@@ -4,10 +4,10 @@ export default () => `
     <div class="main-content">
         <div class="container1">
             <!-- header -->
-            <div class="row1">
+            <div class="row1F">
 
                 <div class="col-2">
-                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Front-Page/image1.jpg?raw=true" alt="my image">
+                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Front-Page/parker-burchfield-tvG4WvjgsEY-unsplash.jpg?raw=true" alt="my image">
                 </div>
                 <div class="col-2">
                     <h1>Shop Here <br> get a new style</h1>
