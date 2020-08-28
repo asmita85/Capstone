@@ -68,7 +68,7 @@ router
         addCartEventListeners();
         addLogInAndOutListener(state.User);
       } else if (formattedRoute === "Search") {
-        render(state.search);
+        render(state.Search);
       } else if (formattedRoute === "Account") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
@@ -169,7 +169,7 @@ function renderProductDetails(params) {
 
 //************ *Add Item to Cart* ********************//
 
-function displayCartEvent() {
+function displayCartEvent(i) {
   const cartLink = document.getElementsByClassName("cart-link");
   console.log(cartLink);
   for (let i = 0; i < cartLink.length; i++) {
@@ -200,6 +200,7 @@ function addCartEventListeners() {
     console.log(button);
     localStorage.removeItem("cart");
     updateBlueCart();
+    updateCart();
   }
   //remove an item
   const removeCartItem = document.getElementsByClassName("remove-item");
@@ -474,15 +475,15 @@ function updateCart() {
     "$" + subtotal;
   total = Math.round((subtotal + tax) * 100) / 100;
 
-  // if (subtotal != 0) {
-  //   document.getElementsByClassName("order-tax")[0].innerText = "$" + tax;
-  //   document.getElementsByClassName("order-total")[0].innerText = "$" + total;
-  // } else {
-  //   document.getElementsByClassName("order-tax")[0].innerText = "$" + 0;
-  //   document.getElementsByClassName("order-total")[0].innerText = "$" + 0;
-  //   document.getElementsByClassName("shopping-cart")[0].innerText = 0;
-  //   // localStorage.setItem("", 0);
-  // }
+  if (subtotal != 0) {
+    document.getElementsByClassName("order-tax")[0].innerText = "$" + tax;
+    document.getElementsByClassName("order-total")[0].innerText = "$" + total;
+  } else {
+    document.getElementsByClassName("order-tax")[0].innerText = "$" + 0;
+    document.getElementsByClassName("order-total")[0].innerText = "$" + 0;
+    document.getElementsByClassName("shopping-cart")[0].innerText = 0;
+    // localStorage.setItem("", 0);
+  }
 }
 //****************** END Update the cart ******************** **********//
 //******** */ update the shopping cart **********************************//
