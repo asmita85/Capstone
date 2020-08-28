@@ -194,6 +194,7 @@ function addCartEventListeners() {
     let button = checkoutBtn[i];
     button.addEventListener("click", clear);
   }
+  //clear my cart after checkout
   function clear(event) {
     let button = event.target;
     console.log(button);

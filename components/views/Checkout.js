@@ -4,7 +4,7 @@ export default () => `
             <div class="row1">
             <div class="col-2">
             <h1>TO BE CONTINUED......!!!!! </h1>
-            <p> YOU HAVE SUBMITTED YOUR ORDER THANK YOU. </p>
+            <h2> YOU HAVE PREPARED YOUR ORDER PLEASE RETURN IN 4 WEEK TO SUBMIT YOUR PAYMENT &#128528 </h2>
             </div>
 
 
