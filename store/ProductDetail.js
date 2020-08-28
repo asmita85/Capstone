@@ -397,7 +397,7 @@ export default {
               gal: [
                 "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-31.jpg?raw=true",
                 "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-30.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-8.jpg?raw=true",
+                "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-30.jpg?raw=true",
                 "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-31.jpg?raw=true"
               ]
             }
@@ -419,7 +419,7 @@ export default {
                 "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-32.jpg?raw=true",
                 "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-34.jpg?raw=true",
                 "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-33.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-32.jpg?raw=true"
+                "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-42.jpg?raw=true"
               ]
             }
           }
@@ -449,7 +449,7 @@ export default {
       {
         sys: { id: "13" },
         fields: {
-          title: "White Flower Dress",
+          title: "Leather Jacket",
           price: 100.99,
           image: {
             fields: {
