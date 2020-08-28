@@ -519,10 +519,10 @@ function findSearchedWord(event) {
   renderProductDetails();
 }
 function searchEventListener() {
-  const search = document.getElementsByClassName("search");
-  for (let i = 0; i < search.length; i++) {
-    let input = search[i];
-    input.addEventListener("search", findSearchedWord);
+  const search1 = document.getElementsByClassName("search");
+  for (let i = 0; i < search1.length; i++) {
+    let input = search1[i];
+    input.addEventListener("search1", findSearchedWord);
   }
 }
 //************* end of search bar ************ *********/
