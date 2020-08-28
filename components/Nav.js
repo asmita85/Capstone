@@ -7,7 +7,7 @@ export default links => `
             <div class="navbar">
                 <div class="logo">
                     <a href="/" data-navigo>
-                        <img src="https://github.com/asmita85/Capstone/blob/master/images/header/logo.png?raw=true" alt="store logo" width="80px">
+                        <img src="https://github.com/asmita85/Capstone/blob/master/images/header/finallogo.png?raw=true" alt="store logo" width="85px">
                     </a>
                 </div>
                 <div class="search">
