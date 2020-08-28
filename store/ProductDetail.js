@@ -7,7 +7,7 @@ export default {
         sys: { id: "1" },
         fields: {
           title: "Jacket",
-          price: 10.99,
+          price: 55.99,
           image: {
             fields: {
               file: {
@@ -28,7 +28,7 @@ export default {
         sys: { id: "2" },
         fields: {
           title: "Leather Jacket",
-          price: 12.99,
+          price: 119.99,
           image: {
             fields: {
               file: {
@@ -48,8 +48,8 @@ export default {
       {
         sys: { id: "3" },
         fields: {
-          title: "Eyeglasses",
-          price: 12.99,
+          title: "Black Eyeglasses",
+          price: 199.99,
           image: {
             fields: {
               file: {
@@ -69,8 +69,8 @@ export default {
       {
         sys: { id: "4" },
         fields: {
-          title: "pant",
-          price: 22.99,
+          title: "Gray Pant",
+          price: 82.99,
           image: {
             fields: {
               file: {
@@ -90,7 +90,7 @@ export default {
       {
         sys: { id: "5" },
         fields: {
-          title: "Black pant",
+          title: "Black Pant",
           price: 88.99,
           image: {
             fields: {
@@ -111,8 +111,8 @@ export default {
       {
         sys: { id: "6" },
         fields: {
-          title: "White Sweather",
-          price: 32.99,
+          title: "Black Jean",
+          price: 92.99,
           image: {
             fields: {
               file: {
@@ -142,7 +142,7 @@ export default {
               },
               gal: [
                 "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-7.jpg?raw=true",
+                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-5.jpg?raw=true",
                 "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-5.jpg?raw=true",
                 "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true"
               ]
@@ -176,8 +176,8 @@ export default {
       {
         sys: { id: "1" },
         fields: {
-          title: "Jacket",
-          price: 10.99,
+          title: "White Flower Dress",
+          price: 100.99,
           image: {
             fields: {
               file: {
@@ -197,8 +197,8 @@ export default {
       {
         sys: { id: "2" },
         fields: {
-          title: "Leather Jacket",
-          price: 12.99,
+          title: "Red Top",
+          price: 120.99,
           image: {
             fields: {
               file: {
@@ -218,8 +218,8 @@ export default {
       {
         sys: { id: "3" },
         fields: {
-          title: "Eyeglasses",
-          price: 12.99,
+          title: "Short",
+          price: 55.99,
           image: {
             fields: {
               file: {
@@ -239,8 +239,8 @@ export default {
       {
         sys: { id: "4" },
         fields: {
-          title: "white top",
-          price: 22.99,
+          title: "White Top",
+          price: 69.99,
           image: {
             fields: {
               file: {
@@ -260,7 +260,7 @@ export default {
       {
         sys: { id: "5" },
         fields: {
-          title: "Black pant",
+          title: "Women Accessories",
           price: 88.99,
           image: {
             fields: {
@@ -302,7 +302,7 @@ export default {
       {
         sys: { id: "7" },
         fields: {
-          title: "Kaki pant",
+          title: "Ananas",
           price: 45.99,
           image: {
             fields: {
@@ -346,7 +346,7 @@ export default {
       {
         sys: { id: "1" },
         fields: {
-          title: "Jacket",
+          title: "Short",
           price: 10.99,
           image: {
             fields: {
@@ -367,7 +367,7 @@ export default {
       {
         sys: { id: "2" },
         fields: {
-          title: "Leather Jacket",
+          title: "Girls Dress",
           price: 12.99,
           image: {
             fields: {

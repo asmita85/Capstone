@@ -19,23 +19,21 @@ export default () => `
         </div>
     </div>
     <!------------- adding button--------------->
-
     <div class="sale1">
         <div class="small-container1">
             <div class="row1">
                 <div class="col-3">
-                    <a href="productMen.html">
+                    <a href="Men">
                         <p>Men</p>
-
                     </a>
                 </div>
                 <div class="col-3">
-                    <a href="WomenProduct.html">
+                    <a href="Women">
                         <p>Women</p>
                     </a>
                 </div>
                 <div class="col-3">
-                    <a href="KidProduct.html">
+                    <a href="Kids">
                         <p>Kids</p>
                     </a>
                 </div>
@@ -67,49 +65,21 @@ export default () => `
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true">
                 <h4>white dress</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$60.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-2.jpg?raw=true">
                 <h4>red tshirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$50.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true">
                 <h4>Jacket</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$100.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-2.jpg?raw=true">
                 <h4>red tshirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$50.00</p>
             </div>
         </div>
@@ -159,49 +129,21 @@ export default () => `
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-3.jpg?raw=true">
                 <h4>red tshirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$50.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-4.jpg?raw=true">
                 <h4>red tshirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$50.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-5.jpg?raw=true">
                 <h4>red tshirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$50.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-9.jpg?raw=true">
                 <h4>red tshirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$50.00</p>
             </div>
         </div>
@@ -209,48 +151,20 @@ export default () => `
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-7.jpg?raw=true">
                 <h4>red tshirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$50.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-3.jpg?raw=true">
                 <h4>red tshirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$50.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-4.jpg?raw=true">
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$80.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-12.jpg?raw=true">
                 <h4>red tshirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                </div>
                 <p>$70.00</p>
             </div>
         </div>

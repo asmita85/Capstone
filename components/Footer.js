@@ -58,6 +58,6 @@ export default () => `
         </div>
         <hr>
     </div>
-    <p class="copyright">copyright 2020 - shop</p>
+    <p class="copyright">copyright 2020 - EzShop</p>
 </div>
 `;
