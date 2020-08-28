@@ -637,10 +637,7 @@ select:focus {
 .product-detail .col-2 {
   padding: 30px;
 }
-.main-img {
-  width : 60%;
-  height: 50%;
-}
+
 
 /* .product-detail select {
   display: block;
