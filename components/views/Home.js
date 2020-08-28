@@ -11,8 +11,8 @@ export default () => `
                 </div>
                 <div class="col-2">
                     <h1>Shop Here <br> get a new style</h1>
-                    <p>shop with us and save and get new style , with us you will feel new.<br> do you love shopping
-                        this is the right place  </p>
+                    <p>You can easily do that in the comfort of your home.<br> buying is now easier than before!!!!
+                        This is the right place  </p>
                     <a href="" class="btn1">Explore Here →</a>
                 </div>
             </div>

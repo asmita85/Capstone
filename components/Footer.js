@@ -22,7 +22,7 @@ export default () => `
             </div>
             <div class="footer-col-2">
                 <div>
-                    <img src="https://github.com/asmita85/Capstone/blob/master/images/header/logo.png?raw=true">
+                    <img src="https://github.com/asmita85/Capstone/blob/master/images/header/finallogo.png?raw=true">
                 </div>
                 <div>
                     <a href="">Our Story Click here</a>

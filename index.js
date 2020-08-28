@@ -481,7 +481,6 @@ function updateCart() {
     document.getElementsByClassName("order-tax")[0].innerText = "$" + 0;
     document.getElementsByClassName("order-total")[0].innerText = "$" + 0;
     document.getElementsByClassName("shopping-cart")[0].innerText = 0;
-    // localStorage.setItem("", 0);
   }
 }
 //****************** END Update the cart ******************** **********//
