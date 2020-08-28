@@ -40,7 +40,7 @@ router
   .on({
     "/": () => {
       render(state.Home);
-      menuToggle();
+      //menuToggle();
     },
     ":page/:id": params => renderProductDetails(params),
     ":page": params => {
@@ -80,7 +80,6 @@ router
         render();
       }
       sortPriceEventListener(params);
-
       local();
       menuToggle();
     }
