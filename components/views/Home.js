@@ -69,7 +69,7 @@ export default () => `
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-2.jpg?raw=true">
-                <h4>red tshirt</h4>
+                <h4>Red TOp</h4>
                 <p>$50.00</p>
             </div>
             <div class="col-4">
@@ -79,12 +79,28 @@ export default () => `
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-2.jpg?raw=true">
-                <h4>red tshirt</h4>
+                <h4>Leather Jacket</h4>
                 <p>$50.00</p>
             </div>
         </div>
     </div>
-
+    <!------------- recently clicked--------------->
+    <div class="sale1">
+        <div class="small-container1">
+            <h2 class="title1">Recently Viewed</h2>
+            <div class="row1">
+                <div class="col-3">
+                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-3.jpg?raw=trueg">
+                </div>
+                <div class="col-3">
+                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-2.jpg?raw=true">
+                </div>
+                <div class="col-3">
+                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-3.jpg?raw=true">
+                </div>
+            </div>
+        </div>
+    </div>
     <!----------sale with call to action button----------->
 
     <div class="small-container1">
@@ -128,62 +144,45 @@ export default () => `
         <div class="row1">
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-3.jpg?raw=true">
-                <h4>red tshirt</h4>
+                <h4>Short</h4>
                 <p>$50.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-4.jpg?raw=true">
-                <h4>red tshirt</h4>
-                <p>$50.00</p>
+                <h4>White Top</h4>
+                <p>$60.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-5.jpg?raw=true">
-                <h4>red tshirt</h4>
-                <p>$50.00</p>
+                <h4>Eyeglasses</h4>
+                <p>$70.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-9.jpg?raw=true">
-                <h4>red tshirt</h4>
-                <p>$50.00</p>
+                <h4>White Top</h4>
+                <p>$40.00</p>
             </div>
         </div>
         <div class="row1">
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-7.jpg?raw=true">
-                <h4>red tshirt</h4>
-                <p>$50.00</p>
+                <h4>Eyeglasses For Ananas</h4>
+                <p>$30.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-3.jpg?raw=true">
-                <h4>red tshirt</h4>
+                <h4>Eyeglasses</h4>
                 <p>$50.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-4.jpg?raw=true">
+                <h4>Pant</h4>
                 <p>$80.00</p>
             </div>
             <div class="col-4">
                 <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-12.jpg?raw=true">
-                <h4>red tshirt</h4>
+                <h4>BLack Jean</h4>
                 <p>$70.00</p>
-            </div>
-        </div>
-    </div>
-
-    <!------------- recently clicked--------------->
-    <div class="sale1">
-        <div class="small-container1">
-            <h2 class="title1">Recently Viewed</h2>
-            <div class="row1">
-                <div class="col-3">
-                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-3.jpg?raw=trueg">
-                </div>
-                <div class="col-3">
-                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-2.jpg?raw=true">
-                </div>
-                <div class="col-3">
-                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-3.jpg?raw=true">
-                </div>
             </div>
         </div>
     </div>
