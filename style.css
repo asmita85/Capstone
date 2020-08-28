@@ -25,7 +25,10 @@ body {
   z-index: 1;
   background-color: white;
 }
-
+. main-header h1{
+  align-items: center;
+  align-content: center;
+}
 .header {
   background-color: black;
   display: flex;
@@ -109,7 +112,7 @@ p {
 .container1 {
   max-width: 1300px;
   margin: auto;
-  padding-left: 25px;
+  padding-left:  0px;
   padding-right: 25px;
 }
 .row1F {
@@ -117,6 +120,7 @@ p {
   align-items: center;
   flex-wrap: nowrap;
   justify-content: space-around;
+
 }
 .row1 {
   display: flex;
@@ -138,7 +142,27 @@ p {
 .col-2 h1 {
   font-size: 40px;
   line-height: 50px;
+  margin-left: 30px;
+  align-content: space-around;
+  max-width: 80%;
+  text-align: center;
+
+}
+.col-2 p{
+
   margin: 25px 0;
+  align-content: space-around;
+  max-width: 100%;
+  text-align: center;
+
+}
+.col-2 .btn-shop{
+
+  margin-left:100px;
+  max-width: 100%;
+  text-align: center;
+  width: 50%;
+
 }
 
 .btn1 {
@@ -950,7 +974,42 @@ hr {
     height: 740px;
 
   }
+  .row1F {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1300px;
+    /* //margin: auto; */
 
+  }
+   .col-2 .main-picture img{
+margin:auto
+
+
+  }
+  .row1F h1 {
+    padding-left:  50px;
+    padding-right: 25px;
+    text-align: center;
+    font-size: 25px;
+  }
+  .row1F a {
+    align-items: center;
+    text-align: center;
+    padding-left:  20px;
+
+  }
+  .row1F p {
+    padding-left:  40px;
+    padding-right: 25px;
+    text-align: center;
+    font-size: 25px;
+  }
+  .col-2 .btn-shop {
+    align-items: center;
+    text-align: center;
+  }
   .row1 {
     text-align: center;
   }
@@ -983,6 +1042,12 @@ hr {
   }
   .search {
     padding-left: 0px;
+  }
+  .media-hide .small-container1 {
+  display: none;
+  }
+  .media-hide  {
+    display: none;
   }
 }
 

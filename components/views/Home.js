@@ -5,15 +5,19 @@ export default () => `
         <div class="container1">
             <!-- header -->
             <div class="row1F">
-
                 <div class="col-2">
-                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Front-Page/parker-burchfield-tvG4WvjgsEY-unsplash.jpg?raw=true" alt="my image">
+                    <img src="https://github.com/asmita85/Capstone/blob/master/images/Front-Page/parker-burchfield-tvG4WvjgsEY-unsplash.jpg?raw=true" alt="my image" class="main-picture">
                 </div>
                 <div class="col-2">
-                    <h1>Shop Here <br> get a new style</h1>
-                    <p>You can easily do that in the comfort of your home.<br> buying is now easier than before!!!!
-                        This is the right place  </p>
-                    <a href="" class="btn1">Explore Here →</a>
+                    <h1 class="main-title">Shop Here And Get A New Style</h1>
+                    <p class= "main-message">You can easily do that in
+                    the comfort of your home.
+                    <p>buying is now <b>Easier</b>
+                    than before!!!!
+                    This is the right place
+                    Our Objective is to provide you
+                    with a <b>Zen</b> experience</p>
+                    <a href="AllProduct" class="btn1 btn-shop">SHOP NOW →</a>
                 </div>
             </div>
         </div>
@@ -42,7 +46,7 @@ export default () => `
     </div>
     <!------------- Categories--------------->
 
-    <div class="categories1">
+    <div class="categories1 media-hide">
         <div class="small-container1">
             <div class="row1">
                 <div class="col-3">
@@ -59,7 +63,7 @@ export default () => `
     </div>
     <!------------- New Arrival--------------->
 
-    <div class="small-container1">
+    <div class="small-container1 media-hide">
         <h2 class="title1">New Arrivals</h2>
         <div class="row1">
             <div class="col-4">
@@ -85,7 +89,7 @@ export default () => `
         </div>
     </div>
     <!------------- recently clicked--------------->
-    <div class="sale1">
+    <div class="sale1 ">
         <div class="small-container1">
             <h2 class="title1">Recently Viewed</h2>
             <div class="row1">
@@ -103,7 +107,7 @@ export default () => `
     </div>
     <!----------sale with call to action button----------->
 
-    <div class="small-container1">
+    <div class="small-container1 media-hide">
         <h2 class="title1">Daily deal</h2>
         <div class="row1">
             <div class="col-2">
@@ -139,7 +143,7 @@ export default () => `
     </div>
     <!------------- best seller--------------->
 
-    <div class="small-container1">
+    <div class="small-container1 media-hide">
         <h2 class="title1">Best Seller</h2>
         <div class="row1">
             <div class="col-4">
