@@ -363,7 +363,7 @@ hr {
   max-width: 400px;
   padding: 0 20px;
   position: relative;
-  top: 120px;
+  top: 20px;
   transition: transform 1s;
 
 }
@@ -373,6 +373,12 @@ hr {
   margin: 10px 0;
   padding: 0 10px;
   border: 1px solid var(--mainGrey);
+}
+.simpleForm input {
+  margin-top: 5px;;
+}
+form #user-btn {
+  margin-top: 1px;
 }
 /* .form-container1 form input {
   width: 100%;

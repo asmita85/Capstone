@@ -26,6 +26,7 @@ function render(st = state.Home) {
   }
   addCartEventListeners();
   addPEventListeners();
+  ShopNowEventListener();
   local();
   searchEventListener();
   addLogInAndOutListener(state.User);
@@ -58,6 +59,10 @@ router
       } else if (formattedRoute === "Contact") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
+      } else if (formattedRoute === "AllProduct") {
+        let pieceOfState = state[formattedRoute];
+        render(pieceOfState);
+        ShopNowEventListener();
       } else if (formattedRoute === "Checkout") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
@@ -762,3 +767,32 @@ function displayItemDetail(image, title, price, id) {
   menuToggle();
 }
 //********************************** *END of ProductDetail* view**************//
+//**************** Shop now to all product link ***************************/
+function shopNowButton() {
+  let items = state.ProductDetail.items;
+  let category = ["Men", "Women", "Kids"];
+  render(state.AllProduct);
+  let page = document.querySelector(".products-center");
+  console.log(page);
+
+  for (let cat of category) {
+    items[cat].forEach(item => {
+      page.innerHTML += `
+        <div class="col-4 img-container" id="${item.sys.id}">
+                <a href="${cat}/${item.sys.id}" id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
+              <h4 class="selectedItem-title">${item.fields.title}</h4>
+              <p class="selectedItem-price">$${item.fields.price}</p>
+              </div>
+                `;
+    });
+  }
+}
+function ShopNowEventListener() {
+  const btnShopNow = document.getElementsByClassName("btn-shop");
+  console.log(btnShopNow);
+  for (let i = 0; i < btnShopNow.length; i++) {
+    let btn = btnShopNow[i];
+    console.log(btn);
+    btn.addEventListener("click", shopNowButton);
+  }
+}

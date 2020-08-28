@@ -17,7 +17,7 @@ export default () => `
                     This is the right place
                     Our Objective is to provide you
                     with a <b>Zen</b> experience</p>
-                    <a href="AllProduct" class="btn1 btn-shop">SHOP NOW →</a>
+                    <a href="/${"AllProduct"}" data-navigo class="btn1 btn-shop">SHOP NOW →</a>
                 </div>
             </div>
         </div>
@@ -107,7 +107,7 @@ export default () => `
     </div>
     <!----------sale with call to action button----------->
 
-    <div class="small-container1 media-hide">
+    <div class="small-container1 ">
         <h2 class="title1">Daily deal</h2>
         <div class="row1">
             <div class="col-2">
