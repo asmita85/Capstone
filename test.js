@@ -6,8 +6,8 @@
 
 // let showObj = function(products, page) {
 //   page.innerHTML = " ";
-//   console.log("I am in men printing");
-//   // console.log(products);
+//   ("I am in men printing");
+//   // (products);
 //   products.forEach(products => {
 //     page.innerHTML += `
 //             <div class="col-4 img-container">
@@ -22,33 +22,33 @@
 // let mainObj = {};
 // fetch("./products.json")
 //   .then(function(resp) {
-//     console.log(resp.json);
+//     (resp.json);
 //     return resp.json();
 //   })
 //   .then(function(data) {
-//     //console.log(data);
+//     //(data);
 //     mainObj = data;
 //     showObj(mainObj.menItems, mProducts);
 //   });
 
 // fetch("./products.json")
 //   .then(function(resp) {
-//     console.log(resp.json);
+//     (resp.json);
 //     return resp.json();
 //   })
 //   .then(function(data) {
-//     //console.log(data);
+//     //(data);
 //     mainObj = data;
 //     showObj(mainObj.womenItems, wProducts);
 //   });
 
 // fetch("./products.json")
 //   .then(function(resp) {
-//     console.log(resp.json);
+//     (resp.json);
 //     return resp.json();
 //   })
 //   .then(function(data) {
-//     //console.log(data);
+//     //(data);
 //     mainObj = data;
 //     showObj(mainObj.kidItems, kidProducts);
 //   });
@@ -61,16 +61,16 @@
 //     link.addEventListener("click", event => {
 //       event.preventDefault();
 //       let linkText = event.target.textContent;
-//       console.log(linkText);
+//       (linkText);
 //       if (linkText === "Men" || linkText === "Women" || linkText === "Kids") {
-//         console.log("I am in product");
+//         ("I am in product");
 //         let pieceOfState = state[linkText];
 //         menuItems.style.maxHeight = "0px";
 
 //         render(pieceOfState);
 //         addHtml(linkText);
 //       } else {
-//         console.log("I am not in product page");
+//         ("I am not in product page");
 //         render(state[linkText]);
 //       }
 //     });
@@ -129,3 +129,33 @@
 // //end of account validation
 
 // //end of menu
+//************************* Product Page ****************************/
+function addProductDetailListeners() {
+  const itemsToOpen = document.getElementsByClassName("img-container");
+  for (let i = 0; i < itemsToOpen.length; i++) {
+    let img = itemsToOpen[i];
+    img.addEventListener("click", addToCart);
+  }
+}
+//define the data from the item that we are clicking
+// function ItemToOpen(event) {
+//   let clickedImg = event.target;
+//   let itemToOpen = clickedImg.parentElement.parentElement;
+//   let image = itemToOpen.getElementsByClassName("selectedItem-img")[0].src;
+//   let price = itemToOpen.getElementsByClassName("selectedItem-price")[0]
+//     .innerText;
+//   let title = itemToOpen.getElementsByClassName("selectedItem-title")[0]
+//     .innerText;
+//   let id = itemToOpen.id;
+//   displayItemDetail(image, title, price, id);
+// }
+// //display the data of the clicked item in our product detail view
+// function displayItemDetail(image, title, price, id) {
+//   //render(state.Product);
+//   document.getElementsByClassName("main-img")[0].src = image;
+//   document.getElementsByClassName("title")[0].innerText = title;
+//   document.getElementsByClassName("price")[0].innerText = price;
+//   document.getElementsByClassName("selected-product")[0].id = id;
+//   menuToggle();
+// }
+// //********************************** *END of ProductDetail* view**************//

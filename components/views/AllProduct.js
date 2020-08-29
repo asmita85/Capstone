@@ -1,5 +1,5 @@
 export default () => `
-<div class="small-container1 ">
+<div class="small-container1 all-products-container ">
         <div class="row1 row2">
             <h2>All Products</h2>
             <select class="select">

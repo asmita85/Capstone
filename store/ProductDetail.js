@@ -7,7 +7,7 @@ export default {
         sys: { id: "1" },
         fields: {
           title: "Jacket",
-          price: 55.99,
+          price: 35.99,
           image: {
             fields: {
               file: {
@@ -70,7 +70,7 @@ export default {
         sys: { id: "4" },
         fields: {
           title: "Black Eyeglasses",
-          price: 199.99,
+          price: 9.99,
           image: {
             fields: {
               file: {
@@ -90,8 +90,8 @@ export default {
       {
         sys: { id: "5" },
         fields: {
-          title: "Gray Pant",
-          price: 82.99,
+          title: "Grey Pant",
+          price: 22.99,
           image: {
             fields: {
               file: {
@@ -111,19 +111,19 @@ export default {
       {
         sys: { id: "6" },
         fields: {
-          title: "Black Pant",
-          price: 88.99,
+          title: "White Tshirt",
+          price: 33.99,
           image: {
             fields: {
               file: {
                 url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-5.jpg?raw=true"
+                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true"
               },
               gal: [
-                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-5.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-7.jpg?raw=true"
+                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true",
+                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true",
+                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true",
+                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true"
               ]
             }
           }
@@ -166,27 +166,6 @@ export default {
                 "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-5.jpg?raw=true",
                 "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-5.jpg?raw=true",
                 "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-1.jpg?raw=true"
-              ]
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "9" },
-        fields: {
-          title: "White Tshirt",
-          price: 33.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true"
-              },
-              gal: [
-                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Men-Product/Mproduct-8.jpg?raw=true"
               ]
             }
           }
@@ -420,27 +399,6 @@ export default {
                 "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-34.jpg?raw=true",
                 "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-33.jpg?raw=true",
                 "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-42.jpg?raw=true"
-              ]
-            }
-          }
-        }
-      },
-      {
-        sys: { id: "12" },
-        fields: {
-          title: "White Flower Dress",
-          price: 100.99,
-          image: {
-            fields: {
-              file: {
-                url:
-                  "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true"
-              },
-              gal: [
-                "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wgallery12.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-9.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true",
-                "https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-9.jpg?raw=true"
               ]
             }
           }

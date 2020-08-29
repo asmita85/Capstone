@@ -27,17 +27,17 @@ export default () => `
         <div class="small-container1">
             <div class="row1">
                 <div class="col-3">
-                    <a href="Men">
+                    <a href="/${"Men"}" data-navigo>
                         <p>Men</p>
                     </a>
                 </div>
                 <div class="col-3">
-                    <a href="Women">
+                    <a href="/${"Women"}" data-navigo>
                         <p>Women</p>
                     </a>
                 </div>
                 <div class="col-3">
-                    <a href="Kids">
+                    <a href="/${"Kids"}" data-navigo>
                         <p>Kids</p>
                     </a>
                 </div>

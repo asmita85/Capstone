@@ -27,7 +27,8 @@ function render(st = state.Home) {
   addCartEventListeners();
   addPEventListeners();
   ShopNowEventListener();
-  local();
+  updateBlueCart();
+
   searchEventListener();
   addLogInAndOutListener(state.User);
   displayCartEvent();
@@ -56,6 +57,7 @@ router
         render(pieceOfState);
         addHtml(formattedRoute);
         sortPriceEventListener(params);
+        menuToggle();
       } else if (formattedRoute === "Contact") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
@@ -85,7 +87,6 @@ router
         render();
       }
       sortPriceEventListener(params);
-      local();
       menuToggle();
     }
   })
@@ -115,30 +116,32 @@ function addPEventListeners() {
       let pieceOfState = state[linkText];
       render(pieceOfState);
       addHtml(linkText);
-      //addProductDetailListeners();
       menuToggle();
     });
   });
 }
 //****** END of Add event for category button in Main page ****//
-
 //**************** *load product from json* ******************//
 function addHtml(item) {
   let items = state.ProductDetail.items;
   let page = document.querySelector(".products-center");
   let products = items[item];
-  products.forEach(products => {
+  products.forEach(product => {
     page.innerHTML += `
-        <div class="col-4 img-container" id="${products.sys.id}">
-                <a href="/${item}/${products.sys.id}" data-navigo id="selected" class="selected-item"><img src="${products.fields.image.fields.file.url}" class="selectedItem-img"></a>
-              <h4 class="selectedItem-title">${products.fields.title}</h4>
-              <p class="selectedItem-price">$${products.fields.price}</p>
+        <div class="col-4 img-container" id="${product.sys.id}">
+                <a data-navigo id="selected" class="selected-item"><img src="${product.fields.image.fields.file.url}" class="selectedItem-img"></a>
+              <h4 class="selectedItem-title">${product.fields.title}</h4>
+              <p class="selectedItem-price">$${product.fields.price}</p>
               </div>
                 `;
   });
+  products.map(curr => {
+    document.getElementById(`${curr.sys.id}`).addEventListener("click", () => {
+      router.navigate(`/${item}/${curr.sys.id}`);
+    });
+  });
 }
 //************** *End Of Json*  *******************************/
-
 //************* *Product Detail view* ************************//
 function renderProductDetails(params) {
   let cat = params.page;
@@ -155,8 +158,6 @@ function renderProductDetails(params) {
   //adding gallery from json
   let items = state.ProductDetail.items;
   let products = items[params.page][productIndex];
-  console.log(products);
-  console.log(products.fields.image.fields.gal);
   for (let i = 0; i < gallery.length; i++) {
     gallery[i].src = products.fields.image.fields.gal[i];
   }
@@ -170,12 +171,9 @@ function renderProductDetails(params) {
   }
 }
 //*********** end of Product Detail view* *************//
-
 //************ *Add Item to Cart* ********************//
-
-function displayCartEvent(i) {
+function displayCartEvent() {
   const cartLink = document.getElementsByClassName("cart-link");
-  console.log(cartLink);
   for (let i = 0; i < cartLink.length; i++) {
     let link = cartLink[i];
     link.addEventListener("click", addItemToCart);
@@ -185,26 +183,15 @@ function addCartEventListeners() {
   //add an item to cart
   // const addToCartButtons = document.getElementsByClassName("add-button");
   const buttons = [...document.querySelectorAll(".add-button")];
-  console.log(buttons);
-
   for (let i = 0; i < buttons.length; i++) {
     let button = buttons[i];
     button.addEventListener("click", addToCart);
   }
-
-  //clear
+  //clear storage
   const checkoutBtn = document.getElementsByClassName("checkout-btn");
   for (let i = 0; i < checkoutBtn.length; i++) {
     let button = checkoutBtn[i];
     button.addEventListener("click", clear);
-  }
-  //clear my cart after checkout
-  function clear(event) {
-    let button = event.target;
-    console.log(button);
-    localStorage.removeItem("cart");
-    updateBlueCart();
-    updateCart();
   }
   //remove an item
   const removeCartItem = document.getElementsByClassName("remove-item");
@@ -221,31 +208,24 @@ function addCartEventListeners() {
     updateCart();
   }
 }
+//clear my cart after checkout
+function clear(event) {
+  //let button = event.target;
+  localStorage.removeItem("cart");
+  updateBlueCart();
+}
 function removeItem(event) {
   //the link that we clicked on
   let clickedLink = event.target;
   //remove the parents
   clickedLink.parentElement.parentElement.parentElement.parentElement.remove();
   //remove the item from the storage
-  //remove the item from the storage
   let removedItem =
     clickedLink.parentElement.parentElement.parentElement.parentElement;
-  console.log(removedItem);
   let removedItemId = removedItem.getElementsByClassName("cart-row")[0].id;
-  console.log(removedItemId);
   let cartHistory = getCartHistory(cartHistory);
-  console.log(cartHistory);
-  // let foundItem = cartHistory.find(item => {
-  //   if (item.id === removedItemId) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // });
   cartHistory = cartHistory.filter(item => item.id !== removedItemId);
-  console.log(cartHistory);
   localStorage.setItem("cart", JSON.stringify(cartHistory));
-
   updateCart();
   updateBlueCart();
 }
@@ -257,12 +237,8 @@ function updateQuantity(event) {
   }
   //update the quantity in local storage if user change it in the cart page
   let cartHistory = getCartHistory(cartHistory);
-  console.log(cartHistory);
-  console.log(input);
-  console.log(input.value);
   let itemToUpdate = input.parentElement.parentElement;
   let idOfItemToUpdate = itemToUpdate.getElementsByClassName("cart-row")[0].id;
-  console.log(idOfItemToUpdate);
   let foundItem = cartHistory.find(item => {
     if (item.id === idOfItemToUpdate) {
       return true;
@@ -270,7 +246,6 @@ function updateQuantity(event) {
       return false;
     }
   });
-  console.log(foundItem);
   if (foundItem) {
     foundItem.quantity = input.value;
     localStorage.setItem("cart", JSON.stringify(cartHistory));
@@ -278,7 +253,6 @@ function updateQuantity(event) {
   updateCart();
   updateBlueCart();
 }
-//to be continued clear locale
 //get data
 function getCartHistory(cartHistory) {
   cartHistory = localStorage.getItem("cart")
@@ -290,21 +264,14 @@ function getCartHistory(cartHistory) {
 function addToCart(event) {
   let cart = [];
   let button = event.target;
-  console.log(button);
   let itemToAdd = button.parentElement.parentElement;
   let title = itemToAdd.getElementsByClassName("title")[0].innerText;
-  console.log(title);
   let price = itemToAdd.getElementsByClassName("price")[0].innerText;
-  console.log(price);
   let mainImage = itemToAdd.getElementsByClassName("main-img")[0].src;
-  console.log(mainImage);
   let quantity = itemToAdd.getElementsByClassName("selected-quantity")[0].value;
-  console.log(quantity);
   let size = itemToAdd.getElementsByClassName("selected-size")[0].value;
   let dataId = itemToAdd.getElementsByClassName("add-button")[0].id;
-  console.log(dataId);
   let id = document.getElementById(dataId).id;
-  console.log(id);
   //get item from the button
   cart = {
     id: dataId,
@@ -316,7 +283,6 @@ function addToCart(event) {
   };
   //check if item is already in cart
   let cartHistory = getCartHistory(cartHistory);
-  console.log(cartHistory);
   let itemInCart = cartHistory.find(item => {
     if (item.id === cart.id) {
       return true;
@@ -328,7 +294,6 @@ function addToCart(event) {
   localStorage.setItem("cartQuantity", JSON.stringify(quantityTotal));
   //if in cart update quantity
   if (itemInCart) {
-    console.log("item already in cart");
     //update the existing item quantity only
     itemInCart.quantity =
       parseFloat(itemInCart.quantity) + parseFloat(quantity);
@@ -339,25 +304,17 @@ function addToCart(event) {
     for (let item of cartHistory) {
       let quantityOfEachItem = item.quantity;
       quantityTotal = quantityTotal + parseFloat(quantityOfEachItem);
-      console.log(quantityTotal);
     }
     //set the quantity of each item
     localStorage.setItem("cartQuantity", JSON.stringify(quantityTotal));
   } else {
     //item not in cart adding it
-    console.log("item not in cart");
     cartHistory = [...cartHistory, cart];
     // or cartHistory.push(cart);
     localStorage.setItem("cart", JSON.stringify(cartHistory));
-    //update the cart quantity
-    // cartHistory = localStorage.getItem("cart")
-    //   ? JSON.parse(localStorage.getItem("cart"))
-    //   : [];
-    console.log(cartHistory);
     for (let item of cartHistory) {
       let quantityOfEachItem = item.quantity;
       quantityTotal = quantityTotal + parseFloat(quantityOfEachItem);
-      console.log(quantityTotal);
     }
     localStorage.setItem("cartQuantity", JSON.stringify(quantityTotal));
     alert("your item has been added to your cart  ");
@@ -372,25 +329,19 @@ function updateBlueCart() {
   for (let item of cartHistory) {
     let quantityOfEachItem = item.quantity;
     quantityTotal += parseFloat(quantityOfEachItem);
-    console.log(quantityTotal);
   }
   localStorage.setItem("cartQuantity", JSON.stringify(quantityTotal));
-  //update cart number
   document.getElementsByClassName("shopping-cart")[0].innerText = quantityTotal;
 }
 //*****************End of storage ***************************** //
 //************** display the item in cart **********************//
 function addItemToCart() {
   render(state.Cart);
-  //ge the final cart
   let cartHistory = localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
     : [];
-  console.log(cartHistory);
-  console.log("I am here I should now open cart");
   cartHistory.forEach(product => {
     const newCartItems = document.getElementsByClassName("cart-table")[0];
-    console.log(newCartItems);
     let cartRow = document.createElement("tr");
     cartRow.classList.add("cart-item2");
     cartRow.innerHTML = "";
@@ -438,8 +389,6 @@ function updateCart() {
   let quantityTotal = 0;
   let tax = 7.55;
   let cartHistory = getCartHistory(cartHistory);
-  console.log(cartHistory);
-  console.log("I am here I should now open cart");
   cartRows = document.getElementsByClassName("cart-items");
   document.getElementsByClassName("order-tax")[0].innerText = "$" + tax;
   for (let i = 0; i < cartHistory.length; i++) {
@@ -447,7 +396,6 @@ function updateCart() {
     let priceOfEachItem = product.price;
     let quantityOfEachItem = product.quantity;
     let subtotalOfEachItem = priceOfEachItem * quantityOfEachItem;
-    console.log(subtotalOfEachItem);
     subtotalOfEachItem = Math.round(subtotalOfEachItem * 100) / 100;
     document.getElementsByClassName("subtotal-item")[
       i
@@ -462,13 +410,10 @@ function updateCart() {
   for (let i = 0; i < cartRows.length; i++) {
     let cartRow = cartRows[i];
     let itemPrice = cartRow.getElementsByClassName("cart-price")[0];
-    console.log(itemPrice);
     let itemQuantity = cartRow.getElementsByClassName("cart-quantity")[0];
-    console.log(itemQuantity);
     let price = parseFloat(itemPrice.innerText.replace("$", ""));
     let quantity = parseFloat(itemQuantity.value);
     quantityTotal = quantityTotal + quantity;
-    console.log(quantityTotal);
     let subtotalItem = price * quantity;
     document.getElementsByClassName("subtotal-item")[i].innerText =
       Math.round(subtotalItem * 100) / 100;
@@ -489,15 +434,6 @@ function updateCart() {
   }
 }
 //****************** END Update the cart ******************** **********//
-//******** */ update the shopping cart **********************************//
-function local() {
-  //update out nav shopping cart
-  document.getElementsByClassName(
-    "shopping-cart"
-  )[0].innerHTML = localStorage.getItem("cartQuantity");
-}
-//*********** *End Of Cart* **********************************************//
-
 //**************** search bar ***************************/
 function findSearchedWord(event) {
   let items = state.ProductDetail.items;
@@ -512,7 +448,7 @@ function findSearchedWord(event) {
       if (output.includes(searchedWord.toLowerCase())) {
         page.innerHTML += `
         <div class="col-4 img-container" id="${item.sys.id}">
-                <a href="${cat}/${item.sys.id}" id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
+                <a href="${cat}/${item.sys.id}" data-navigo id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
               <h4 class="selectedItem-title">${item.fields.title}</h4>
               <p class="selectedItem-price">$${item.fields.price}</p>
               </div>
@@ -520,7 +456,6 @@ function findSearchedWord(event) {
       }
     });
   }
-  renderProductDetails();
 }
 function searchEventListener() {
   const search = document.getElementsByClassName("search");
@@ -544,8 +479,6 @@ function sortPriceEventListener(params) {
     let price = parseFloat(itemPrice.replace("$", ""));
     arr.push({ id: i + 1, price: price, title: title, image: image });
   }
-  let arr1 = arr;
-  console.log(arr1);
   const dropDown = document.getElementsByClassName("select");
   for (let i = 0; i < dropDown.length; i++) {
     let sortOption = dropDown[i];
@@ -556,8 +489,6 @@ function sortPriceEventListener(params) {
         const sortedArrLow = arr.sort(function(a, b) {
           return a.price - b.price;
         });
-        console.log(sortedArrLow);
-        console.log("low price sort needed");
         document.querySelector(".products-center").innerHTML = "";
         let p = document.querySelector(".products-center");
         sortedArrLow.forEach(item => {
@@ -573,9 +504,7 @@ function sortPriceEventListener(params) {
         const sortedArrHigh = arr.sort(function(a, b) {
           return b.price - a.price;
         });
-        console.log(sortedArrHigh);
         document.querySelector(".products-center").innerHTML = "";
-        console.log("high price sort needed ");
         let p = document.querySelector(".products-center");
         sortedArrHigh.forEach(item => {
           p.innerHTML += `
@@ -594,25 +523,16 @@ function sortPriceEventListener(params) {
 ///************* firebase for cart *****************************//
 function listenForCart() {
   let btn = document.getElementById("add-button");
-  console.log("I adding iteem");
   btn.addEventListener("click", event => {
     event.preventDefault();
     let title = document.getElementsByClassName("title")[0].innerText;
-    console.log(title);
     let price = document.getElementsByClassName("price")[0].innerText;
-    console.log(price);
     let mainImage = document.getElementsByClassName("main-img")[0].src;
-    console.log(mainImage);
     let quantity = document.getElementsByClassName("selected-quantity")[0]
       .value;
-    console.log(quantity);
     let size = document.getElementsByClassName("selected-size")[0].value;
-    console.log(size);
     //create user in Firebase
     auth.createUserWithEmailAndPassword(email, password).then(response => {
-      console.log("user registered");
-      console.log(response);
-      console.log(response.user);
       addUserToStateAndDb(name, email, password);
       render(state.Home);
     });
@@ -654,7 +574,6 @@ function addUserToStateAndDb(name, email, pass) {
 // *********************verify data and sign in********************//
 function listenForSignIn() {
   let btn = document.getElementById("user-btn1");
-  console.log(btn);
   btn.addEventListener("click", event => {
     event.preventDefault();
     // convert HTML elements to Array
@@ -737,62 +656,37 @@ function listenForAuthChange() {
   auth.onAuthStateChanged(user => (user ? console.log(user) : ""));
 }
 //************* end log in log out************************************/
-//************************* Product Page ****************************/
-function addProductDetailListeners() {
-  const itemsToOpen = document.getElementsByClassName("img-container");
-  for (let i = 0; i < itemsToOpen.length; i++) {
-    let img = itemsToOpen[i];
-    img.addEventListener("click", ItemToOpen);
-  }
-}
-//define the data from the item that we are clicking
-function ItemToOpen(event) {
-  let clickedImg = event.target;
-  let itemToOpen = clickedImg.parentElement.parentElement;
-  let image = itemToOpen.getElementsByClassName("selectedItem-img")[0].src;
-  let price = itemToOpen.getElementsByClassName("selectedItem-price")[0]
-    .innerText;
-  let title = itemToOpen.getElementsByClassName("selectedItem-title")[0]
-    .innerText;
-  let id = itemToOpen.id;
-  displayItemDetail(image, title, price, id);
-}
-//display the data of the clicked item in our product detail view
-function displayItemDetail(image, title, price, id) {
-  //render(state.Product);
-  document.getElementsByClassName("main-img")[0].src = image;
-  document.getElementsByClassName("title")[0].innerText = title;
-  document.getElementsByClassName("price")[0].innerText = price;
-  document.getElementsByClassName("selected-product")[0].id = id;
-  menuToggle();
-}
-//********************************** *END of ProductDetail* view**************//
-//**************** Shop now to all product link ***************************/
+
+//**************** Front page Shop now link to all product  ***************************/
 function shopNowButton() {
   let items = state.ProductDetail.items;
   let category = ["Men", "Women", "Kids"];
   render(state.AllProduct);
   let page = document.querySelector(".products-center");
-  console.log(page);
-
   for (let cat of category) {
     items[cat].forEach(item => {
       page.innerHTML += `
         <div class="col-4 img-container" id="${item.sys.id}">
-                <a href="${cat}/${item.sys.id}" id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
+                <a data-navigo id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
               <h4 class="selectedItem-title">${item.fields.title}</h4>
               <p class="selectedItem-price">$${item.fields.price}</p>
               </div>
                 `;
     });
+    items[cat].map(curr => {
+      document
+        .getElementById(`${curr.sys.id}`)
+        .addEventListener("click", () => {
+          router.navigate(`/${cat}/${curr.sys.id}`);
+        });
+    });
   }
 }
 function ShopNowEventListener() {
   const btnShopNow = document.getElementsByClassName("btn-shop");
-  console.log(btnShopNow);
   for (let i = 0; i < btnShopNow.length; i++) {
     let btn = btnShopNow[i];
-    console.log(btn);
     btn.addEventListener("click", shopNowButton);
   }
 }
+//**************** ENDShop now to all product link ***************************/
