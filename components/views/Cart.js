@@ -1,6 +1,6 @@
 export default () => `
-<div class="small-container1 cart">
-        <table  class="cart-table">
+<div class="small-container1 cart" id="cart">
+        <table  class="cart-table" id="cart-table">
             <tr>
                 <th>Product</th>
                 <th>quantity</th>
@@ -10,8 +10,8 @@ export default () => `
 
             </div>
         </table>
-        <div class="main-total">
-            <table>
+        <div class="main-total" id="main-total">
+            <table id="table-total">
                 <tr>
                     <td>Subtotal</td>
                     <td class="order-subtotal"></td>
@@ -29,7 +29,7 @@ export default () => `
         <div class="checkout1">
             <div class="checkout">
                 <a href="/" data-navigo class="btn1">Continue Shopping</a>
-                <a href="/${"Checkout"}" data-navigo class="btn1 checkout-btn" >Checkout Now</a>
+                <a href="/${"Checkout"}" data-navigo class="btn1 checkout-btn" id="checkout-btn">Checkout Now</a>
             </div>
         </div>
     </div>

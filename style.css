@@ -618,6 +618,10 @@ form.wrong-input {
   display: none;
 }
 
+.footer-col-4 li {
+padding-bottom: 5px;
+}
+
 /*****All product page ********/
 .row2 {
   justify-content: space-between;
@@ -833,7 +837,20 @@ th:last-child {
   display: flex;
   justify-content: flex-end;
 }
-
+.cart-empty {
+  font-size: 24px;
+  justify-content: center;
+  display: flex;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding-bottom: 60px;
+}
+.cart-empty p {
+  font-weight: 25px;
+}
+#disabled-span {
+  cursor: default;
+}
 /************** sign up ***************/
 .form-sign-up {
   width: 350px;

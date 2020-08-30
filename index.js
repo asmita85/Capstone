@@ -5,12 +5,13 @@ import { capitalize, compact, drop, indexOf } from "lodash";
 import { auth, db } from "./firebase";
 const cartItems = db.collection("cart");
 
-//loading the page before calling the js
-if (document.readyState == "loading") {
-  document.addEventListener("DOMContentLoaded", addCartEventListeners());
-} else {
-  addCartEventListeners();
-}
+//Loading the page before calling the js
+// if (document.readyState == "loading") {
+//   document.addEventListener("DOMContentLoaded", addCartEventListeners());
+// } else {
+//   addCartEventListeners();
+// }
+
 function render(st = state.Home) {
   document.querySelector("#root").innerHTML = `
   ${Header(st)}
@@ -26,23 +27,21 @@ function render(st = state.Home) {
   }
   addCartEventListeners();
   addPEventListeners();
-  ShopNowEventListener();
+  shopNowEventListener();
   updateBlueCart();
-
   searchEventListener();
   addLogInAndOutListener(state.User);
   displayCartEvent();
   menuToggle();
 }
 //*************** END Of Render ******************//
-//*************** Navigo and Router **************//
+//*************** Navigo And Router **************//
 
 const router = new Navigo(window.location.origin);
 router
   .on({
     "/": () => {
       render(state.Home);
-      //menuToggle();
     },
     ":page/:id": params => renderProductDetails(params),
     ":page": params => {
@@ -57,43 +56,42 @@ router
         render(pieceOfState);
         addHtml(formattedRoute);
         sortPriceEventListener(params);
-        menuToggle();
+        //menuToggle();
       } else if (formattedRoute === "Contact") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
       } else if (formattedRoute === "AllProduct") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
-        ShopNowEventListener();
+        //ShopNowEventListener();
       } else if (formattedRoute === "Checkout") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
       } else if (formattedRoute === "Cart") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
-        displayCartEvent();
+        //displayCartEvent();
         addCartEventListeners();
-        addLogInAndOutListener(state.User);
+        //addLogInAndOutListener(state.User);
       } else if (formattedRoute === "Search") {
         render(state.Search);
       } else if (formattedRoute === "Account") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
-        listenForRegister();
-        listenForSignIn();
-        addLogInAndOutListener(state.User);
-        listenForAuthChange();
+        //listenForRegister();
+        //listenForSignIn();
+        //addLogInAndOutListener(state.User);
+        //listenForAuthChange();
       } else {
         render();
       }
-      sortPriceEventListener(params);
-      menuToggle();
+      //menuToggle();
     }
   })
   .resolve();
-//********* End OF Navigo and Router **************************//
+//********* End OF Navigo And Router **************************//
 
-//************** *menu toggle function* **********************//
+//*************** Menu Toggle Function* **********************//
 function menuToggle() {
   const menuItems = document.getElementById("menu-item");
   menuItems.style.maxHeight = "0px";
@@ -107,7 +105,7 @@ function menuToggle() {
   });
 }
 //************** *End Of menu toggle function* ****************//
-//********* Add event for category button in Main page ********//
+//********* Add Event For Category Button In Main Page ********//
 function addPEventListeners() {
   document.querySelectorAll(" div a p ").forEach(link => {
     link.addEventListener("click", event => {
@@ -120,8 +118,42 @@ function addPEventListeners() {
     });
   });
 }
-//****** END of Add event for category button in Main page ****//
-//**************** *load product from json* ******************//
+//****** END of Add Event For Categories Button In Main Page ****//
+//**************** Front Page Shop Now Link To All Product  ***************************/
+function shopNowButton() {
+  let items = state.ProductDetail.items;
+  let category = ["Men", "Women", "Kids"];
+  render(state.AllProduct);
+  let page = document.querySelector(".products-center");
+  for (let cat of category) {
+    items[cat].forEach(item => {
+      page.innerHTML += `
+        <div class="col-4 img-container" id="${item.sys.id}">
+                <a data-navigo id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
+              <h4 class="selectedItem-title">${item.fields.title}</h4>
+              <p class="selectedItem-price">$${item.fields.price}</p>
+              </div>
+                `;
+    });
+    items[cat].map(curr => {
+      document
+        .getElementById(`${curr.sys.id}`)
+        .addEventListener("click", () => {
+          //event.preventDefault();
+          router.navigate(`/${cat}/${curr.sys.id}`);
+        });
+    });
+  }
+}
+function shopNowEventListener() {
+  const btnShopNow = document.getElementsByClassName("btn-shop");
+  for (let i = 0; i < btnShopNow.length; i++) {
+    let btn = btnShopNow[i];
+    btn.addEventListener("click", shopNowButton);
+  }
+}
+//**************** END Shop Now To All Product Link ***************************/
+//***************** Load Product From Json* ******************//
 function addHtml(item) {
   let items = state.ProductDetail.items;
   let page = document.querySelector(".products-center");
@@ -141,7 +173,7 @@ function addHtml(item) {
     });
   });
 }
-//************** *End Of Json*  *******************************/
+//************** *End Of Products From Json*  *******************************/
 //************* *Product Detail view* ************************//
 function renderProductDetails(params) {
   let cat = params.page;
@@ -176,7 +208,10 @@ function displayCartEvent() {
   const cartLink = document.getElementsByClassName("cart-link");
   for (let i = 0; i < cartLink.length; i++) {
     let link = cartLink[i];
-    link.addEventListener("click", addItemToCart);
+    link.addEventListener("click", () => {
+      addItemToCart();
+      document.documentElement.scrollTop = 0;
+    });
   }
 }
 function addCartEventListeners() {
@@ -271,7 +306,6 @@ function addToCart(event) {
   let quantity = itemToAdd.getElementsByClassName("selected-quantity")[0].value;
   let size = itemToAdd.getElementsByClassName("selected-size")[0].value;
   let dataId = itemToAdd.getElementsByClassName("add-button")[0].id;
-  let id = document.getElementById(dataId).id;
   //get item from the button
   cart = {
     id: dataId,
@@ -337,9 +371,7 @@ function updateBlueCart() {
 //************** display the item in cart **********************//
 function addItemToCart() {
   render(state.Cart);
-  let cartHistory = localStorage.getItem("cart")
-    ? JSON.parse(localStorage.getItem("cart"))
-    : [];
+  let cartHistory = getCartHistory(cartHistory);
   cartHistory.forEach(product => {
     const newCartItems = document.getElementsByClassName("cart-table")[0];
     let cartRow = document.createElement("tr");
@@ -383,54 +415,40 @@ function addItemToCart() {
 //************** END display the item in cart **********************//
 //****************** Update the cart ******************** **********//
 function updateCart() {
-  let cartRows = document.getElementsByClassName("cart-items");
   let subtotal = 0;
   let total = 0;
-  let quantityTotal = 0;
   let tax = 7.55;
   let cartHistory = getCartHistory(cartHistory);
-  cartRows = document.getElementsByClassName("cart-items");
   document.getElementsByClassName("order-tax")[0].innerText = "$" + tax;
   for (let i = 0; i < cartHistory.length; i++) {
     let product = cartHistory[i];
-    let priceOfEachItem = product.price;
-    let quantityOfEachItem = product.quantity;
-    let subtotalOfEachItem = priceOfEachItem * quantityOfEachItem;
-    subtotalOfEachItem = Math.round(subtotalOfEachItem * 100) / 100;
+    let subtotalOfEachItem =
+      Math.round(product.price * product.quantity * 100) / 100;
     document.getElementsByClassName("subtotal-item")[
       i
     ].textContent = subtotalOfEachItem;
-    subtotal = subtotal + subtotalOfEachItem;
-    subtotal = Math.round(subtotal * 100) / 100;
+    subtotal = Math.round((subtotal + subtotalOfEachItem) * 100) / 100;
+    // subtotal = Math.round(subtotal * 100) / 100;
     document.getElementsByClassName("order-subtotal")[0].innerText =
       "$" + subtotal;
     total = Math.round((subtotal + tax) * 100) / 100;
     document.getElementsByClassName("order-total")[0].innerText = "$" + total;
   }
-  for (let i = 0; i < cartRows.length; i++) {
-    let cartRow = cartRows[i];
-    let itemPrice = cartRow.getElementsByClassName("cart-price")[0];
-    let itemQuantity = cartRow.getElementsByClassName("cart-quantity")[0];
-    let price = parseFloat(itemPrice.innerText.replace("$", ""));
-    let quantity = parseFloat(itemQuantity.value);
-    quantityTotal = quantityTotal + quantity;
-    let subtotalItem = price * quantity;
-    document.getElementsByClassName("subtotal-item")[i].innerText =
-      Math.round(subtotalItem * 100) / 100;
-    subtotal = subtotal + subtotalItem;
-  }
-  subtotal = Math.round(subtotal * 100) / 100;
-  document.getElementsByClassName("order-subtotal")[0].innerText =
-    "$" + subtotal;
-  total = Math.round((subtotal + tax) * 100) / 100;
-
   if (subtotal != 0) {
     document.getElementsByClassName("order-tax")[0].innerText = "$" + tax;
     document.getElementsByClassName("order-total")[0].innerText = "$" + total;
   } else {
+    document.getElementsByClassName("order-subtotal")[0].innerText = "$" + 0;
     document.getElementsByClassName("order-tax")[0].innerText = "$" + 0;
     document.getElementsByClassName("order-total")[0].innerText = "$" + 0;
     document.getElementsByClassName("shopping-cart")[0].innerText = 0;
+    document.getElementById("table-total").remove();
+    document.getElementById("cart-table").remove();
+    let child = document.createElement("p");
+    child.classList.add("cart-empty");
+    child.innerHTML = "Your Cart is Empty";
+    document.getElementById("main-total").appendChild(child);
+    document.getElementById("checkout-btn").removeAttribute("href");
   }
 }
 //****************** END Update the cart ******************** **********//
@@ -483,39 +501,27 @@ function sortPriceEventListener(params) {
   for (let i = 0; i < dropDown.length; i++) {
     let sortOption = dropDown[i];
     sortOption.addEventListener("change", function(event) {
-      //determine the event
       let sort = event.target.value;
-      if (sort === "select-price-low") {
-        const sortedArrLow = arr.sort(function(a, b) {
+      arr = arr.sort(function(a, b) {
+        if (sort === "select-price-low") {
           return a.price - b.price;
-        });
-        document.querySelector(".products-center").innerHTML = "";
-        let p = document.querySelector(".products-center");
-        sortedArrLow.forEach(item => {
-          p.innerHTML += `
-            <div class="col-4 img-container" id="${item.id}">
-                    <a href="/${params.page}/${item.id}" data-navigo id="selected" class="selected-item" ><img src="${item.image}" class="selectedItem-img"></a>
-                  <h4 class="selectedItem-title">${item.title}</h4>
-                  <p class="selectedItem-price">$${item.price}</p>
-                  </div>
-                    `;
-        });
-      } else if (sort === "select-price-high") {
-        const sortedArrHigh = arr.sort(function(a, b) {
+        }
+        if (sort === "select-price-high") {
           return b.price - a.price;
-        });
-        document.querySelector(".products-center").innerHTML = "";
-        let p = document.querySelector(".products-center");
-        sortedArrHigh.forEach(item => {
-          p.innerHTML += `
+        }
+      });
+      document.getElementById("disabled").disabled = true;
+      document.querySelector(".products-center").innerHTML = "";
+      let page = document.querySelector(".products-center");
+      arr.forEach(item => {
+        page.innerHTML += `
             <div class="col-4 img-container" id="${item.id}">
                     <a href="/${params.page}/${item.id}" data-navigo id="selected" class="selected-item" ><img src="${item.image}" class="selectedItem-img"></a>
                   <h4 class="selectedItem-title">${item.title}</h4>
                   <p class="selectedItem-price">$${item.price}</p>
                   </div>
                     `;
-        });
-      }
+      });
     });
   }
 }
@@ -656,37 +662,3 @@ function listenForAuthChange() {
   auth.onAuthStateChanged(user => (user ? console.log(user) : ""));
 }
 //************* end log in log out************************************/
-
-//**************** Front page Shop now link to all product  ***************************/
-function shopNowButton() {
-  let items = state.ProductDetail.items;
-  let category = ["Men", "Women", "Kids"];
-  render(state.AllProduct);
-  let page = document.querySelector(".products-center");
-  for (let cat of category) {
-    items[cat].forEach(item => {
-      page.innerHTML += `
-        <div class="col-4 img-container" id="${item.sys.id}">
-                <a data-navigo id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
-              <h4 class="selectedItem-title">${item.fields.title}</h4>
-              <p class="selectedItem-price">$${item.fields.price}</p>
-              </div>
-                `;
-    });
-    items[cat].map(curr => {
-      document
-        .getElementById(`${curr.sys.id}`)
-        .addEventListener("click", () => {
-          router.navigate(`/${cat}/${curr.sys.id}`);
-        });
-    });
-  }
-}
-function ShopNowEventListener() {
-  const btnShopNow = document.getElementsByClassName("btn-shop");
-  for (let i = 0; i < btnShopNow.length; i++) {
-    let btn = btnShopNow[i];
-    btn.addEventListener("click", shopNowButton);
-  }
-}
-//**************** ENDShop now to all product link ***************************/

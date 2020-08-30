@@ -3,19 +3,16 @@ export default () => `
         <div class="row1 row2">
             <h2>All Women Products</h2>
             <select class="select">
-            <option value="select-default">Sort By Default</option>
+            <option value="select-price-low" id="disabled">Sort</option>
             <option value="select-price-low">Price (Low-High)</option>
             <option value="select-price-high">Price (High-Low)</option>
-            <option value="select-rating">Sort rating</option>
-            </select>
+             </select>
         </div>
         <div class="row1 products-center">
         </div>
             <div class="pages-btn">
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4→</span>
+            <span>1</span>
+            <span id="disabled-span">→</span>
             </div>
             </div>
             `;

@@ -431,7 +431,7 @@ export default {
         sys: { id: "1" },
         fields: {
           title: "Dress",
-          price: 10.99,
+          price: 12.99,
           image: {
             fields: {
               file: {
@@ -452,7 +452,7 @@ export default {
         sys: { id: "2" },
         fields: {
           title: "Girls Dress",
-          price: 12.99,
+          price: 8.99,
           image: {
             fields: {
               file: {
@@ -473,7 +473,7 @@ export default {
         sys: { id: "3" },
         fields: {
           title: "Eyeglasses",
-          price: 12.99,
+          price: 16.99,
           image: {
             fields: {
               file: {
@@ -536,7 +536,7 @@ export default {
         sys: { id: "6" },
         fields: {
           title: "Set Short Shirt",
-          price: 79.99,
+          price: 5.99,
           image: {
             fields: {
               file: {

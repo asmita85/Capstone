@@ -4,20 +4,23 @@ export default () => `
     <div class="container1">
         <div class="row1">
             <div class="footer-col-4">
-                <h3>customer service</h3>
+                <h3>HELP</h3>
                 <ul>
-                    <li>return</li>
-                    <li>shipping</li>
+                    <li>Contact Us</li>
+                    <li>Shipping</li>
+                    <li>Return</li>
                     <li>FAQ</li>
-                    <li>order</li>
                 </ul>
             </div>
+            <a> </a>
+
             <div class="footer-col-4">
-                <h3>Our App</h3>
+                <h3>CUSTOMER Service</h3>
                 <ul>
-                    <li>facebook</li>
-                    <li>twitter</li>
-                    <li>instagram</li>
+                    <li>Track My Order</li>
+                    <li>Order Status</li>
+                    <li>Return My Order</li>
+                    <li>Contact Us</li>
                 </ul>
             </div>
             <div class="footer-col-2">
@@ -25,7 +28,7 @@ export default () => `
                     <img src="https://github.com/asmita85/Capstone/blob/master/images/header/finallogo.png?raw=true">
                 </div>
                 <div>
-                    <a href="">Our Story Click here</a>
+                <a> </a>
                 </div>
             </div>
             <div class="footer-col-1">

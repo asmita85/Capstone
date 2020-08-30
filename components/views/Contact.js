@@ -44,7 +44,7 @@ export default () => `
                 </optgroup>
                 <option value="other">Other</option>
                 </select>
-                <input type="submit" value="Submit" class="btn1">
+                <input type="submit" value="Submit" class="btn1 contact-btn" >
                 </form>
              </div>
   </div>
