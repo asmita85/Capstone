@@ -26,11 +26,11 @@ function render(st = state.Home) {
     listenForAuthChange();
   }
   addToCartEventListeners();
+  displayCartEvent();
   addPEventListeners();
   shopNowEventListener();
   updateBlueCart();
   addLogInAndOutListener(state.User);
-  displayCartEvent();
   searchEventListener();
   menuToggle();
 }
@@ -60,6 +60,7 @@ router
       } else if (formattedRoute === "Contact") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
+        router.navigate("/Contact");
       } else if (formattedRoute === "AllProduct") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
@@ -69,6 +70,9 @@ router
       } else if (formattedRoute === "Cart") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
+        addToCartEventListeners();
+        displayCartEvent();
+        displayItemInCart();
       } else if (formattedRoute === "Search") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
@@ -301,7 +305,8 @@ function displayCartEvent() {
   }
 }
 function displayItemInCart() {
-  render(state.Cart);
+  //render(state.Cart);
+  //router.navigate("/Cart");
   let cartHistory = getCartHistory(cartHistory);
   cartHistory.forEach(product => {
     const newCartItems = document.getElementsByClassName("cart-table")[0];
@@ -393,6 +398,7 @@ function findSearchedWord(event) {
   let items = state.ProductDetail.items;
   let input = event.target;
   let arr = [];
+  let i = 0;
   let category = ["Men", "Women", "Kids"];
   render(state.Search);
   for (let cat of category) {
@@ -401,6 +407,7 @@ function findSearchedWord(event) {
       const searchedWord = input.value;
       let page = document.querySelector(".products-center");
       if (output.includes(searchedWord.toLowerCase())) {
+        i += 1;
         page.innerHTML += `
         <div class="col-4 img-container goToProductDetails${index}" id="${cat}${item.sys.id}">
                 <a  data-navigo id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
@@ -408,7 +415,9 @@ function findSearchedWord(event) {
               <p class="selectedItem-price">$${item.fields.price}</p>
               </div>
                 `;
-
+        document.getElementsByClassName(
+          "search-result"
+        )[0].innerHTML = `We have found <b style="color:red">${i}</b> results for ${searchedWord}`;
         arr.push({
           cat: `${cat}`,
           id: `${item.sys.id}`,

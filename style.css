@@ -571,7 +571,7 @@ select:focus {
 } */
 .img-row1 {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
 }
@@ -636,6 +636,7 @@ select:focus {
   border: 1px solid var(--mainGrey);
   padding-left: 15px;
   font-size: 20px;
+
 }
 input:focus {
   outline: none;

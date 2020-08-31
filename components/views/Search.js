@@ -1,7 +1,7 @@
 export default () => `
 <div class="small-container1 ">
         <div class="row1 row2">
-            <h2>search</h2>
+            <h2 class="search-result">Search</h2>
         </div>
         <div class="row1 products-center">
 
