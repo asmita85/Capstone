@@ -337,7 +337,7 @@ header2 {
 .form-container1 {
   background-color: white;
   width: 400px;
-  height: 500px;
+  height: 600px;
   position: relative;
   text-align: center;
   padding: 20px 0;
@@ -380,28 +380,11 @@ hr {
 form #user-btn {
   margin-top: 1px;
 }
-/* .form-container1 form input {
-  width: 100%;
-  height: 40px;
-  margin: 10px 0;
-  padding: 0 10px;
-  border: 1px solid #555;
-} */
 form textarea {
   width: 100%;
   border: 1px solid var(--mainGrey);
   outline: none;
-
-
 }
-
-/* form.input-box {
-  height: 40px;
-  margin: 10px 0;
-  padding: 0 10px;
-  border: 1px solid var(--mainGrey);
-} */
-
 button {
   color: var(--mainWhite);
   width: 100%;
@@ -413,122 +396,30 @@ button {
   outline: none;
   cursor: pointer;
 }
-
 form.btn1 {
   width: 100%;
   border: none;
   cursor: pointer;
   margin: 10px 0;
 }
-
 form .btn:focus {
   outline: none;
 }
-
- /* #formLogin {
-  transform: translateX(0px);
-}
-
-#formRegister {
-  transform: translateX(0px);
-
-} */
 form a {
   font-size: 15px;
   text-transform: capitalize;
   font-weight: bold;
 }
-
 form a:hover {
   color: red;
 }
 
-/* #indicator1 {
-  width: 100px;
-  height: 2px;
-  background: red;
-  border: none;
-  transform: translateX(100px);
-  transition: transform 1s;
-} */
-/* .account {
-  padding: 50px 0;
-  background-color: rgb(245, 236, 225);
-}
-.form-container1 {
-  background-color: white;
-  width: 300px;
-  height: 400px;
-  position: relative;
-  text-align: center;
-  padding: 20px 0;
-  margin: auto;
-  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-
-}
-.form-container1 span {
-  font-weight: bold;
-  padding: 0 10px;
-  color: #555;
-  display: inline-block;
-  cursor: pointer;
-  width: 100px;
-}
-.form-btn1 {
-  display: inline-block;
-}
-.form-container1 form {
-  max-width: 300px;
-  padding: 0 20px;
-  position: relative;
-  top: 130px;
-  transition: transform 1s;
-
-}
-
-form input {
-  width: 100%;
-  height: 40px;
-  margin: 10px 0;
-  padding: 0 10px;
-  border: 1px solid #555;
-}
-form.btn1 {
-  width: 100%;
-  border: none;
-  cursor: pointer;
-  margin: 10px 0;
-}
-
-form .btn:focus{
-  outline: none;
-}
-#formLogin {
-  transform: translateX(-300px);
-
-
-}
-#formRegister {
-  transform: translateX(0px);
-
-}
-form a {
-  font-size: 20px;
-}
-#indicator1 {
-  width: 100px;
-  height: 2px;
-  background: red;
-  border: none;
-  transform: translateX(100px);
-  transition: transform 1s;
-} */
 form.wrong-input {
   width: 100%;
   height: 40px;
   margin: 10px 0;
   padding: 0 10px;
+  font-size: 1px;
   border: 1px solid red;
   outline: none;
 }
@@ -920,14 +811,15 @@ hr {
   margin-top: -50px;
 }
 
-.wrong-input {
+/* .wrong-input {
   border-radius: 20px;
   padding: 5px;
   margin: 10px 0;
-  width: 95%;
+  width: 100%;
   border: 1px solid red;
+
   outline: none;
-}
+} */
 /********* media 800 *************/
 @media only screen and (max-width:880px) {
 

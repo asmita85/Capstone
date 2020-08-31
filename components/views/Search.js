@@ -10,5 +10,4 @@ export default () => `
                 <span>1</span>
                 <span id="disabled-span">→</span>
             </div>
-</div>
-            `;
+</div>`;

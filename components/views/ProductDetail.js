@@ -21,12 +21,12 @@ export default () => `
           <h2 class="title"></h2>
           <h4>Select your size</h4>
           <div class="size-btn">
-          <select class="selected-size">
-          <option>Choose</option>
-          <option>S</option>
-          <option>M</option>
-          <option>L</option>
-          <option>XL</option>
+          <select class="selected-size" required>
+          <option hidden="" disabled="disabled" selected="selected" value="">Select Size</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
           </select>
     </div>
           <h4>Quantity</h4>

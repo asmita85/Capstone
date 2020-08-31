@@ -3,10 +3,9 @@ export default () => `
         <div class="row1 row2">
             <h2>All Products</h2>
             <select class="select">
-            <option value="select-default">Sort By Default</option>
+            <option value="select-price-low" id="disabled">Sort</option>
             <option value="select-price-low">Price (Low-High)</option>
             <option value="select-price-high">Price (High-Low)</option>
-            <option value="select-rating">Sort rating</option>
             </select>
         </div>
         <div class="row1 products-center">
