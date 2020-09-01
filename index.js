@@ -716,6 +716,10 @@ function listenToData() {
   console.log(db.collection("Cart"));
   let btns = document.getElementsByClassName("checkout-btn");
   console.log(btns);
+  let today = new Date();
+  let date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  console.log(date);
   for (let i = 0; i < btns.length; i++) {
     console.log("Iam hee");
     let btn = btns[i];
@@ -728,7 +732,8 @@ function listenToData() {
       console.log("I have clicked checkout");
       db.collection("Cart").add({
         orderNumber: Math.floor(Math.random() * 100),
-        order: cart
+        order: cart,
+        orderDate: date
       });
     });
   }
