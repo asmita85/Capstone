@@ -32,6 +32,7 @@ function render(st = state.Home) {
   searchEventListener();
   OrderStatusEventListener();
   addEventOfOrderStatus();
+
   menuToggle();
 }
 //*************** END Of Render ******************//
@@ -192,6 +193,9 @@ function addToCartEventListeners() {
 //***************** clear data ***************************//
 function clear() {
   localStorage.removeItem("cart");
+  localStorage.removeItem("orderSubtotal");
+  localStorage.removeItem("orderTax");
+  localStorage.removeItem("orderTotal");
   updateBlueCart();
 }
 //****************** get data ****************************//
@@ -725,7 +729,9 @@ function shopNowButton() {
 //****************** Add User In Firebase ********************//
 function listenToData() {
   console.log(db.collection("Cart"));
+  let arrOrderNumber = [];
   let orderNumber = Math.floor(Math.random() * 1000);
+  arrOrderNumber.push(orderNumber);
   let btns = document.getElementsByClassName("checkout-btn");
   let today = new Date();
   let date =
@@ -855,3 +861,19 @@ function OrderStatusEventListener() {
     });
   }
 }
+//
+// function getOrderNumber() {
+//   let arrOrderNumber = [];
+//   let orderNumber = 0;
+//   arrOrderNumber.push(orderNumber);
+//   let findOrder = arrOrderNumber.find(order => {
+//     return order === orderNumber;
+//   });
+//   for (let orderNumber of arrOrderNumber) {
+//     orderNumber = Math.floor(Math.random() * 10);
+//     if (!findOrder) {
+//       arrOrderNumber.push(orderNumber);
+//     }
+//     console.log(arrOrderNumber);
+//   }
+// }
