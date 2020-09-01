@@ -220,7 +220,8 @@ function addToCart(event) {
     title: title,
     image: mainImage,
     quantity: quantity,
-    size: size
+    size: size,
+    itemSubtotal: price * quantity
   };
   //check if item is already in cart
   let cartHistory = getCartHistory(cartHistory);
@@ -231,6 +232,8 @@ function addToCart(event) {
   if (itemInCart) {
     itemInCart.quantity =
       parseFloat(itemInCart.quantity) + parseFloat(quantity);
+    itemInCart.itemSubtotal =
+      parseFloat(itemInCart.quantity) * parseFloat(itemInCart.price);
     localStorage.setItem("cart", JSON.stringify(cartHistory));
     alert("This item is already in you cart we have updated the quantity");
   } else {
@@ -259,6 +262,7 @@ function updateQuantity(event) {
   });
   if (foundItem) {
     foundItem.quantity = input.value;
+    foundItem.itemSubtotal = input.value * foundItem.price;
     localStorage.setItem("cart", JSON.stringify(cartHistory));
   }
   updateCart();
@@ -389,6 +393,9 @@ function updateCart() {
     document.getElementById("main-total").appendChild(child);
     document.getElementById("checkout-btn").removeAttribute("href");
   }
+  localStorage.setItem("orderSubtotal", JSON.stringify(subtotal));
+  localStorage.setItem("orderTax", JSON.stringify(tax));
+  localStorage.setItem("orderTotal", JSON.stringify(total));
 }
 //**************** search bar ******************************//
 function searchEventListener() {
@@ -488,7 +495,7 @@ function sortPriceEventListener(params) {
     });
   }
 }
-//**************write the data of new user in firebase*************//
+//************** Write the data of new user in firebase*************//
 function listenForRegister() {
   let btn = document.getElementById("user-btn");
   console.log("I am in account");
@@ -691,7 +698,6 @@ function shopNowButton() {
             return b.price - a.price;
           }
         });
-        console.log(arr);
         document.getElementById("disabled").disabled = true;
         document.querySelector(".products-center").innerHTML = "";
         let page = document.querySelector(".products-center");
@@ -719,28 +725,36 @@ function shopNowButton() {
 //****************** Add User In Firebase ********************//
 function listenToData() {
   console.log(db.collection("Cart"));
+  let orderNumber = Math.floor(Math.random() * 1000);
   let btns = document.getElementsByClassName("checkout-btn");
-  console.log(btns);
   let today = new Date();
   let date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  console.log(date);
   for (let i = 0; i < btns.length; i++) {
-    console.log("Iam hee");
     let btn = btns[i];
-    console.log(btn);
     let cart = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : [];
+    let orderSubtotal = JSON.parse(localStorage.getItem("orderSubtotal"));
+    let orderTax = JSON.parse(localStorage.getItem("orderTax"));
+    let orderTotal = JSON.parse(localStorage.getItem("orderTotal"));
+
     btn.addEventListener("click", event => {
       event.preventDefault();
-      console.log("I have clicked checkout");
+
       db.collection("Cart").add({
-        orderNumber: Math.floor(Math.random() * 100),
+        orderNumber: orderNumber,
         order: cart,
         orderDate: date,
-        orderStatus: "pending"
+        orderSubtotal: orderSubtotal,
+        orderTax: orderTax,
+        orderTotal: orderTotal,
+        orderStatus: "Pending"
       });
+      console.log(document.getElementsByClassName("order-number")[0].innerText);
+      document.getElementsByClassName(
+        "order-number"
+      )[0].innerHTML = `YOUR ORDER NUMBER IS  <b style='color:red'>${orderNumber}</b>`;
     });
   }
 }
@@ -754,8 +768,6 @@ function addEventOfOrderStatus() {
       let orderNumber = parseFloat(
         document.getElementById("order-number").value
       );
-      console.log(orderNumber);
-
       getOrderFromDb(orderNumber);
     });
   }
@@ -777,9 +789,58 @@ function getOrderFromDb(orderNumber) {
           console.log("user checking status of order");
           let order = doc.data();
           state.Order.orderNumber = order.orderNumber;
-          state.Order.cart = order;
+          state.Order.cart = order.order;
           state.Order.checkOrder = true;
           console.log(state.Order);
+          document.getElementsByClassName(
+            "order-date"
+          )[0].textContent = `Order Date: ${doc.data().orderDate}`;
+          document.getElementsByClassName(
+            "order-status"
+          )[0].textContent = `Order Status: ${doc.data().orderStatus}`;
+
+          document.getElementsByClassName(
+            "order-number"
+          )[0].textContent = `Order Number: ${doc.data().orderNumber}`;
+          document.getElementsByClassName(
+            "order-subtotal"
+          )[0].textContent = doc.data().orderSubtotal;
+          document.getElementsByClassName(
+            "order-tax"
+          )[0].textContent = doc.data().orderTax;
+
+          document.getElementsByClassName(
+            "order-total"
+          )[0].textContent = doc.data().orderTotal;
+          let orderArr = doc.data().order;
+          //li.setAttribute("data-id", doc.id);
+          orderArr.forEach(product => {
+            // document.getElementsByClassName("item-subtotal").textContent =
+            //   product.itemSubtotal;
+            console.log(product);
+            const newCartItems = document.getElementsByClassName(
+              "cart-table"
+            )[0];
+            let cartRow = document.createElement("tr");
+            cartRow.classList.add("cart-item2");
+            cartRow.innerHTML = "";
+            cartRow.innerHTML += `
+                    <td class="cart-row" id=${product.id}>
+                              <div class="cart-info item">
+                                  <img class="main-img" src="${product.image}">
+                                  <div>
+                                      <p class="item-title">${product.title}</p>
+                                      <p class="cart-size">${product.size}</p>
+                                      <p class="cart-price">$${product.price}</p>
+                                      <br>
+                                  </div>
+                              </div>
+                          </td>
+                          <td class="cart-row2">
+                          <input class="cart-number cart-quantity" type="number" value="${product.quantity}" readonly> </td>
+                          <td class="subtotal-item">${product.itemSubtotal}</td>`;
+            newCartItems.appendChild(cartRow);
+          });
         }
       })
     );

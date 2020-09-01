@@ -1,10 +1,16 @@
 export default () => `
 <div class="account">
         <div class="container1">
+            <div class="row">
+            <div class="col-4">
+            <h1 class="order-number"></h1>
+            <h2>Thank you for placing an order on EzShop</h2>
+            </div>
+            </div>
             <div class="row1">
             <div class="col-2">
             <h1>TO BE CONTINUED......!!!!! </h1>
-            <h2> YOU HAVE PREPARED YOUR ORDER PLEASE RETURN IN 4 WEEK TO SUBMIT YOUR PAYMENT &#128528 </h2>
+            <p> YOU HAVE PREPARED YOUR ORDER PLEASE RETURN IN 4 WEEK TO SUBMIT YOUR PAYMENT &#128528 </p>
             </div>
 
 
