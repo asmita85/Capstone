@@ -18,7 +18,7 @@ export default () => `
                 </tr>
                 <tr>
                     <td>TAX</td>
-                    <td class = "order-tax">TBD</td>
+                    <td class ="order-tax"></td>
                 </tr>
                 <tr>
                     <td>TOTAL</td>

@@ -30,7 +30,7 @@ export default links => `
 }</a></li>
                     </ul>
                 </nav>
-                <a href="/${"Cart"}" data-navigo class="cart-link"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/shopping-bag.png?raw=true" width="30px" height="30px"></a>
+                <a href="/Cart" data-navigo class="cart-link"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/shopping-bag.png?raw=true" width="30px" height="30px"></a>
                 <div class="shopping-cart">empty</div>
                 <a id="menu"><img src="https://github.com/asmita85/Capstone/blob/master/images/header/menu.png?raw=true" class="menu-icon" ></>
             </div>

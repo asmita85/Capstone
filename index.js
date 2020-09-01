@@ -1,9 +1,8 @@
 import { Header, Nav, Main, Footer } from "./components";
 import * as state from "./store";
 import Navigo from "navigo";
-import { capitalize, compact, drop, indexOf } from "lodash";
+import { capitalize, compact, drop, indexOf, random, update } from "lodash";
 import { auth, db } from "./firebase";
-const cartItems = db.collection("cart");
 
 //Loading the page before calling the js
 // if (document.readyState == "loading") {
@@ -26,7 +25,6 @@ function render(st = state.Home) {
     listenForAuthChange();
   }
   addToCartEventListeners();
-  displayCartEvent();
   addPEventListeners();
   shopNowEventListener();
   updateBlueCart();
@@ -44,7 +42,6 @@ router
       render(state.Home);
     },
     ":page/:id": params => renderProductDetails(params),
-    ":search/page/:id": params => renderProductDetails(params),
     ":page": params => {
       let routeEntered = params.page;
       let formattedRoute = capitalize(routeEntered);
@@ -60,7 +57,6 @@ router
       } else if (formattedRoute === "Contact") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
-        router.navigate("/Contact");
       } else if (formattedRoute === "AllProduct") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
@@ -70,9 +66,8 @@ router
       } else if (formattedRoute === "Cart") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
-        addToCartEventListeners();
-        displayCartEvent();
         displayItemInCart();
+        listenToData();
       } else if (formattedRoute === "Search") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
@@ -239,6 +234,7 @@ function addToCart(event) {
     localStorage.setItem("cart", JSON.stringify(cartHistory));
     alert("your item has been added to your cart!!!");
   }
+  //updateCart();
   updateBlueCart();
 }
 //***************** Control And Update Quantity IN Cart *****************/
@@ -251,13 +247,16 @@ function updateQuantity(event) {
   let cartHistory = getCartHistory(cartHistory);
   let itemToUpdate = input.parentElement.parentElement;
   let idOfItemToUpdate = itemToUpdate.getElementsByClassName("cart-row")[0].id;
+  let sizeOfItemToUpdate = itemToUpdate.getElementsByClassName("cart-size")[0]
+    .innerText;
   let foundItem = cartHistory.find(item => {
-    return item.id === idOfItemToUpdate;
+    return item.id === idOfItemToUpdate && item.size === sizeOfItemToUpdate;
   });
   if (foundItem) {
     foundItem.quantity = input.value;
     localStorage.setItem("cart", JSON.stringify(cartHistory));
   }
+  updateCart();
   updateBlueCart();
 }
 //***************** Remove ITem From Cart ******************************//
@@ -300,13 +299,12 @@ function displayCartEvent() {
     let link = cartLink[i];
     link.addEventListener("click", () => {
       displayItemInCart();
-      document.documentElement.scrollTop = 0;
+      //document.documentElement.scrollTop = 0;
     });
   }
 }
 function displayItemInCart() {
-  //render(state.Cart);
-  //router.navigate("/Cart");
+  render(state.Cart);
   let cartHistory = getCartHistory(cartHistory);
   cartHistory.forEach(product => {
     const newCartItems = document.getElementsByClassName("cart-table")[0];
@@ -347,6 +345,7 @@ function displayItemInCart() {
       .getElementsByClassName("cart-quantity")[0]
       .addEventListener("click", updateQuantity);
   }
+  document.documentElement.scrollTop = 0;
 }
 //****************** Update the cart ******************** **********//
 function updateCart() {
@@ -408,6 +407,7 @@ function findSearchedWord(event) {
       let page = document.querySelector(".products-center");
       if (output.includes(searchedWord.toLowerCase())) {
         i += 1;
+        console.log(i);
         page.innerHTML += `
         <div class="col-4 img-container goToProductDetails${index}" id="${cat}${item.sys.id}">
                 <a  data-navigo id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
@@ -417,7 +417,7 @@ function findSearchedWord(event) {
                 `;
         document.getElementsByClassName(
           "search-result"
-        )[0].innerHTML = `We have found <b style="color:red">${i}</b> results for ${searchedWord}`;
+        )[0].innerHTML = `We have found <b style='color:red'>${i}</b> results for ${searchedWord}`;
         arr.push({
           cat: `${cat}`,
           id: `${item.sys.id}`,
@@ -709,5 +709,27 @@ function shopNowButton() {
         });
       });
     }
+  }
+}
+
+function listenToData() {
+  console.log(db.collection("Cart"));
+  let btns = document.getElementsByClassName("checkout-btn");
+  console.log(btns);
+  for (let i = 0; i < btns.length; i++) {
+    console.log("Iam hee");
+    let btn = btns[i];
+    console.log(btn);
+    let cart = localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
+    btn.addEventListener("click", event => {
+      event.preventDefault();
+      console.log("I have clicked checkout");
+      db.collection("Cart").add({
+        orderNumber: Math.floor(Math.random() * 100),
+        order: cart
+      });
+    });
   }
 }
