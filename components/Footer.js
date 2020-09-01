@@ -15,10 +15,10 @@ export default () => `
             <a> </a>
 
             <div class="footer-col-4">
-                <h3>CUSTOMER Service</h3>
+                <h3>CUSTOMER SERVICE</h3>
                 <ul>
+                    <li><a href="/OrderStatus" class="order-status" data-navigo>Order Status</a></li>
                     <li>Track My Order</li>
-                    <li>Order Status</li>
                     <li>Return My Order</li>
                     <li>Contact Us</li>
                 </ul>

@@ -423,6 +423,37 @@ form.wrong-input {
   border: 1px solid red;
   outline: none;
 }
+/*********order status*************/
+
+.form-container {
+  background-color: white;
+  width: 500px;
+  height: 600px;
+  position: relative;
+  text-align: center;
+  padding: 20px 0;
+  margin-bottom: 80px;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.4);
+  /* overflow: hidden; */
+}
+
+.form-container span {
+  font-weight: bold;
+  padding: 0 10px;
+  color: var(--mainGrey);
+  display: inline;
+  cursor: pointer;
+  width: 100px;
+}
+.form-container form {
+  max-width: 500px;
+  padding: 0 20px;
+  position: relative;
+  top: 60px;
+  transition: transform 1s;
+
+}
+
 /***** footer ******/
 .footer1 {
   background-color: #000;

@@ -30,6 +30,8 @@ function render(st = state.Home) {
   updateBlueCart();
   addLogInAndOutListener(state.User);
   searchEventListener();
+  OrderStatusEventListener();
+  addEventOfOrderStatus();
   menuToggle();
 }
 //*************** END Of Render ******************//
@@ -58,6 +60,9 @@ router
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
       } else if (formattedRoute === "AllProduct") {
+        let pieceOfState = state[formattedRoute];
+        render(pieceOfState);
+      } else if (formattedRoute === "OrderStatus") {
         let pieceOfState = state[formattedRoute];
         render(pieceOfState);
       } else if (formattedRoute === "Checkout") {
@@ -293,16 +298,16 @@ function updateBlueCart() {
   document.getElementsByClassName("shopping-cart")[0].innerText = quantityTotal;
 }
 //************** display the item in cart **********************//
-function displayCartEvent() {
-  const cartLink = document.getElementsByClassName("cart-link");
-  for (let i = 0; i < cartLink.length; i++) {
-    let link = cartLink[i];
-    link.addEventListener("click", () => {
-      displayItemInCart();
-      //document.documentElement.scrollTop = 0;
-    });
-  }
-}
+// function displayCartEvent() {
+//   const cartLink = document.getElementsByClassName("cart-link");
+//   for (let i = 0; i < cartLink.length; i++) {
+//     let link = cartLink[i];
+//     link.addEventListener("click", () => {
+//       displayItemInCart();
+//       //document.documentElement.scrollTop = 0;
+//     });
+//   }
+// }
 function displayItemInCart() {
   render(state.Cart);
   let cartHistory = getCartHistory(cartHistory);
@@ -711,7 +716,7 @@ function shopNowButton() {
     }
   }
 }
-
+//****************** Add User In Firebase ********************//
 function listenToData() {
   console.log(db.collection("Cart"));
   let btns = document.getElementsByClassName("checkout-btn");
@@ -733,8 +738,59 @@ function listenToData() {
       db.collection("Cart").add({
         orderNumber: Math.floor(Math.random() * 100),
         order: cart,
-        orderDate: date
+        orderDate: date,
+        orderStatus: "pending"
       });
+    });
+  }
+}
+//***************** Add Event for order status *************/
+function addEventOfOrderStatus() {
+  let btns = document.getElementsByClassName("btn2");
+  for (let i = 0; i < btns.length; i++) {
+    let btn = btns[i];
+    btn.addEventListener("click", event => {
+      event.preventDefault();
+      let orderNumber = parseFloat(
+        document.getElementById("order-number").value
+      );
+      console.log(orderNumber);
+
+      getOrderFromDb(orderNumber);
+    });
+  }
+}
+//*********************** Get Data From Firebase *******************/
+function getOrderFromDb(orderNumber) {
+  console.log("here data");
+  return db
+    .collection("Cart")
+    .get()
+    .then(snapshot =>
+      snapshot.docs.forEach(doc => {
+        if (orderNumber === doc.data().orderNumber) {
+          let id = doc.id;
+          console.log(id);
+          db.collection("Cart")
+            .doc(id)
+            .update({ checkOrder: true });
+          console.log("user checking status of order");
+          let order = doc.data();
+          state.Order.orderNumber = order.orderNumber;
+          state.Order.cart = order;
+          state.Order.checkOrder = true;
+          console.log(state.Order);
+        }
+      })
+    );
+}
+function OrderStatusEventListener() {
+  const btns = document.getElementsByClassName("order-status");
+  for (let i = 0; i < btns.length; i++) {
+    let btn = btns[i];
+    btn.addEventListener("click", event => {
+      event.preventDefault();
+      render(state.OrderStatus);
     });
   }
 }
