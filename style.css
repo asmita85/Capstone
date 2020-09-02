@@ -1153,6 +1153,14 @@ margin:auto
   .size-btn span:hover {
     background-color: lightgray;
   }
+  .footer-col-3,
+.footer-col-4 {
+  flex-basis: 15%;
+  text-align: center;
+}
+.footer-col-4 ul{
+
+  text-align: center;
 
 }
 

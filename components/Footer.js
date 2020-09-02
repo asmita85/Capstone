@@ -12,7 +12,6 @@ export default () => `
                     <li>FAQ</li>
                 </ul>
             </div>
-            <a> </a>
 
             <div class="footer-col-4">
                 <h3>CUSTOMER SERVICE</h3>
