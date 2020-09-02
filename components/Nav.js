@@ -26,7 +26,7 @@ export default links => `
                           <li>  <a href="${
                             !User.loggedIn ? "/Account" : "/"
                           }" id="status" data-navigo>${
-  !User.loggedIn ? "LOG IN" : "LOG OUT"
+  !User.loggedIn ? "LOGIN" : "LOGOUT"
 }</a></li>
                     </ul>
                 </nav>

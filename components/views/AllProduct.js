@@ -1,6 +1,6 @@
 export default () => `
 <div class="small-container1 all-products-container ">
-        <div class="row1 row2">
+        <div class="row1 row5">
             <h2>All Products</h2>
             <select class="select">
             <option value="select-price-low" id="disabled">Sort</option>

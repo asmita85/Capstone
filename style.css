@@ -353,6 +353,8 @@ header2 {
   display: inline-block;
   cursor: pointer;
   width: 100px;
+  height: 100px;
+  margin-top: 10px;
 }
 
 hr {
@@ -361,29 +363,33 @@ hr {
 }
 .form-container1 form {
   max-width: 400px;
-  padding: 0 20px;
+  padding: 0px 20px;
   position: relative;
-  top: 20px;
+  top: 0px;
   transition: transform 1s;
 
 }
  form input {
-  width: 100%;
+  width: 80%;
   height: 40px;
-  margin: 10px 0;
+  margin: 10px 0px;
   padding: 0 10px;
   border: 1px solid var(--mainGrey);
 }
 .simpleForm input {
-  margin-top: 5px;;
+  margin-top: 5px;
+
+
 }
 form #user-btn {
   margin-top: 1px;
 }
 form textarea {
-  width: 100%;
+  width: 80%;
   border: 1px solid var(--mainGrey);
   outline: none;
+  margin: 10px 0px;
+
 }
 button {
   color: var(--mainWhite);
@@ -395,12 +401,13 @@ button {
   border: none;
   outline: none;
   cursor: pointer;
+
 }
-form.btn1 {
+form .btn1 {
   width: 80%;
   border: none;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 20px 0 20px 0px;
 }
 form .btn:focus {
   outline: none;
@@ -941,12 +948,7 @@ hr {
    width:100%;
    max-width: 40%;
   }
-  .selected-Product  {
-    /* display: block; */
-    /* flex-flow: wrap; */
-    /* width: 100%;
-    max-width: 80%; */
-  }
+
   .product-detail .col-2 {
     padding: 60px;
     display: block;

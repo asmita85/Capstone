@@ -13,6 +13,7 @@ export default () => `
                         <input type="email" placeholder="E-mail" id="email1">
                         <input type="Password" placeholder="Password" id="password1">
                         <input type="submit" id="user-btn1" class="btn1" value="Sign In">
+<br>
                         <a href="">forgot password</a>
                     </form>
                     </div>

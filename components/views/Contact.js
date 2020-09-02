@@ -12,7 +12,8 @@ export default () => `
                 <br>
                 <label for="news">Subscribe me to your newsletter!</label>
                 <input type="checkbox" name="optIn" value="trusting" id="news" checked>
-                <label for="marketing">What's this message about?</label>
+<br>
+                <label class ="message-about" for="marketing">What's this message about?</label>
                 <br>
                 <br>
                 <select name="marketing">
