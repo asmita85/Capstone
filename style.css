@@ -587,30 +587,39 @@ select:focus {
 /******** Product details **************/
 .product-detail {
   margin-top: 80px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .product-detail .col-2 img {
   padding: 0;
 
 }
+.main-img2 {
+  width: 100%;
 
+  max-width: 60%;
+}
+.selected-Product  {
+  display: flex;
+  flex-flow: nowrap;
+  width: 100%;
+  max-width: 40%;
+
+
+}
 .product-detail .col-2 {
   padding: 30px;
+
 }
 
-
-/* .product-detail select {
+.img-row1{
   display: block;
-  padding: 10px;
-  margin-top: 20px;
-} */
-.img-row1 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-}
+  width: 100%;
+  max-width: 15%;
+  margin-right: 100px;
 
+}
 .img-col-4 {
   flex-basis: 24%;
   cursor: pointer;

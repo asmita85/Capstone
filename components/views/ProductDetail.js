@@ -1,23 +1,24 @@
 export default () => `
 <div class="small-container1 product-detail  button-div">
-     <div class="row1 selected-product" id="none">
-    <img src="" width="40%" height = "40%" class="main-img">
-  <div class="img-row1">
-      <div class="img-col-4">
-          <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wgallery12.jpg?raw=true" width="80%" class="gallery-img">
-      </div>
-      <div class="img-col-4">
-          <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true" width="80%" class="gallery-img">
-      </div>
-      <div class="img-col-4">
-          <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-9.jpg?raw=true" width="80%" class="gallery-img">
-      </div>
-      <div class="img-col-4">
-          <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true" width="80%" class="gallery-img">
-      </div>
-  </div>
+     <div class="row1  selected-product " id="none">
+     <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wgallery12.jpg?raw=true" width=100%" class="main-img main-img2">
+     <div class="img-row1">
+         <div class="img-col-4">
+             <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wgallery12.jpg?raw=true" width="100%" class="gallery-img">
+         </div>
+         <div class="img-col-4">
+             <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true" width="100%" class="gallery-img">
+         </div>
+         <div class="img-col-4">
+             <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-9.jpg?raw=true" width="100%" class="gallery-img">
+         </div>
+         <div class="img-col-4">
+             <img src="https://github.com/asmita85/Capstone/blob/master/images/Women-Product/Wproduct-1.jpg?raw=true" width="100%" class="gallery-img">
+         </div>
      </div>
-    <div class="col-2">
+        </div>
+
+    <div class="col-2 size-q">
           <h2 class="title"></h2>
           <h4>Select your size</h4>
           <div class="size-btn">

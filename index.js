@@ -750,8 +750,8 @@ function listenToData() {
 
       db.collection("Cart").add({
         orderNumber: orderNumber,
-        order: cart,
         orderDate: date,
+        order: cart,
         orderSubtotal: orderSubtotal,
         orderTax: orderTax,
         orderTotal: orderTotal,
@@ -819,10 +819,7 @@ function getOrderFromDb(orderNumber) {
             "order-total"
           )[0].textContent = doc.data().orderTotal;
           let orderArr = doc.data().order;
-          //li.setAttribute("data-id", doc.id);
           orderArr.forEach(product => {
-            // document.getElementsByClassName("item-subtotal").textContent =
-            //   product.itemSubtotal;
             console.log(product);
             const newCartItems = document.getElementsByClassName(
               "cart-table"
@@ -861,6 +858,8 @@ function OrderStatusEventListener() {
     });
   }
 }
+//div.setAttribute("data-id", doc.id);
+
 //
 // function getOrderNumber() {
 //   let arrOrderNumber = [];
