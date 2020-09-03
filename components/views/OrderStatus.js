@@ -16,6 +16,7 @@ export default () => `
                         <p class="status-result"></p>
                     </form>
 </div>
+<div id="order-check">
                     <table  class="cart-table" id="cart-table">
                         <tr>
                             <th class="order-number"></th>
@@ -42,7 +43,7 @@ export default () => `
                         </table>
                         </div>
                      </div>
-
+</div>
 
                 </div>
                 </div>`;

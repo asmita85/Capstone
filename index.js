@@ -1,7 +1,16 @@
+/* eslint-disable no-unused-vars */
 import { Header, Nav, Main, Footer } from "./components";
 import * as state from "./store";
 import Navigo from "navigo";
-import { capitalize, compact, drop, indexOf, random, update } from "lodash";
+import {
+  capitalize,
+  compact,
+  drop,
+  indexOf,
+  random,
+  update,
+  unset
+} from "lodash";
 import { auth, db } from "./firebase";
 
 //Loading the page before calling the js
@@ -121,7 +130,7 @@ function addHtml(item) {
   products.forEach(product => {
     page.innerHTML += `
         <div class="col-4 img-container" id="${product.sys.id}">
-                <a data-navigo id="selected" class="selected-item"><img src="${product.fields.image.fields.file.url}" class="selectedItem-img"></a>
+                <a data-navigo id="selected" class="selected-item"><img src="${product.fields.image.fields.file.url}" class="selectedItem-img onmouseover=${product.fields.title} "></a>
               <h4 class="selectedItem-title">${product.fields.title}</h4>
               <p class="selectedItem-price">$${product.fields.price}</p>
               </div>
@@ -396,6 +405,7 @@ function updateCart() {
     child.innerHTML = "Your Cart is Empty";
     document.getElementById("main-total").appendChild(child);
     document.getElementById("checkout-btn").removeAttribute("href");
+    document.getElementById("checkout-btn").style.cursor = "not-allowed";
   }
   localStorage.setItem("orderSubtotal", JSON.stringify(subtotal));
   localStorage.setItem("orderTax", JSON.stringify(tax));
@@ -423,7 +433,6 @@ function findSearchedWord(event) {
       let page = document.querySelector(".products-center");
       if (output.includes(searchedWord.toLowerCase())) {
         i += 1;
-        console.log(i);
         page.innerHTML += `
         <div class="col-4 img-container goToProductDetails${index}" id="${cat}${item.sys.id}">
                 <a  data-navigo id="selected" class="selected-item"><img src="${item.fields.image.fields.file.url}" class="selectedItem-img"></a>
@@ -500,6 +509,17 @@ function sortPriceEventListener(params) {
   }
 }
 //************** Write the data of new user in firebase*************//
+function ValidateEmail(inputText) {
+  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if (document.getElementById("email").value.match(mailformat)) {
+    document.form1.text1.focus();
+    return true;
+  } else {
+    alert("You have entered an invalid email address!");
+    document.form1.text1.focus();
+    return false;
+  }
+}
 function listenForRegister() {
   let btn = document.getElementById("user-btn");
   console.log("I am in account");
@@ -513,12 +533,25 @@ function listenForRegister() {
     let email = emailUser.value;
     let password = passwordUser.value;
     removeMessage();
-    var valid = true;
+    let valid = true;
+    let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailUser.value.match(mailformat)) {
+      emailUser.className = "wrong-input";
+      emailUser.nextElementSibling.innerHTML = `You have entered an invalid email address!`;
+      valid = false;
+    } else if (emailUser.value.match(mailformat)) {
+      if (confirmEmail.value != emailUser.value) {
+        emailUser.className = "wrong-input";
+        emailUser.nextElementSibling.innerHTML = `email does not match`;
+        valid = false;
+      }
+    }
     if (emailUser.value.length == 0) {
       emailUser.className = "wrong-input";
       emailUser.nextElementSibling.innerHTML = `email can not be blank`;
       valid = false;
     }
+
     if (passwordUser.value.length < 6) {
       passwordUser.className = "wrong-input";
       passwordUser.nextElementSibling.innerHTML = `password can not be less than 6`;
@@ -530,11 +563,6 @@ function listenForRegister() {
       valid = false;
     }
 
-    if (confirmEmail.value != emailUser.value) {
-      emailUser.className = "wrong-input";
-      emailUser.nextElementSibling.innerHTML = `email does not match`;
-      valid = false;
-    }
     //create user in Firebase
     auth.createUserWithEmailAndPassword(email, password).then(response => {
       console.log("user registered");
@@ -575,10 +603,22 @@ function listenForSignIn() {
     // convert HTML elements to Array
     let email = document.getElementById("email1").value;
     let password = document.getElementById("password1").value;
-    auth.signInWithEmailAndPassword(email, password).then(() => {
-      console.log("user signed in");
-      getUserFromDb(email).then(() => render(state.Home));
-    });
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        getUserFromDb(email).then(() => render(state.Home));
+      })
+      .catch(function(error) {
+        // Some error occurred, you can inspect the code: error.code
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === "auth/wrong-password") {
+          alert("The password is invalid.");
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
   });
 }
 function getUserFromDb(email) {
@@ -757,7 +797,6 @@ function listenToData() {
         orderTotal: orderTotal,
         orderStatus: "Pending"
       });
-      console.log(document.getElementsByClassName("order-number")[0].innerText);
       document.getElementsByClassName(
         "order-number"
       )[0].innerHTML = `YOUR ORDER NUMBER IS  <b style='color:red'>${orderNumber}</b>`;
@@ -788,7 +827,6 @@ function getOrderFromDb(orderNumber) {
       snapshot.docs.forEach(doc => {
         if (orderNumber === doc.data().orderNumber) {
           let id = doc.id;
-          console.log(id);
           db.collection("Cart")
             .doc(id)
             .update({ checkOrder: true });
@@ -797,7 +835,6 @@ function getOrderFromDb(orderNumber) {
           state.Order.orderNumber = order.orderNumber;
           state.Order.cart = order.order;
           state.Order.checkOrder = true;
-          console.log(state.Order);
           document.getElementsByClassName(
             "order-date"
           )[0].textContent = `Order Date: ${doc.data().orderDate}`;
@@ -820,7 +857,6 @@ function getOrderFromDb(orderNumber) {
           )[0].textContent = doc.data().orderTotal;
           let orderArr = doc.data().order;
           orderArr.forEach(product => {
-            console.log(product);
             const newCartItems = document.getElementsByClassName(
               "cart-table"
             )[0];
@@ -855,24 +891,7 @@ function OrderStatusEventListener() {
     btn.addEventListener("click", event => {
       event.preventDefault();
       render(state.OrderStatus);
+      window.scrollTo(300, 500);
     });
   }
 }
-//div.setAttribute("data-id", doc.id);
-
-//
-// function getOrderNumber() {
-//   let arrOrderNumber = [];
-//   let orderNumber = 0;
-//   arrOrderNumber.push(orderNumber);
-//   let findOrder = arrOrderNumber.find(order => {
-//     return order === orderNumber;
-//   });
-//   for (let orderNumber of arrOrderNumber) {
-//     orderNumber = Math.floor(Math.random() * 10);
-//     if (!findOrder) {
-//       arrOrderNumber.push(orderNumber);
-//     }
-//     console.log(arrOrderNumber);
-//   }
-// }

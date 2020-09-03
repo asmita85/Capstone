@@ -198,6 +198,7 @@ p {
 .small-container1 {
   max-width: 1080px;
   margin: auto;
+  cursor: pointer;
 }
 
 .col-4 {
@@ -420,10 +421,13 @@ form a {
 form a:hover {
   color: red;
 }
-
+.error {
+  color:red;
+}
 form.wrong-input {
   width: 100%;
   height: 40px;
+  color: red;
   margin: 10px 0;
   padding: 0 10px;
   font-size: 1px;
@@ -1188,4 +1192,6 @@ margin:auto
   width: 50%;
   height: 50%;
 }
+
+/* order status */
 

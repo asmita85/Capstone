@@ -29,7 +29,7 @@ export default () => `
                             <input type="text" placeholder="Name" id="name" class="input-box">
                             <input type="email" placeholder="E-mail" id="email" class="input-box">
                             <p class="error"></p>
-                            <input type="email" placeholder="E-mail" id="confirmEmail" class="input-box">
+                            <input type="email" placeholder="Confirm E-mail" id="confirmEmail" class="input-box">
                             <p class="error"></p>
                             <input type="password" placeholder="password" id="password" class="input-box">
                             <p class="error"></p>
