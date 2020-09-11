@@ -739,8 +739,8 @@ td {
 }
 
 td input {
-  width: 40px;
-  height: 30px;
+  width: 60px;
+  height: 40px;
   padding: 5px;
 }
 
@@ -1062,6 +1062,12 @@ margin:auto
     width:150px;
 
   }
+  .quantity-input input [type=number] {
+    width: 30px;
+    height: 20px;
+
+   }
+
   .search {
     padding-left: 0px;
   }
@@ -1079,6 +1085,22 @@ margin:auto
     flex-wrap: wrap;
 
   }
+  .product-detail select {
+    width: 50%;
+    height: 40px;
+  }
+  .product-detail input {
+    width: 50%;
+  }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+}
+input[type="number"] {
+   -moz-appearance: textfield;
+}
   .product-detail img{
     display: block;
     width: 1200px;

@@ -182,7 +182,7 @@ function addToCartEventListeners() {
   const quantityInput = document.getElementsByClassName("cart-quantity");
   for (let i = 0; i < quantityInput.length; i++) {
     let input = quantityInput[i];
-    input.addEventListener("click", updateQuantity);
+    input.addEventListener("change", updateQuantity);
     updateCart();
   }
   //Remove an item from Cart
@@ -227,33 +227,38 @@ function addToCart(event) {
   let quantity = itemToAdd.getElementsByClassName("selected-quantity")[0].value;
   let size = itemToAdd.getElementsByClassName("selected-size")[0].value;
   let dataId = itemToAdd.getElementsByClassName("add-button")[0].id;
-  cart = {
-    id: dataId,
-    price: price,
-    title: title,
-    image: mainImage,
-    quantity: quantity,
-    size: size,
-    itemSubtotal: price * quantity
-  };
-  //check if item is already in cart
-  let cartHistory = getCartHistory(cartHistory);
-  let itemInCart = cartHistory.find(item => {
-    return item.id === cart.id && item.size === cart.size;
-  });
-  //if item in cart we just update quantity
-  if (itemInCart) {
-    itemInCart.quantity =
-      parseFloat(itemInCart.quantity) + parseFloat(quantity);
-    itemInCart.itemSubtotal =
-      parseFloat(itemInCart.quantity) * parseFloat(itemInCart.price);
-    localStorage.setItem("cart", JSON.stringify(cartHistory));
-    alert("This item is already in you cart we have updated the quantity");
+  if (size === "") {
+    alert("Size must be filled out");
   } else {
-    //add item to cart
-    cartHistory = [...cartHistory, cart];
-    localStorage.setItem("cart", JSON.stringify(cartHistory));
-    alert("your item has been added to your cart!!!");
+    cart = {
+      id: dataId,
+      price: price,
+      title: title,
+      image: mainImage,
+      quantity: quantity,
+      size: size,
+      itemSubtotal: price * quantity
+    };
+
+    //check if item is already in cart
+    let cartHistory = getCartHistory(cartHistory);
+    let itemInCart = cartHistory.find(item => {
+      return item.id === cart.id && item.size === cart.size;
+    });
+    //if item in cart we just update quantity
+    if (itemInCart) {
+      itemInCart.quantity =
+        parseFloat(itemInCart.quantity) + parseFloat(quantity);
+      itemInCart.itemSubtotal =
+        parseFloat(itemInCart.quantity) * parseFloat(itemInCart.price);
+      localStorage.setItem("cart", JSON.stringify(cartHistory));
+      alert("This item is already in you cart we have updated the quantity");
+    } else {
+      //add item to cart
+      cartHistory = [...cartHistory, cart];
+      localStorage.setItem("cart", JSON.stringify(cartHistory));
+      alert("your item has been added to your cart!!!");
+    }
   }
   //updateCart();
   updateBlueCart();
@@ -347,7 +352,7 @@ function displayItemInCart() {
                       </div>
                   </td>
                   <td class="cart-row2">
-                  <input class="cart-number cart-quantity" type="number" value="${
+                  <input class="cart-number cart-quantity quantity-input" max= "10" type="number" value="${
                     product.quantity
                   }" > </td>
                   <td class="subtotal-item">${"subtotal"}</td>`;
