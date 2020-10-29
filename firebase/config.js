@@ -19,14 +19,14 @@
 //   measurementId: "G-95GEL2NT04"
 // };
 export default {
-  {
-    apiKey: "AIzaSyDCW7yuG8aX7jLxl08G0wLyRmGE4UG9uWQ",
-    authDomain: "capstone-3a9f6.firebaseapp.com",
-    databaseURL: "https://capstone-3a9f6.firebaseio.com",
-    projectId: "capstone-3a9f6",
-    storageBucket: "capstone-3a9f6.appspot.com",
-    messagingSenderId: "721859631758",
-    appId: "1:721859631758:web:2b939a646a8882ee4a07df",
-    measurementId: "G-X6VYX6LFRR"
-  };
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  apiKey: "AIzaSyDCW7yuG8aX7jLxl08G0wLyRmGE4UG9uWQ",
+  authDomain: "capstone-3a9f6.firebaseapp.com",
+  databaseURL: "https://capstone-3a9f6.firebaseio.com",
+  projectId: "capstone-3a9f6",
+  storageBucket: "capstone-3a9f6.appspot.com",
+  messagingSenderId: "721859631758",
+  appId: "1:721859631758:web:2b939a646a8882ee4a07df",
+  measurementId: "G-X6VYX6LFRR"
+};
 }
